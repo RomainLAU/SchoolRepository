@@ -1,0 +1,14 @@
+body{
+    margin : 0;
+    height: 100vh;
+}
+
+ul{
+    list-style: none;
+}
+
+body > div:first-child{
+    color : white;
+    width: 30%;
+    background-color: rgb(53, 55, 75);
+}
