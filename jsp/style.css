@@ -1,0 +1,213 @@
+body{
+    margin : 0;
+    display: flex;
+    flex-direction: row;
+    font-family: sans-serif;
+}
+
+ul{
+    list-style: none;
+}
+
+body > div:first-child{
+    color : white;
+    width: 30%;
+    background-color: rgb(53, 55, 75);
+    padding-bottom: 5%;
+}
+
+body > div:first-child > div:first-child > img{
+    border-radius: 80%;
+    width: 256px;
+    height: 256px;
+    border : solid 2px white;
+}
+
+body > div:first-child > ul{
+    padding-right: 15%;
+}
+
+body > div:last-child{
+    width: 70%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+}
+
+body > div:first-child>div:first-child{
+    padding-top: 20%;
+    padding-bottom: 5%;
+    background-color: rgb(39, 40, 54);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.H2-image{
+    border-radius: 50%;
+    background-color: rgb(39, 40, 54);
+    width: 15%;
+    height: 100%;
+}
+
+.p-image{
+    background-color: white;
+    border-radius: 50%;
+    width: 13%;
+    height: 100%;
+}
+
+body > div > ul > li > div{
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
+
+body > div:first-child > ul > li{
+    padding-top : 10%;
+}
+
+body > div > ul > li{
+    padding-top : 20px;
+}
+
+body > div > ul > li > ul > li > img{
+    margin-top : 20px;
+}
+
+body > div:first-child > ul > li > ul > li{
+    display : flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
+
+body > div:first-child > ul > li:first-child > ul{
+    padding-top: 10%;
+}
+
+body > div:first-child> ul > li:nth-child(3) > ul > li > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    row-gap: 10%;
+}
+
+body > div:first-child > ul > li:nth-child(3) > ul > li > div > p{
+    margin : 0;
+}
+
+body > div:first-child > ul > li > ul > li.skills{
+    display : flex;
+    flex-direction: column;
+}
+
+.progressBar{
+    width: 400px;
+    height: 10px;
+    background-color: white;
+}
+
+body > div:first-child > ul > li > ul > li.skills:first-child > .progressBar > .unknownProgressBar{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(39, 40, 54);
+    width: 90%;
+    height: 100%;
+    align-items: flex-end;
+}
+
+body > div:first-child > ul > li > ul > li.skills:nth-child(2) > .progressBar > .unknownProgressBar{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(39, 40, 54);
+    width: 87%;
+    height: 100%;
+    align-items: flex-end;
+}
+
+body > div:first-child > ul > li > ul > li.skills:nth-child(3) > .progressBar > .unknownProgressBar{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(39, 40, 54);
+    width: 84%;
+    height: 100%;
+    align-items: flex-end;
+}
+
+body > div:first-child > ul > li > ul > li.skills:nth-child(4) > .progressBar > .unknownProgressBar{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(39, 40, 54);
+    width: 93%;
+    height: 100%;
+    align-items: flex-end;
+}
+
+body > div:first-child > ul > li > ul > li.skills:nth-child(5) > .progressBar > .unknownProgressBar{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(39, 40, 54);
+    width: 89%;
+    height: 100%;
+    align-items: flex-end;
+}
+
+body > div:last-child > ul > li > div{
+    display: flex;
+    flex-direction: row;
+}
+
+body > div:last-child > ul > li > div > img{
+    width: 8%;
+    border-radius: 50%;
+    background-color: rgb(39, 40, 54);
+}
+
+body > div:last-child > ul > li > div > h1{
+    display: flex;
+    align-items: center;
+}
+
+body > div:last-child > ul > li > ul{
+    padding-left: 10%;
+}
+
+body > div:last-child > ul > li > ul > li{
+    margin-bottom: 5%;
+}
+
+body > div:last-child > ul > li:last-child > div:last-child{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+body > div:last-child > ul > li:last-child > div:last-child > div > div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 2%;
+}
+
+body > div:last-child > ul > li:last-child > div:last-child > div > div > h4{
+    margin: 0;
+    margin-bottom: 3%;
+    color: rgb(122, 122, 122);
+    font-size:x-large;
+}
+
+body > div:last-child > ul > li:last-child > div:last-child > div > div > p{
+    margin: 0;
+    font-weight: bold;
+}
+
+body > div:last-child > ul > li > div > h1{
+    font-family: serif;
+}
+
+body > div:last-child > ul > li > ul > li > h4{
+    color :rgb(70, 70, 70)
+}
+
+body > div:last-child > ul > li > ul > li > p{
+    color:rgb(122, 122, 122);
+}
