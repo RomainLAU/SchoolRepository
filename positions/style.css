@@ -1,0 +1,180 @@
+body{
+    height: 100vh;
+    margin: 0;
+    background-color: #23232B;
+    color: white;
+    font-family: sans-serif;
+}
+
+.market{
+    font-family: "handsnow";
+    font-size: 55px;
+    width: 30%;
+    margin-left: 50px;
+}
+
+@font-face {
+    font-family: "handsnow" format("truetype");
+    src: url("assets/Positions/assets/Handsnow.ttf");
+}
+
+hr{
+    border: solid 1px grey;
+}
+
+.nav2 {
+    display: flex;
+    align-items: center;
+    margin-left: 250px;
+}
+
+/** Menu déroulant **/
+
+.nav{
+    display: flex;
+    width: 100%;
+    top: 0px;
+    flex-wrap: wrap;
+}
+
+nav ul{
+    list-style-type: none;
+}
+
+nav ul li{
+    width: 150px;
+    text-align: center;
+    position: relative;
+}
+
+nav{
+    margin-left: 200px;
+}
+
+nav li{
+    display: table;
+    text-decoration: none;
+    color: white;
+}
+
+nav li:hover{
+    background-color: rgb(41, 41, 46);
+    display: block;
+}
+
+.menu1{
+    position: relative;
+}
+
+.sub1, .sub2{
+    display: none;
+    position: absolute;
+    padding: 5%;
+    z-index: 1000;
+}
+
+.sub1{
+    background-color: rgb(41, 41, 46);
+    width: 100%;
+}
+
+.sub2{
+    background-color: rgb(32, 32, 32);
+    right: 200px;
+    top: 0px;
+}
+
+nav > ul li:hover .sub1{
+    display: block;
+    width: 100%;
+}
+
+.sub1 li{
+    text-align: left;
+    padding: 25px;
+    width: 100%;
+}
+
+.sub1 li:hover{
+    background-color: rgb(32, 32, 32);
+}
+
+nav > ul li ul li:hover .sub2{
+    display: block;
+}
+
+.sub2 li{
+    text-align: left;
+}
+
+.sub2 li:hover{
+    background-color: rgb(23, 23, 24);
+}
+
+.left{
+    position: absolute;
+    top: 150px;
+    left: 150px;
+}
+
+.left .img1, .left .img2{
+    border: 3px solid gold;
+}
+
+.img1{
+    width: 600px;
+    height: 400px;
+    background-image : url('assets/Positions/assets/chair.jpg');
+    background-size: 600px;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.img2{
+    width: 400px;
+    height: 600px;
+    background-image : url('assets/Positions/assets/tables.jpg');
+    background-size: 400px;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 200px;
+    left: 390px;
+}
+
+.right{
+    background-color: white;
+    color: black;
+    width: 600px;
+    height: 550px;
+    padding: 15px;
+    position: absolute;
+    right: 150px;
+    top: 250px;
+}
+
+.right .title{
+    display: flex;
+}
+
+.about span{
+    color: gold;
+    font-size: 50px;
+}
+
+.about .us{
+    font-size: 50px;
+}
+
+.right .discover{
+    width: 200px;
+    height: 50px;
+    background-color: rgb(216, 188, 137);
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 550px;
+    right: 20px;
+}
