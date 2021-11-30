@@ -15,6 +15,7 @@ body{
     color: white;
     display: grid;
     grid-template-rows: 5% 80%;
+    margin: 0;
 }
 
 #menu{
@@ -23,11 +24,13 @@ body{
 }
 
 #menu p{
-    align-content: center;
+    display: flex;
+    align-items: center;
     font-size: 24px;
+    column-gap: 10px;
 }
 
-#menu p > img{
+#menu p > svg{
     width: 24px;
     height: auto;
 }
@@ -44,8 +47,14 @@ body{
     font-size: 48px;
 }
 
+#center-elements svg{
+    border: solid 3px white;
+    padding: 15px;
+    border-radius: 50%;
+}
+
 #center-elements button{
-    background-color: rgb(39, 177, 177);
+    background-color: rgb(44, 202, 202);
     border-radius: 50px;
     border: none;
     width: 300px;
@@ -58,39 +67,52 @@ body{
 /** Second part **/
 
 #bottom{
-    background-color: lightgrey;
+    background-color: rgb(228, 228, 228);
     display: flex;
     justify-content: center;
     flex-direction: column;
-    row-gap: 15%;
-    width: 100wh;
-    padding: 15%;
+    align-items: center;
+    row-gap: 8%;
+    margin: 0;
+    padding: 12vh 0vw 12vh 0vw;
 }
 
 #bottom #first-block{
     display: grid;
-    grid-template-columns: 45% 55%;
+    grid-template-columns: 47% 53%;
     background-color: white;
-    height: 350px;
-    margin-top: 5%;
+    width: 75vw;
+}
+
+.text{
+    padding: 0vh 3vw 3vh 3vw;
+    line-height: 32px;
+}
+
+.text h3{
+    font-size: 25px;
 }
 
 #bottom #second-block{
     display: grid;
-    grid-template-columns: 55% 45%;
+    grid-template-columns: 53% 47%;
     background-color: white;
-    height: 350px;
-    margin-bottom: 5%;
+    width: 75vw;
 }
 
 #bottom-first-image, #bottom-second-image{
-    background-image: url("https://via.placeholder.com/500x500");
-    background-size: 300px;
+    background-image: url("https://via.placeholder.com/500x800");
+    background-size: 100%;
     background-repeat: no-repeat;
 }
 
-#bottom #more{
-    background-image: white;
+.more{
+    background-color: white;
     border: solid 3px rgb(39, 177, 177);
     color:rgb(39, 177, 177);
+    font-weight: bold;
+    font-size: 17px;
+    border-radius: 50px;
+    width: 170px;
+    height: 50px;
 }
