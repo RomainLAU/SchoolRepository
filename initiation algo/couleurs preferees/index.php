@@ -2812,7 +2812,7 @@ function votesCounting ($colorsList) {
                 array_push($counting[$color], 1);
             }
         }
-    }       
+    }
     var_dump($counting);
     foreach ($counting as $countingColors => $countingColor) {
         var_dump($countingColors);

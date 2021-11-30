@@ -2,7 +2,7 @@
 
 try{
     $connexionBaseDeDonnees = new PDO('mysql:host=localhost;dbname=cinema', "root", "");
-    $films = $connexionBaseDeDonnees->query('SELECT * from films', PDO::FETCH_ASSOC);
+    $films = $connexionBaseDeDonnees->query('SELECT * from films', PDO::FETCH_ASSOC)->fetchAll();
 
 } catch (PDOException $e) {
 
@@ -21,14 +21,28 @@ try{
     <title>Document</title>
 </head>
 <body>
+
+<table border="1"
+    ><tr>
 <?php
+    foreach($films[0] as $key => $film) { ?>
+         <th><?php
+            echo $key;
+        ?> </th> <?php
+    } ?> </tr> <?php
     foreach($films as $key => $film) { ?>
-
-        <p> <?php echo $film['id_film']; ?>,
-            <?php echo $film['titre']; ?> </p>
-        <p> <?php echo $film['resum']; ?> </p>
-
+        <tr> <?php
+        foreach($film as $detail) { ?>
+            <td>
+                <p> <?php echo $detail ; ?></p>
+            </td>
+            <?php
+        }
+        ?>
+        </tr>
+        
     <?php }
 ?>
+</table>
 </body>
 </html>

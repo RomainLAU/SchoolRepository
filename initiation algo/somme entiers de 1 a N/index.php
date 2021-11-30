@@ -1,13 +1,13 @@
 <?php
 
 function sommeEntier ($start) {
-    $result = [];
+    $result = 0;
     for ($i = 1; $i <= $start; $i++) {
-        array_push($result, $i);
+        $result += $i;
     }
-    return array_sum($result);
+    return $result;
 }
 
-var_dump(sommeEntier(5));
+echo(sommeEntier(5));
 
 ?>

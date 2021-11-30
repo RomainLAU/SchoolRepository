@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .images{
+            display: flex;
+        }
+        .men{
+            background-size: 300px;
+            background-repeat: no-repeat;
+            width: 300px;
+            height: 300px;
+        }
+        .women{
+            background-size: 300px;
+            background-repeat: no-repeat;
+            width: 300px;
+            height: 300px;
+        }
+        #img1{
+            background-image: url('https://www.breakflip.com/uploads/60db527bb4b07-noobv3.png');
+        }
+        #img2{
+            background-image: url('https://e7.pngegg.com/pngimages/499/739/png-clipart-roblox-avatar-character-summertime-2009-keyword-tool-avatar-heroes-fictional-character-thumbnail.png');
+        }
+        #img3{
+            background-image: url('https://e7.pngegg.com/pngimages/983/922/png-clipart-roblox-mikey-lax-rapper-figurine-giant-panda-others-miscellaneous-fictional-character-thumbnail.png');
+        }
+        #img4{
+            background-image: url('https://i.pinimg.com/originals/34/45/df/3445dff6abf3b7675e3c71483f440612.png');
+        }
+        #description{
+            color: black;
+        }
+        #epee{
+            background-size: 300px;
+            background-repeat: no-repeat;
+            width: 300px;
+            height: 300px;
+            margin-left: 0vw;
+            animation: 2s ease-out;
+        }
+    </style>
+    <div class="images">
+        <div id="img1" class="women"></div>
+        <div id="img3" class="men"></div>
+        <div id="img2" class="men"></div>
+        <div id="img4" class="women"></div>
+    </div>
+    <button id="hideDesc"> Cacher la description </button>
+    <button id="showWomen"> Montrer seulement les femmes </button>
+    <button id="showMen"> Montrer seulement les hommes </button>
+    <button id="showAll"> Montrer tout le monde </button>
+    <div id="description"></div>
+    <div id="epee"></div>
+    <script src="script.js"></script>
+</body>
+</html>

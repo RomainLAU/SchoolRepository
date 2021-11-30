@@ -20,31 +20,18 @@ $buttonList = [
 
 function goodButton ($buttonList) {
     $isItTheGoodOne = [];
-    foreach ($buttonList as $buttons => $button) {
-        foreach ($buttonList as $buttonsToComparate => $buttonToComparate) {
-            if ($buttons != $buttonsToComparate && $button == $buttonToComparate) {
-                if (count($isItTheGoodOne) == 0) {
-                    array_push($isItTheGoodOne, $buttonToComparate);
-                } else {
-                    $isItTheGoodOne = [];
-                    continue;
-                }
-            }
+    foreach ($buttonList as $button) {
+        if (isset($isItTheGoodOne[$button])) {
+            $isItTheGoodOne[$button] = $isItTheGoodOne[$button] + 1;
+        } else {
+            $isItTheGoodOne[$button] = 1;
         }
     }
-    return $isItTheGoodOne[0];
+    if ($isItTheGoodOne[$button] === 2) {
+        return $button;
+    }
 }
 
-
-// fonction qui crée un array multidimensionnel associatif pour chaque mot différent de la liste, pas encore "testé", et lorsqu'on trouve une nouvelle occurence du mot entrain d'être analysé, on ajoute un élément dans l'array, exemple : 
-    // [
-    //     'czptih' => [
-    //         1 ( dans le cas où il y aurait 4 fois le mot dans la liste (donc 3 éléments dans l'array car le premier élément permet de créer l'array))
-    //     ]
-    // ]
-// Mais si l'array contient déjà un élément, cela veut dire qu'il y a plus de 2 fois le mot dans la liste, donc on efface le contenu de l'array et on passe au mot d'après
-
-
-var_dump(goodButton($buttonList));
+echo(goodButton($buttonList));
 
 ?>

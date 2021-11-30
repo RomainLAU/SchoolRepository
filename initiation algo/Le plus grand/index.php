@@ -1,13 +1,10 @@
 <?php
 
-$biggestNumber = [1, 5, 6, 2, 9, 10, 15, 8, 26, 5, 18, 9];
+$biggestNumber = [1, 5, 6, 2, 9, 10, 15, 8, 5, 18, 9];
 
-
-
-
-function whichIsBigger ($list)  {
-    $bigger = 0;
-    foreach ($list as $numbers => $number) {
+function whichIsBigger ($biggestNumber)  {
+    $bigger = $biggestNumber[0];
+    foreach ($biggestNumber as $numbers => $number) {
         if ($number > $bigger) {
             $bigger = $number;
         }
