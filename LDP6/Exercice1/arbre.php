@@ -30,7 +30,7 @@ function showGenres($connexionBaseDeDonnees, $requeteSql) {
         {
             $table .=   "<tr>";
 
-                $table .= "<td> <a href='./Exercice1.php?distributeur=". $value['id_distributeur'] . "'>" . $value['nom'] . "</a> </td>";
+                $table .= "<td> <a href='./arbre.php?distributeur=". $value['id_distributeur'] . "'>" . $value['nom'] . "</a> </td>";
 
             $table .=   "</tr>";
         }
@@ -96,7 +96,7 @@ function showFilmsOfGenre($connexionBaseDeDonnees, $requeteSql) {
 
                     $table .= "<td>" . substr($value[$info+1], 0, 4) . "</td>";
                     
-                    $table .= "<td> <a href='./Exercice1.php?film=" . $value[$info+2] . "'>" . $value[$info] . "</a></td>";
+                    $table .= "<td> <a href='./arbre.php?film=" . $value[$info+2] . "'>" . $value[$info] . "</a></td>";
     
                 $table .=   "</tr>";
             }
