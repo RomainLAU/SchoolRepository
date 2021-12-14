@@ -152,15 +152,11 @@ li:hover{
 /* Checkerboard */
 
 .checkerboard{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.checkboard__line{
-    height: 400px;
+    justify-content: center;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-auto-rows: minmax(400px, 1fr);
 }
 
 .light-grey{
@@ -171,7 +167,11 @@ li:hover{
     background-color: var(--darker-grey);
 }
 
-.checkboard__line>div:hover:after{
+.checkerboard>div{
+    height: 400px;
+}
+
+.checkerboard>div:hover:after{
     height: 100%;
     background-color: black;
     content: url("pe-7s-look.png");
@@ -418,15 +418,12 @@ h3{
     .footer > div:first-child{
         margin-right: 40px;
     }
-    
     .footer > div:nth-child(2) {
         margin-right: 30px;
     }
-    
     .footer > div:nth-child(3) {
         margin-right: 10px;
     }
-    
     .footer > div:nth-child(4) {
         margin-right: 10px;
         padding: 0;
@@ -437,7 +434,7 @@ h3{
     .key-numbers > div{
         flex: 1 1 100%;
     }
-    .skills > .graphic, .skills > .seo{
+    .graphic, .seo{
         order: -1;
     }
 }
