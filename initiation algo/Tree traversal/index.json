@@ -1,0 +1,12 @@
+{
+    "root": {
+      "property": {
+        "subproperty": {
+          "subsubproperty": {
+              "subsubsubproperty" : 667,
+              "mich" : ' '
+          }
+        }
+      }
+    }
+  }

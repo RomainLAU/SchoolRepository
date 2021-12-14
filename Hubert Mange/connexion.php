@@ -1,14 +1,6 @@
 <?php
 session_start();
 
-// function sessionRegenerateId () {
-//     if (session_status() != PHP_SESSION_ACTIVE) {
-//         session_start();
-//     }
-//     $newId = session_create_id('hubert');
-
-// }
-
 $form = $_POST;
 
 if ($form['password'] == 'mange' && $form['id'] == 'hubert' && $form['password'] != null && $form['id'] != null) {

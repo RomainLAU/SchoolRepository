@@ -63,7 +63,6 @@ function showFilmsOfGenre($connexionBaseDeDonnees, $requeteSql) {
         }
     </style>
 
-
     <?php
 
     $genres = [];

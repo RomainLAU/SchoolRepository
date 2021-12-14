@@ -8,12 +8,10 @@ try{
 
 } catch (PDOException $e) {
 
-    print "Erreur !: " . $e->getMessage() . "<br/>";
+    print "Erreur !: " . $e->getMessage() . "<br>";
 
-    die();
+    die;
 }
-
-$userInput = 560;
 
 $statement = $PDO->prepare("UPDATE 'article' set 'title' = :title WHERE id = :id");
 
