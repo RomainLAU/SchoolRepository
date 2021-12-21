@@ -1,40 +1,6 @@
 <?php
-
-$dsn = 'mysql:host=database:3306;dbname=article';
-
-try{
-    $PDO = new PDO($dsn, "root", "tiger");
-    $accounts = $PDO->query("SELECT * FROM connexion", PDO::FETCH_ASSOC)->fetchAll();
-} catch (PDOException $exception) {
-    print "Erreur !: " . $exception->getMessage() . "<br>";
-    die;
-}
-
-$addId = $_POST;
-
-if (isset($addId['submit'])) {
-    $statementOfId = $PDO->prepare("SELECT * FROM connexion WHERE identifiant = :identifiant");
-    $statementOfId->execute([
-        'identifiant' => $addId['identifiant'],
-    ]);
-    $idExist = $statementOfId->fetch(PDO::FETCH_ASSOC);
-    var_dump($idExist);
-}
-
-if (isset($idExist) && $idExist === false && isset($addId['submit'])) {
-
-    $statement = $PDO->prepare("INSERT INTO connexion (identifiant, password) VALUES (:identifiant, :password)");
-
-    $statement->execute([
-        'identifiant' => $addId['identifiant'],
-        'password' => $addId['password'],
-    ]);
-    echo "Compte créé <br>";
-
-} else if (isset($idExist) && $idExist !== false && isset($addId['submit'])) {
-    echo "L'identifiant existe déjà, s'il vous appartient, essayez de vous connecter. <br><br>";
-}
-
+ob_start();
+include('menu.php');
 ?>
 
 <!DOCTYPE html>
@@ -44,14 +10,74 @@ if (isset($idExist) && $idExist === false && isset($addId['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S'enregistrer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<?php
+
+if (isset($_SESSION['connected']) && $_SESSION['connected'] === True) {
+    header('location: index.php');
+}
+
+$dsn = 'mysql:host=database:3306;dbname=movies';
+
+try{
+    $PDO = new PDO($dsn, "root", "tiger");
+    $users = $PDO->query("SELECT * FROM user", PDO::FETCH_ASSOC)->fetchAll();
+} catch (PDOException $exception) {
+    print "Erreur !: " . $exception->getMessage() . "<br>";
+    die;
+}
+
+$addId = $_POST;
+$idIsFull = True;
+
+foreach ($addId as $values => $value) {
+    if (empty($value) || $value === '') {
+        $idIsFull = False;
+    }
+}
+
+if (isset($addId['submit'])) {
+    $statementOfId = $PDO->prepare("SELECT * FROM user WHERE email = :email");
+    $statementOfId->execute([
+        'email' => $addId['email'],
+    ]);
+    $idExist = $statementOfId->fetch(PDO::FETCH_ASSOC);
+}
+
+if (isset($idExist) && $idExist === false && isset($addId['submit']) && $idIsFull === True) {
+
+    $statement = $PDO->prepare("INSERT INTO user (lastname, firstname, email, password) VALUES (:lastname, :firstname, :email, :password)");
+
+    $statement->execute([
+        'lastname' => $addId['lastname'],
+        'firstname' => $addId['firstname'],
+        'email' => $addId['email'],
+        'password' => $addId['password'],
+    ]);
+    echo "<h4>Compte créé.</h4>";
+
+} else if (isset($idExist) && $idExist !== false && isset($addId['submit']) && $idIsFull === True) {
+    echo "<h4>L'email existe déjà, s'il vous appartient, essayez de vous connecter.</h4>";
+} else if (isset($addId['submit']) && $idIsFull === False) {
+    echo "<h4>Les champs ne sont pas complets, remplissez les et réessayez.</h4>";
+}
+
+?>
     <form method="POST" action="">
-        <input type="text" placeholder="Identifiant" name="identifiant">
+    <input type="text" placeholder="Nom" name="lastname">
+    <input type="text" placeholder="Prénom" name="firstname">
+        <input type="text" placeholder="Email" name="email">
         <input type="password" placeholder="Mot de passe" name="password">
         <input type="submit" name="submit">
     </form>
-
-    <a href="connection.php">Se connecter</a>
 </body>
 </html>
+
+<?php
+
+include('footer.php');
+
+?>

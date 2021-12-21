@@ -1,0 +1,72 @@
+body{
+    margin: 0;
+    height: 100vh;
+}
+
+body :not(ul, div, li, a, p, input, table, tr, td, #footer, button) {
+    padding: 25px;
+}
+
+table{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+ul{
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    background-color: black;
+    color: rgb(221, 221, 221);
+    justify-content: space-between;
+    height: 40px;
+    align-items: center;
+}
+
+ul > div{
+    margin-right: 50%;
+}
+
+li{
+    list-style: none;
+}
+
+li:last-child{
+    margin-right: 40px;
+}
+
+li > a{
+    color:rgb(221, 221, 221);
+    text-decoration: none;
+}
+
+td{
+    align-items: center;
+}
+
+#footer{
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    background-color: black;
+    color:rgb(221, 221, 221);
+}
+
+#research >button > a{
+    text-decoration: none;
+    color: black;
+}
+
+#research{
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+}
+
+#research > button{
+    margin-bottom: 16px;
+    margin-left: -22px;
+}
