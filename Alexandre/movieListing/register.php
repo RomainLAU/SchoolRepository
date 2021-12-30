@@ -34,8 +34,14 @@ $addId = $_POST;
 $idIsFull = True;
 
 foreach ($addId as $values => $value) {
+    $chars = str_split($value);
     if (empty($value) || $value === '') {
         $idIsFull = False;
+    }
+    foreach ($chars as $char) {
+        if ($char === ' ') {
+            $idIsFull = False;
+        }
     }
 }
 
@@ -62,7 +68,7 @@ if (isset($idExist) && $idExist === false && isset($addId['submit']) && $idIsFul
 } else if (isset($idExist) && $idExist !== false && isset($addId['submit']) && $idIsFull === True) {
     echo "<h4>L'email existe déjà, s'il vous appartient, essayez de vous connecter.</h4>";
 } else if (isset($addId['submit']) && $idIsFull === False) {
-    echo "<h4>Les champs ne sont pas complets, remplissez les et réessayez.</h4>";
+    echo "<h4>Les champs ne sont pas complets ou invalides, remplissez les et réessayez.</h4>";
 }
 
 ?>

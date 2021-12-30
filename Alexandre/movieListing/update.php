@@ -5,6 +5,21 @@ include('menu.php');
 $dsn = 'mysql:host=database:3306;dbname=movies';
 
 $updateForm = $_GET;
+$editIsFull = True;
+
+foreach ($_POST as $values => $value) {
+    if ($values !== 'synopsis') {
+        $chars = str_split($value);
+    }
+    if (empty($value) || $value === '') {
+        $editIsFull = False;
+    }
+    foreach ($chars as $char) {
+        if ($char === ' ') {
+            $editIsFull = False;
+        }
+    }
+}
 
 try{
     $PDO = new PDO($dsn, "root", "tiger");
@@ -15,7 +30,7 @@ try{
 }
 
 
-if (isset($_POST['update'])) {
+if (isset($_POST['update']) && $editIsFull === True) {
     $statement = $PDO->prepare("UPDATE movie SET title = :title, synopsis = :synopsis, image = :image, trailer_link = :trailer_link WHERE id = :id");
 
     $statement->execute([
@@ -41,10 +56,10 @@ if (isset($_POST['update'])) {
 </head>
 <body>
     <form method="POST" action="">
-        <input type="text" value=" <?php echo $movies[0]['title']; ?>" name="title">
-        <input type="text" value=" <?php echo $movies[0]['synopsis']; ?>" name="synopsis">
-        <input type="text" value=" <?php echo $movies[0]['image']; ?>" name="image">
-        <input type="text" value=" <?php echo $movies[0]['trailer_link']; ?>" name="trailer_link">
+        <input type="text" value="<?php echo $movies[0]['title'];?>" name="title">
+        <input type="text" value="<?php echo $movies[0]['synopsis'];?>" name="synopsis">
+        <input type="text" value="<?php echo $movies[0]['image'];?>" name="image">
+        <input type="text" value="<?php echo $movies[0]['trailer_link'];?>" name="trailer_link">
         <input type="submit" value="Editer" name="update">
     </form>
 </body>

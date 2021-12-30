@@ -26,7 +26,7 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === True) { ?>
         <input type="text" name="synopsis" placeholder="Synopsis du film">
         <input type="text" name="image" placeholder="URL de l'image du film">
         <input type="text" name="trailer_link" placeholder="URL du trailer">
-        <input type="submit" name="submit" value="Ajouter le film">
+        <input type="submit" name="submit" value="Ajouter">
     </form> <?php
 } else {
     echo "<h4>Connectez vous pour pouvoir enregistrer de nouveaux films dans notre base de donnée.</h4>";

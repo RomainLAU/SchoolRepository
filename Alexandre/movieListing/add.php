@@ -14,8 +14,16 @@ $addForm = $_POST;
 $movieIsFull = True;
 
 foreach ($addForm as $values => $value) {
+    if ($values !== 'synopsis') {
+        $chars = str_split($value);
+    }
     if (empty($value) || $value === '') {
         $movieIsFull = False;
+    }
+    foreach ($chars as $char) {
+        if ($char === ' ') {
+            $movieIsFull = False;
+        }
     }
 }
 
