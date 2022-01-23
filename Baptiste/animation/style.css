@@ -1,0 +1,111 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    height: 100vh;
+    padding: 0;
+}
+
+#card{
+    height: 600px;
+    width: 600px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 1px 4px 10px black;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#teammate{
+    background-color: black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition-duration: 0.2s;
+}
+
+#teammate>img{
+    height: auto;
+    width: 100%;
+    object-fit: contain;
+}
+
+#card:hover > #teammate{
+    transform: translateY(-125px);
+    transition: 0.2s ease-in-out;
+    -webkit-transition: 0.2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
+    -ms-transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
+}
+
+#card:hover > #teammate>img{
+    opacity: 0.8;
+}
+
+#description{
+    position: absolute;
+    max-height: 30%;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    z-index: -1;
+    overflow: hidden;
+}
+
+h4{
+    color: grey;
+}
+
+#logos{
+    display: flex;
+    z-index: 1000;
+    margin-bottom: 30px;
+    /* display: none; */
+    visibility: hidden;
+    column-gap: 20px;
+}
+
+#card:hover > #logos>a{
+    visibility: visible;
+}
+
+#card:hover > #logos>#facebook{
+    transform: translateY(-100px);
+    transition-duration: 0.4s;
+    transition-delay: 0.2s;
+}
+
+#card:hover > #logos>#twitter{
+    transform: translateY(-100px);
+    transition-duration: 0.4s;
+    transition-delay: 0.4s;
+}
+
+#card:hover > #logos>#linkedin{
+    transform: translateY(-100px);
+    transition-duration: 0.4s;
+    transition-delay: 0.6s;
+}
+
+#card:hover > #logos>#youtube{
+    transform: translateY(-100px);
+    transition-duration: 0.4s;
+    transition-delay: 0.8s;
+}
+
+#logos>a{
+    margin-bottom: 50px;
+}
+
+#logos>a>img{
+    width: 75px;
+    height: 75px;
+}
