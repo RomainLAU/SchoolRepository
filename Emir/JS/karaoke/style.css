@@ -8,3 +8,20 @@ body{
     align-items: center;
     height: 100vh;
 }
+
+h1{
+    font-size: 64px;
+    font-weight: bold;
+}
+
+#lyrics, #previous-lyrics, #next-lyrics{
+    font-size: 48px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+#previous-lyrics, #next-lyrics{
+    font-size: 32px;
+    font-weight: normal;
+    color: rgb(212, 212, 212)
+}

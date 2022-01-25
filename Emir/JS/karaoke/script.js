@@ -1,38 +1,108 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    let lyrics = document.querySelector("#lyric")
+    let lyrics = document.querySelector("#lyrics")
+    let previousLyrics = document.querySelector("#previous-lyrics")
+    let nextLyrics = document.querySelector("#next-lyrics")
     let audio = document.querySelector("#audio")
 
     fetch("paroles.txt").then(function (response) {
+
         response.text().then(function (text) {
-            let timingRegex = new RegExp('\[(.*)\]', 'm') // To get the timing of the lyric
-            let lyricRegex = new RegExp('[A-Z](.*)', 'm') // To get the lyric of the timing
+
+            let timingRegex = /\d{2}:\d{2}/g // To get the timing of the lyrics
+            let lyricRegex = /[A-Z](.*)/g // To get the lyrics of the timing
+            let minuteRegex = /\d{2}:/g // To get the minutes from the timingRegex
+            let secondRegex = /:\d{2}/g // To get the seconds from the timingRegex
+
+            let timingInLRC = text.match(timingRegex)
+            let lyricInLRC = text.match(lyricRegex)
+
+            let timingLyrics = [] // The array will stock timing of currentTime function, in second
+
+            for (i = 0; i < timingInLRC.length; i++) {
+
+                let minutes = timingInLRC[i].match(minuteRegex)
+                minutes = parseInt(minutes[0].substring(0,2)) // I only keep numbers and convert string to int
+
+                let seconds = timingInLRC[i].match(secondRegex)
+                seconds = parseInt(seconds[0].substring(1,3)) // I only keep numbers and convert string to int
+
+                if (minutes !== 00) {
+
+                    minutes *= 60
+                    seconds += minutes
+                    timingLyrics.push(seconds)
+
+                } else {
+
+                    timingLyrics.push(seconds)
+
+                }
+            }
+            
             audio.addEventListener("timeupdate", function () {
-                let timing = audio.currentTime.toFixed(2)
-                if (timing >= 10 && timing < 60) {
-                    timing = "00:" + timing
+
+                let timeUpdate = (audio.currentTime.toFixed(0)) - 1
+
+                for (let i = 0; i < timingLyrics.length; i++) {
+
+                    if (!(lyricInLRC[-1] in lyricInLRC)) {
+                        lyricInLRC[-1] = "..." // In case that the previous lyrics are not defined, it will display this string
+                    }
+
+                    if (timingLyrics[i] == timeUpdate) {
+
+                        previousLyrics.innerText = lyricInLRC[i-1] // Displays previous lyrics
+                        lyrics.innerText = lyricInLRC[i] // Displays current lyrics
+                        nextLyrics.innerText = lyricInLRC[i+1] // Displays next lyrics
+
+                    } else if (timingLyrics[i-1] == timeUpdate) {
+
+                        previousLyrics.innerText = lyricInLRC[i-2]
+                        lyrics.innerText = lyricInLRC[i-1]
+                        nextLyrics.innerText = lyricInLRC[i]
+
+                    } else if (timingLyrics[i-1] == timeUpdate-1) {
+
+                        previousLyrics.innerText = lyricInLRC[i-2]
+                        lyrics.innerText = lyricInLRC[i-1]
+                        nextLyrics.innerText = lyricInLRC[i]
+
+                    } else if (timingLyrics[i-1] == timeUpdate-2) {
+
+                        previousLyrics.innerText = lyricInLRC[i-2]
+                        lyrics.innerText = lyricInLRC[i-1]
+                        nextLyrics.innerText = lyricInLRC[i]
+
+                    } else if (timingLyrics[i-1] == timeUpdate-3) {
+
+                        previousLyrics.innerText = lyricInLRC[i-2]
+                        lyrics.innerText = lyricInLRC[i-1]
+                        nextLyrics.innerText = lyricInLRC[i]
+
+                    }
+
+                    else if (timingLyrics[i+1] == timeUpdate) {
+
+                        previousLyrics.innerText = lyricInLRC[i]
+                        lyrics.innerText = lyricInLRC[i+1]
+                        nextLyrics.innerText = lyricInLRC[i+2]
+
+                    } else if (timingLyrics[i+1] == timeUpdate+1) {
+
+                        previousLyrics.innerText = lyricInLRC[i]
+                        lyrics.innerText = lyricInLRC[i+1]
+                        nextLyrics.innerText = lyricInLRC[i+2]
+
+                    } else if (timingLyrics[i+1] == timeUpdate+2) {
+
+                        previousLyrics.innerText = lyricInLRC[i]
+                        lyrics.innerText = lyricInLRC[i+1]
+                        nextLyrics.innerText = lyricInLRC[i+2]
+
+                    }
                 }
-                if (timing < 60) {
-                    timing = "00:0" + timing
-                }
-                if (timing >= 60 && timing < 70 || timing >= 120 && timing < 130 || timing >= 180 && timing < 190) {
-                    minutes = Math.floor(timing / 60)
-                    seconds = timing - minutes * 60
-                    timing = "0" + minutes + ":0" + seconds.toFixed(2)
-                }
-                if (timing >= 70 && timing < 120 || timing >= 120 && timing < 180 || timing >= 180 && timing < 240) {
-                    minutes = Math.floor(timing / 60)
-                    seconds = timing - minutes * 60
-                    timing = "0" + minutes + ":" + seconds.toFixed(2)
-                }
-                var myTiming = timingRegex.exec(timing)
-                console.log(myTiming)
-                // console.log(timing)
             })
         })
     })
-
-    // let body = document.querySelector("body")
-
-    // body.style.backgroundColor = "darkblue"
 })
