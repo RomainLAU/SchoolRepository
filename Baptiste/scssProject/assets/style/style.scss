@@ -1,0 +1,205 @@
+$dark-brown: #392210;
+$light-brown: #654933;
+
+html{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+#header{
+
+    #header-top{
+        background-color: $dark-brown;
+        display: flex;
+        align-items: center;
+        padding-left: 150px;
+        padding-right: 150px;
+        justify-content: space-between;
+
+        #header-top__left{
+            display: flex;
+            column-gap: 30%;
+            padding: 0;
+
+            .fab{
+                font-size: 18px;
+                color: white;
+            }
+        }
+
+        #header-top__right{
+            display: flex;
+            column-gap: 15px;
+            cursor: pointer;
+
+            li:nth-child(1){
+                color: #674a33;
+            }
+
+            li:nth-child(2){
+                color: white;
+                font-weight: bold;
+            }
+        }
+    }
+
+    #header-mid{
+        display: flex;
+
+        ul{
+            width: 100%;
+            display: flex;
+            padding-left: 150px;
+            padding-right: 150px;
+            justify-content: space-between;
+
+            li{
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                img{
+                    width: 32px;
+                    height: 32px;
+                }
+
+                #header-mid-brand-name{
+
+                    span{
+                        font-size: 42px;
+                        color: $dark-brown;
+                    }
+
+                    span:nth-child(2){
+                        color: #654933;
+                    }
+                    
+                }
+            }
+
+            #header-mid__center{
+                display: flex;
+
+                #all-categories{
+                    background-color: #eff2f3;
+                    padding: 19px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+
+                #search-input{
+                    padding: 20px;
+                    border: solid 1px #eff2f3;
+                    width: 300px;
+                    color: #909090;
+                }
+
+                #search-button{
+                    padding: 18px;
+                    border: solid 1px #eff2f3;
+
+                    i{
+                        color: #888888;
+                    }
+                }
+            }
+
+            #header-mid__right{
+                display: flex;
+
+                #fav-button{
+                    border: solid 1px #eff2f3;
+                    padding: 26px;
+                    margin-right: 15px;
+
+                    .far{
+                        font-size: 32px;
+                        color: #888888;
+                    }
+                }
+
+                #cart{
+                    display: flex;
+                    align-items: center;
+                    border: solid 1px #eff2f3;
+                    padding-right: 16px;
+                    padding-left: 16px;
+
+                    a{
+                        i{
+                            font-size: 32px;
+                            color: #888888;
+                            padding-right: 15px;
+                        }
+                    }
+
+                    #cart-amount{
+                        color: $dark-brown;
+                    }
+                }
+            }
+        }
+    }
+
+    #header-bottom{
+        padding-left: 150px;
+        padding-right: 150px;
+        background-color: $dark-brown;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0;
+        
+        ul:first-child{
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+
+            li{
+                padding: 32px;
+                padding-right: 12px;
+                font-weight: bold;
+            }
+        }
+
+        ul:nth-child(2){
+            background-color: $light-brown;
+            padding: 32px;
+
+            .fa-bars{
+                font-size: 32px;
+            }
+        }
+
+        #categories{
+            display: flex;
+            background-color: $light-brown;
+            width: 250px;
+            align-items: center;
+
+            .fa-th-large{
+                font-size:18px;
+            }
+            
+            span{
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+li{
+    list-style-type: none;
+}
+
+#link-hidden{
+    display: none;
+}
