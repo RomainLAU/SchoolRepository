@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(154, 109, 195);
+    background-color: rgb(94, 11, 119);
     color: white;
     font-family: sans-serif;
     display: flex;
@@ -9,9 +9,14 @@ body{
     height: 100vh;
 }
 
+audio{
+    height: 150px;
+}
+
 h1{
     font-size: 64px;
     font-weight: bold;
+    color: rgb(235, 198, 98);
 }
 
 #lyrics, #previous-lyrics, #next-lyrics{
@@ -24,4 +29,12 @@ h1{
     font-size: 32px;
     font-weight: normal;
     color: rgb(212, 212, 212)
+}
+
+#img{
+    width: 400px;
+    min-height: 400px;
+    background-repeat: no-repeat;
+    background-image: url('https://static.fnac-static.com/multimedia/Images/FD/Comete/143198/CCP_IMG_ORIGINAL/1884667.jpg');
+    background-position: center;
 }

@@ -4,6 +4,26 @@ document.addEventListener("DOMContentLoaded", function () {
     let previousLyrics = document.querySelector("#previous-lyrics")
     let nextLyrics = document.querySelector("#next-lyrics")
     let audio = document.querySelector("#audio")
+    let title = document.querySelector('#title')
+    let body = document.body
+    let image = document.querySelector('#img')
+
+    audio.volume = '0.2'
+
+    audio.addEventListener('play', function() {
+        title.innerText = 'Warriors'
+        title.style.color = 'rgb(119, 19, 19)'
+        body.style.backgroundColor = 'rgb(10, 4, 12)'
+        image.style.backgroundImage = "url('https://external-preview.redd.it/XLwd-_ijF3LKBoj9uCs2WSzKh6_kmjcqTsTnFb-kryA.jpg?auto=webp&s=4656b1a0db3a1cf16658d0dbe69c636f4692aa5a')"
+    })
+
+    audio.addEventListener('pause', function() {
+        title.innerText = 'Wario'
+        body.style.backgroundColor = 'rgb(101, 33, 122)'
+        title.style.color = 'rgb(235, 198, 98)'
+        image.style.backgroundImage = "url('https://static.fnac-static.com/multimedia/Images/FD/Comete/143198/CCP_IMG_ORIGINAL/1884667.jpg')"
+    })
+
 
     fetch("paroles.txt").then(function (response) {
 
@@ -47,7 +67,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 for (let i = 0; i < timingLyrics.length; i++) {
 
                     if (!(lyricInLRC[-1] in lyricInLRC)) {
+
                         lyricInLRC[-1] = "..." // In case that the previous lyrics are not defined, it will display this string
+
+                    } else if (!(lyricInLRC[i+1]) in lyricInLRC) {
+
+                        lyricInLRC[i+1] = " "
+                    
                     }
 
                     if (timingLyrics[i] == timeUpdate) {
