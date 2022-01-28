@@ -318,13 +318,15 @@ class BankAccount {
 
     public function withdraw(int $amount) {
 
-        if ($this->balance - $amount >= 0) {
+        if ($this->balance > $amount) {
 
             $this->balance -= $amount;
 
             echo "Votre compte en banque contient maintenant " . $this->balance . " euros. <br>";
+
         } else {
             
+            throw new Exception('Not enough money on this account');
             echo "Votre compte ne contient pas suffisament de fonds pour retirer ce montant. <br>";
 
         }
@@ -365,7 +367,7 @@ $bankAccount1 = new BankAccount();
 
 // $bankAccount1->deposit(500);
 // $bankAccount1->deposit(2);
-// $bankAccount1->withdraw(581);
+$bankAccount1->withdraw(5);
 
 // $savingAccount1 = new SavingAccount(25);
 // $savingAccount1->AddInterest();
