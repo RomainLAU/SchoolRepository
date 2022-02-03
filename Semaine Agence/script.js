@@ -37,12 +37,6 @@ setInterval(function () {
 
         } else {
 
-            setInterval(function() {
-
-                // POUR L'ANIMATION DU CAROUSEL
-
-            })
-
             carrousselBackground.style.backgroundImage = "url('" + image + "')"
 
             round.style.backgroundColor = "#ED1B2D"
@@ -63,4 +57,4 @@ setInterval(function () {
         fourthRound.style.backgroundColor = "rgba(0, 0, 0, 0)"
     }
 
-}, 6000 )
+}, 3000 )
