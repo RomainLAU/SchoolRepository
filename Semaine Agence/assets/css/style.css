@@ -598,7 +598,22 @@ footer {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 /* ACTUALITE PAGE */
+
+.header-top > ul > li > a{
+    color: rgb(228, 228, 228);
+}
 
 #actuality-body{
     background-color: #F6F6F6;
@@ -700,6 +715,10 @@ footer {
 #fidelity{
     margin-left: 280px;
     margin-bottom: 100px;
+}
+
+#fidelity > img{
+    width: 70%;
 }
 
 /* NEW ACCOUNT */

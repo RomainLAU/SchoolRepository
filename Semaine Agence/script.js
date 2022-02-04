@@ -5,9 +5,9 @@ let fourthRound = document.querySelector('.fourth-round')
 
 let carrousselBackground = document.querySelector('#carroussel')
 
-let backgroundImages = ['assets/img/FX-Mirror-01.png', 'assets/img/background-2.png', 'assets/img/background-3.jpg', 'assets/img/background-2.png']
+let backgroundImages = ['assets/img/FX-Mirror-01.png', 'assets/img/background-2.png', 'assets/img/background-3.jpg']
 
-let rounds = [firstRound, secondRound, thirdRound, fourthRound]
+let rounds = [firstRound, secondRound, thirdRound]
 
 let index = 1
 
@@ -33,7 +33,7 @@ setInterval(function () {
 
         if (!previousRound) {
 
-            fourthRound.style.backgroundColor = "rgba(0, 0, 0, 0)"
+            thirdRound.style.backgroundColor = "rgba(0, 0, 0, 0)"
 
         } else {
 
@@ -54,7 +54,7 @@ setInterval(function () {
         carrousselBackground.style.backgroundImage = "url('" + backgroundImages[0] + "')"
 
         firstRound.style.backgroundColor = "#ED1B2D"
-        fourthRound.style.backgroundColor = "rgba(0, 0, 0, 0)"
+        thirdRound.style.backgroundColor = "rgba(0, 0, 0, 0)"
     }
 
 }, 3000 )
