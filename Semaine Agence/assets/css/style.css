@@ -32,6 +32,11 @@ li{
     cursor: pointer;
 }
 
+a{
+    color: white;
+    text-decoration: none;
+}
+
 .header > nav > ul > li{
     color: rgb(228, 228, 228);
     font-size: 32px;
@@ -205,11 +210,15 @@ li{
     cursor: pointer;
 }
 
-#carroussel> button:hover{
+#carroussel > button:hover, #carroussel > button:hover a{
     background-color: white;
     border: solid 1px black;
     color: black;
     box-shadow: 0px 0px 6x black;
+}
+
+#carroussel > button:hover a{
+    border: none;
 }
 
 .carroussel__rounds{
@@ -500,6 +509,7 @@ footer {
     flex-direction: column;
     align-items: center;
     padding: 50px;
+    padding-bottom: 60px;
 }
 
 .footer > h4{
@@ -584,4 +594,231 @@ footer {
 #contact__social-media{
     display: flex;
     column-gap: 15px;
+}
+
+
+
+/* ACTUALITE PAGE */
+
+#actuality-body{
+    background-color: #F6F6F6;
+}
+
+#cards-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 100px;
+    font-family: Open-Sans, sans-serif;
+}
+
+
+#card-1, #card-2{
+    margin-top: 100px;
+    width: 70vw;
+    height: 500px;
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+#card-1__text{
+    display: flex;
+    margin-top: 50px;
+    margin-left: 40px;
+    flex-direction: column;
+    width: 45vw;
+    line-height: 30px;
+}
+
+#card-1__text > h4{
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 40px;
+    margin-bottom: 30px;
+}
+
+#card-1__text > p{
+    font-size: 30px;
+    color: rgb(88, 88, 88);
+}
+
+#card-1 > img{
+    right: 0;
+    height: 100%;
+    max-width: 70%;
+    clip-path: polygon(10% 0, 100% 0%, 100% 100%, 40% 100%);
+    position: absolute;
+}
+
+#card-2{
+    justify-content: flex-end;
+}
+
+#card-2__text{
+    display: flex;
+    margin-top: 50px;
+    margin-right: 40px;
+    flex-direction: column;
+    width: 45vw;
+    line-height: 30px;
+}
+
+#card-2__text > h4{
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 40px;
+    margin-bottom: 30px;
+    text-align: right;
+}
+
+#card-2__text > p{
+    font-size: 30px;
+    text-align: right;
+    color: rgb(88, 88, 88);
+    line-height: 50px;
+}
+
+#card-2 > img{
+    left: 0;
+    height: 100%;
+    max-width: 70%;
+    clip-path: polygon(0% 0, 90% 0%, 50% 100%, 0% 100%);
+    position: absolute;
+}
+
+/* FIDELITY CARDS */
+
+#fidelity{
+    margin-left: 280px;
+    margin-bottom: 100px;
+}
+
+/* NEW ACCOUNT */
+
+#container-new-account{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#new-account{
+    width: 50vw;
+    height: 500px;
+    border: solid 2px #29292B;
+    box-shadow: 5px 5px 1px #afafaf;
+    margin-bottom: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#new-account__form{
+    width: 350px;
+}
+
+#new-account__form > h2{
+    font-size: 28px;
+    font-weight: bold;
+    font-family: Open-Sans, sans-serif;
+}
+
+#new-account__form > h3{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-family: Open-Sans, sans-serif;
+    font-size: 16px;
+    color:rgb(51, 51, 51);
+}
+
+#new-account__form > h3 > a{
+    color: blue;
+}
+
+#form__inputs > input, #inputs-last-firstname > input{
+    width: 100%;
+    height: 25px;
+    background-color: white;
+    border: solid 2px #3b3b3b;
+    padding: 10px;
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+#form__inputs > ::placeholder, #inputs-last-firstname > ::placeholder{
+    color: #333333;
+    font-size: 18px;
+}
+
+#inputs-last-firstname{
+    display: flex;
+    column-gap: 5%;
+    width: 107%;
+}
+
+#submit-inscription-button{
+    width: 107%;
+    height: 25px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ED1B2D;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#submit-inscription-button:hover{
+    background-color: white;
+    box-shadow: 0px 0px 5px;
+    color: black;
+}
+
+#otherways-inscription{
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 106%;
+}
+
+#otherways-inscription > hr{
+    width: 80px;
+}
+
+#new-account__form > ul{
+    display: flex;
+    column-gap: 5%;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#new-account__form > ul > li{
+    border: solid 2px rgb(88, 88, 88);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#new-account__form > ul > li > i{
+    color:rgb(88, 88, 88);
+    font-size: 24px;
 }
