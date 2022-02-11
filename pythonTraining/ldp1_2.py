@@ -236,6 +236,9 @@ def myArrayPrint(array):
         for key, value in array.items():
             print(key, ' => ', value, '\n')
 
+# Par exemple myArrayPrint($tab0) affichera:
+# 0 => Goodbye
+# 1 => Dennis
 
 # myArrayPrint(tab3)
 
