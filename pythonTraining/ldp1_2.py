@@ -219,7 +219,7 @@ tab1 = ['U', 'DUN', 'GOOFED']
 
 tab2 = {'name':'Glenn', 'first_name':'kenny', 'pets':'dusty', 'crime':'animal abuse', 'achievement':'goofed'}
 
-tab3 = ['bananas', 'apple', {'fish': 'sharktopus'}, 'lemon', 'pineapple', 'pear', 'cherry']
+tab3 = ('bananas', 'apple', {'fish': {'cod': 'male'}}, 'lemon', 'pineapple', 'pear', 'cherry')
 
 tab4 = ['x-men', 'spiderman','great saiyaman','iron man','superman', 'batman','wolverine', 'hulk']
 
@@ -229,18 +229,20 @@ def myArrayPrint(array):
         for index in array:
             if type(index) == dict:
                 for key, value in index.items():
-                    print(key, ' => ', value, '\n')
+                    print(key, '=>', value)
             else:
-                print(array.index(index), ' => ', index, '\n')
+                print(array.index(index), '=>', index)
     elif type(array) == dict:
         for key, value in array.items():
-            print(key, ' => ', value, '\n')
+            print(f'{key} => {value}')
+
+# print(list(enumerate(tab3)))
 
 # Par exemple myArrayPrint($tab0) affichera:
 # 0 => Goodbye
 # 1 => Dennis
 
-# myArrayPrint(tab3)
+myArrayPrint(tab3)
 
 # Exercice 7
 
@@ -347,4 +349,4 @@ def onlyTheBestKey(array):
 
     print(theBestKey['key'])
 
-onlyTheBestKey(tab0)
+# onlyTheBestKey(tab0)
