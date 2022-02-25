@@ -266,6 +266,10 @@ body {
   font-weight: bold;
   font-size: 18px;
   border: none;
+  cursor: pointer;
+}
+#trend-products #trend-products__middle #product #product__cta button:hover {
+  background-color: #392210;
 }
 #trend-products #trend-products__middle #product #featured {
   position: relative;
@@ -310,6 +314,10 @@ body {
   font-weight: bold;
   font-size: 18px;
   border: none;
+  cursor: pointer;
+}
+#trend-products #trend-products__middle #information button:hover {
+  background-color: #392210;
 }
 #trend-products #trend-products__buttons {
   display: flex;
@@ -327,6 +335,10 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 18px;
+  cursor: pointer;
+}
+#trend-products #trend-products__buttons #previous:hover, #trend-products #trend-products__buttons #next:hover {
+  background-color: grey;
 }
 
 #coffee-categories {
@@ -347,6 +359,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  cursor: pointer;
 }
 #coffee-categories #coffee-category p {
   font-size: 18px;
@@ -446,6 +459,7 @@ body {
   border: none;
   position: relative;
   margin-right: 60px;
+  cursor: pointer;
 }
 #products #product #products__right-column #product-cta button:after {
   display: flex;
@@ -457,6 +471,12 @@ body {
   position: absolute;
   right: -60px;
   background-color: #684c35;
+}
+#products #product #products__right-column #product-cta button:hover {
+  background-color: #392210;
+}
+#products #product #products__right-column #product-cta button:hover:after {
+  background-color: #392210;
 }
 
 #freshly-picked {
@@ -513,6 +533,11 @@ body {
   height: 60px;
   border: solid 1px black;
   font-size: 16px;
+  background-color: white;
+  cursor: pointer;
+}
+#freshly-picked #fresh-product #fresh-product__description button:hover {
+  background-color: #eff2f3;
 }
 
 #top-picks {
@@ -542,6 +567,7 @@ body {
   background-color: #eff2f3;
   border: none;
   font-size: 18px;
+  cursor: pointer;
 }
 #top-picks nav ul:last-child li button:hover {
   background-color: #392210;
@@ -558,6 +584,10 @@ body {
   background-color: #392210;
   width: 120px;
   height: 4px;
+  cursor: pointer;
+}
+#top-picks #progression-bar #progression-bar__done:hover {
+  height: 6px;
 }
 #top-picks #top-picks__products {
   max-width: 100%;
@@ -647,6 +677,7 @@ body {
   color: white;
   font-weight: bold;
   font-size: 16px;
+  cursor: pointer;
 }
 #top-picks #top-picks__products #top-picks__product #add-to-cart:hover {
   background-color: #392210;
@@ -657,6 +688,7 @@ body {
   border: none;
   font-size: 16px;
   background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
 }
 #top-picks #top-picks__products #top-picks__product #quick-view:hover {
   background-color: #eff2f3;
@@ -702,6 +734,10 @@ body {
   height: 60px;
   background-color: white;
   font-size: 18px;
+  cursor: pointer;
+}
+#footer #follow #follow__text button:hover {
+  background-color: #eff2f3;
 }
 #footer #small-images {
   height: 100%;
@@ -712,12 +748,15 @@ body {
 }
 #footer #small-images div {
   overflow: hidden;
+  background-color: black;
 }
 #footer #small-images div img {
   height: 100%;
   width: 100%;
   object-fit: cover;
-  border: solid 1px black;
+}
+#footer #small-images div img:hover {
+  opacity: 0.4;
 }
 
 a {

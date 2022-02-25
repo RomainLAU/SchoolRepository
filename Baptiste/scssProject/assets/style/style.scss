@@ -322,6 +322,11 @@ body{
                     font-weight: bold;
                     font-size: 18px;
                     border: none;
+                    cursor: pointer;
+
+                    &:hover{
+                        background-color: $dark-brown;
+                    }
                 }
             }
 
@@ -374,6 +379,11 @@ body{
                 font-weight: bold;
                 font-size: 18px;
                 border: none;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: $dark-brown;
+                }
             }
         }
     }
@@ -394,6 +404,11 @@ body{
             justify-content: center;
             align-items: center;
             font-size: 18px;
+            cursor: pointer;
+
+            &:hover{
+                background-color: grey;
+            }
         }
     }
 }
@@ -411,12 +426,12 @@ body{
     #coffee-category{
         background-color: white;
         border: solid 2px $light-grey;
-        // width: 200px;
         height: 150px;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        cursor: pointer;
 
         p{
             font-size: 18px;
@@ -531,6 +546,7 @@ body{
                     border: none;
                     position: relative;
                     margin-right: 60px;
+                    cursor: pointer;
 
                     &:after{
                         display: flex;
@@ -542,6 +558,14 @@ body{
                         position: absolute;
                         right: -60px;
                         background-color: #684c35;
+                    }
+
+                    &:hover{
+                        background-color: $dark-brown;
+
+                        &:after{
+                            background-color: $dark-brown;
+                        }
                     }
                 }
             }    
@@ -608,6 +632,12 @@ body{
                 height: 60px;
                 border: solid 1px black;
                 font-size: 16px;
+                background-color: white;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: $light-grey;
+                }
             }
         }
     }
@@ -643,6 +673,7 @@ body{
                     background-color: $light-grey;
                     border: none;
                     font-size: 18px;
+                    cursor: pointer;
 
                     &:hover{
                         background-color: $dark-brown;
@@ -664,6 +695,11 @@ body{
             background-color: $dark-brown;
             width: 120px;
             height: 4px;
+            cursor: pointer;
+
+            &:hover{
+                height: 6px;
+            }
         }
     }
 
@@ -765,6 +801,7 @@ body{
                 color: white;
                 font-weight: bold;
                 font-size: 16px;
+                cursor: pointer;
 
                 &:hover{
                     background-color: $dark-brown;
@@ -777,6 +814,7 @@ body{
                 border: none;
                 font-size: 16px;
                 background-color: rgba($color: #000000, $alpha: 0);
+                cursor: pointer;
 
                 &:hover{
                     background-color: $light-grey;
@@ -828,6 +866,11 @@ body{
                 height: 60px;
                 background-color: white;
                 font-size: 18px;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: $light-grey;
+                }
             }
         }
     }
@@ -841,11 +884,15 @@ body{
 
         div{
             overflow: hidden;
+            background-color: black;
             img{
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
-                border: solid 1px black;
+
+                &:hover{
+                    opacity: 0.4;
+                }
             }
         }
     }
