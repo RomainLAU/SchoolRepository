@@ -497,6 +497,7 @@ body {
     padding-right: 10px;
     background-image: none;
     background-color: #eff2f3;
+    height: fit-content;
   }
 }
 
