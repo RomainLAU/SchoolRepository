@@ -1,0 +1,157 @@
+html {
+  position: relative;
+}
+
+#students-body {
+  max-width: 100vw;
+  display: grid;
+  justify-content: center;
+  font-family: sans-serif;
+  align-items: center;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr;
+  padding-left: 25%;
+  padding-right: 25%;
+}
+
+#research {
+  display: flex;
+  padding: 4px 0px 12px 0px;
+  align-items: center;
+  justify-content: space-between;
+}
+#research form {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+#research form input[type=text] {
+  border: solid 1px black;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: black;
+}
+#research form input[type=text]::placeholder {
+  color: dimgray;
+  font-size: 16px;
+}
+#research form input[type=submit] {
+  border: solid 1px black;
+  padding: 6px 12px;
+  color: black;
+  font-size: 16px;
+}
+#research button {
+  border: solid 1px black;
+  padding: 6px 12px;
+  background-color: #c8c8eb;
+}
+#research button a {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  display: block;
+}
+#research button:hover {
+  background-color: #b4b4e7;
+}
+
+table {
+  border: solid 2px #ebebeb;
+  border-collapse: collapse;
+}
+table tr td {
+  padding: 4px 12px;
+  font-size: 18px;
+}
+table tr td form {
+  width: 100%;
+  height: 30px;
+}
+table tr td form input[type=submit] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 18px;
+}
+table tr #bonuses {
+  color: green;
+}
+table tr #penalties {
+  color: red;
+}
+table tr .bonus form input[type=submit] {
+  background-color: rgba(0, 0, 0, 0);
+  color: green;
+  cursor: pointer;
+}
+table tr .bonus form input[type=submit]:hover {
+  opacity: 0.8;
+}
+table tr .penalty form input[type=submit] {
+  background-color: rgba(0, 0, 0, 0);
+  color: red;
+  cursor: pointer;
+}
+table tr .penalty form input[type=submit]:hover {
+  opacity: 0.8;
+}
+table tr .update form input[type=submit] {
+  background-color: rgba(0, 0, 0, 0);
+  color: orange;
+  cursor: pointer;
+}
+table tr .update form input[type=submit]:hover {
+  opacity: 0.8;
+}
+table tr:nth-child(odd) {
+  background-color: #ebebeb;
+}
+table tr:nth-child(even):hover {
+  background-color: rgba(131, 131, 209, 0.3);
+}
+table tr:nth-child(odd):hover {
+  background-color: rgba(131, 131, 209, 0.3);
+}
+
+#updateBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+#updateBody p {
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+}
+#updateBody #updateForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  row-gap: 15px;
+}
+#updateBody #updateForm label {
+  font-size: 32px;
+}
+#updateBody #updateForm #bonuses {
+  color: green;
+  font-size: 24px;
+  width: 50px;
+}
+#updateBody #updateForm #penalties {
+  color: red;
+  font-size: 24px;
+  width: 50px;
+}
+#updateBody #updateForm input[type=submit] {
+  margin-top: 15px;
+  width: 150px;
+  height: 60px;
+  font-size: 32px;
+}
+
+/*# sourceMappingURL=style.css.map */
