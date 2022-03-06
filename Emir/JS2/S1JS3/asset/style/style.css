@@ -1,0 +1,28 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    text-align: center;
+}
+
+p{
+    color: red;
+    display: none;
+    margin: 4px;
+}
+
+h1{
+    display: none;
+    color: red;
+}
+
+input{
+    display: inline;
+}

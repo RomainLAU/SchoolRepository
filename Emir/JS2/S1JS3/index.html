@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="checkThatForm.js"></script>
+	<link rel="stylesheet" href="asset/style/style.css">
+</head>
+<body>
+	<h1 id="uncomplete-form"></h1>
+
+	<form method="POST" action="checkThatForm.php" id="firstForm">
+		Prénom: <input type="text" name="firstname" id="firstname"> <p id="firstname-error"></p> 
+		Nom: <input type="text" name="lastname" id="lastname"> <p id="lastname-error"></p> 
+		E-mail: <input type="email" name="E-mail" id="email"> <p id="email-error"></p> 
+		Age: <input type="text" name="Age" id="age"> <p id="age-error"></p> 
+		Bachelor: <input type="text" name="Bachelor" id="bachelor"> <p id="bachelor-error"></p> 
+		Mot de passe: <input type="password" name="password" autocomplete="password" id="password"> <p id="password-error"></p> 
+		Retapez le mot de passe: <input type="password" name="checked-password" id="checked-password"> <p id="checked-password-error"></p> 
+		Sexe :
+		<div><input type="radio" name="sexe" value="Homme" id="sexeHomme" class="sexe">Homme</div> 
+		<div><input type="radio" name="sexe" value="Femme" id="sexeFemme" class="sexe">Femme</div> <p id="sexe-error"></p> 
+		Tome :
+		<div><input type="checkbox" name="Tome[]" value="Le guide du voyageur galactique" class="tome">Le guide du voyageur galactique</div> 
+		<div><input type="checkbox" name="Tome[]" value="Le dernier restaurant avant la fin du monde" class="tome">Le dernier restaurant avant la fin du monde</div> 
+		<div><input type="checkbox" name="Tome[]" value="La Vie, l'Univers et le Reste" class="tome">La Vie, l'Univers et le Reste</div> 
+		<div><input type="checkbox" name="Tome[]" value="Salut, et encore merci pour le poisson" class="tome">Salut, et encore merci pour le poisson</div> 
+		<div><input type="checkbox" name="Tome[]" value="Globalement inoffensive" class="tome">Globalement inoffensive </div> <p id="tome-error"></p> 
+		<textarea readonly="true" name="Commentaire" id="commentaire" value="<b>si ce texte s'affiche en gras, u lost the game</b>"><b>si ce texte s'affiche en gras, u lost the game</b></textarea>
+		<input type="submit" value="Envoyer" id="submit">
+	</form>
+
+</body>
+</html>
