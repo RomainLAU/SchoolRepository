@@ -29,6 +29,16 @@ try{
         <input type="submit" value="Find">
     </form>
     <button><a href="students.php">Reinitialize</a></button>
+    <form action="sortTable.php" method="POST">
+        <select name="sortTable" id="sortTable">
+            <option value="azFirstnames">A - Z (Firstnames)</option>
+            <option value="zaFirstnames">Z - A - (Firstnames)</option>
+            <option value="ascBonuses">Ascending (Bonuses)</option>
+            <option value="descBonuses">Descending (Bonuses)</option>
+            <option value="ascPenalties">Ascending (Penalties)</option>
+            <option value="descPenalties">Descending (Penalties)</option>
+        </select>
+    </form>
 </div>
 
 <?php
