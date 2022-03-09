@@ -1,0 +1,53 @@
+body{
+    height: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+#messages{
+    display: flex;
+    flex-direction: column;
+}
+
+li{
+    list-style: none;
+    background-color: rgb(194, 194, 194);
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.message{
+    margin-top: -20px;
+}
+
+#messages > .Romain, ul#messages > .romain, ul#messages > #Romain, ul#messages > #romain{
+    color: red;
+    margin-left: 88%;
+}
+
+#sending-inputs{
+    z-index: 100;
+    position: sticky;
+    bottom: 15px;
+    margin-bottom: 15px;
+    max-width: 100%;
+    display: flex;
+    column-gap: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#sending-inputs > input[type=text] {
+    width: 90%;
+    height: 50px;
+    font-size: 32px;
+}
+
+#sending-inputs > input[type=button] {
+    width: 10%;
+    font-size: 32px;
+}
