@@ -4,29 +4,53 @@ body{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    background-color: rgb(32, 32, 32);
 }
 
 #messages{
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    direction: ltr;
+}
+
+#Romain, #romain{
+    background-color:rgb(195, 255, 177);
+}
+
+#messages > #Romain, #messages > #romain{
+    align-self: flex-end;
+    direction: rtl;
 }
 
 li{
     list-style: none;
-    background-color: rgb(194, 194, 194);
+    background-color: rgb(209, 198, 255);
     width: fit-content;
+    min-width: 100px;
     padding: 10px 20px;
     border-radius: 10px;
     margin: 10px;
 }
 
-.message{
-    margin-top: -20px;
+#Romain > #senderName, #romain > #senderName{
+    display: none;
 }
 
-#messages > .Romain, ul#messages > .romain, ul#messages > #Romain, ul#messages > #romain{
-    color: red;
-    margin-left: 88%;
+#Romain > #messageContent, #romain > #messageContent, #Romain > #sendTime, #romain > #sendTime{
+    direction: ltr;
+}
+
+#senderName{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#sendTime{
+    margin-top: 5px;
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 #sending-inputs{
@@ -41,13 +65,20 @@ li{
     margin-right: 10px;
 }
 
-#sending-inputs > input[type=text] {
+#sending-inputs > textarea {
     width: 90%;
     height: 50px;
     font-size: 32px;
+    border-radius: 10px;
+    padding: 10px 10px 5px 10px;;
 }
 
 #sending-inputs > input[type=button] {
     width: 10%;
     font-size: 32px;
+    border-radius: 10px;
+}
+
+#sending-inputs > input[type=button]:hover {
+    background-color:rgb(211, 255, 231);
 }

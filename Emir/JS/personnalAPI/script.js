@@ -7,20 +7,31 @@ window.addEventListener("DOMContentLoaded", function () {
 
     let lastMessageID = 0
 
-    function createNickname(name) {
-        let nicknameLi = document.createElement('li')
-        nicknameLi.setAttribute("id", "nickname")
-        nicknameLi.setAttribute("id", name)
-        nicknameLi.textContent = name
-        return nicknameLi
-    }
+    function createMessage(name, message, sendTime) {
 
-    function createMessage(message, nickname) {
         let messageLi = document.createElement('li')
         messageLi.setAttribute("class", "message")
-        messageLi.setAttribute("id", nickname)
-        messageLi.textContent = message
-        return messageLi
+        messageLi.setAttribute("id", name)
+        messages.appendChild(messageLi)
+
+        let nicknameDiv = document.createElement('div')
+        nicknameDiv.setAttribute("id", "senderName")
+        nicknameDiv.textContent = name
+
+        let messageDiv = document.createElement('div')
+        messageDiv.setAttribute("id", "messageContent")
+        messageDiv.textContent = message
+
+        let sendTimeDiv = document.createElement('div')
+        sendTimeDiv.setAttribute("id", "sendTime")
+
+        sendTime = sendTime.slice(11, 16)
+
+        sendTimeDiv.textContent = sendTime
+
+        messageLi.appendChild(nicknameDiv)
+        messageLi.appendChild(messageDiv)
+        messageLi.appendChild(sendTimeDiv)
     }
 
     function showMessages() {
@@ -29,8 +40,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 json['data'].slice(0).reverse().map(function (value, index) {
                     if (value['id'] > lastMessageID) {
                         lastMessageID = value['id']
-                        messages.appendChild(createNickname(value['nickname']))
-                        messages.appendChild(createMessage(value['message'], value['nickname']))
+                        createMessage(value['nickname'], value['message'], value['createdAt'])
                     }
                 })
             })
