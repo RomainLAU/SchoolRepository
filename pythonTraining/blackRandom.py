@@ -75,7 +75,7 @@ def SetCircle(turn, x):
   if size >= 25 and size < 50:
     position_x = randint(-160, 140)
     position_y = randint(-125, 95)
-  elif size <= 250 and size > 50:
+  elif size <= 250 and size >= 50:
     position_x = randint(-200, 180)
     position_y = randint(-140,90)
   r = randint(0,255)
@@ -153,4 +153,4 @@ def drawPara(turn, x):
   forward(size_2)
   coin(turn, x)
 
-art(100, 0)
+art(50, 3)
