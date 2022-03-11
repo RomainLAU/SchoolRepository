@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;400;900&family=Montserrat:wght@400;700&family=Open+Sans:wght@300&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+  background-color: #252B42;
+}
+body header {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: url("../images/header-background-shapes.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+body header li {
+  list-style: none;
+}
+body header nav {
+  display: flex;
+  align-items: center;
+  padding-top: 1em;
+  padding-left: 59px;
+  padding-right: 59px;
+  column-gap: 240px;
+}
+body header nav ul {
+  display: flex;
+  column-gap: 1em;
+  align-items: center;
+  column-gap: 75px;
+}
+body header nav ul li {
+  color: white;
+  font-size: 14px;
+  font-family: "Montserrat";
+  font-weight: 700;
+  cursor: pointer;
+}
+body header nav ul #brand-name {
+  font-size: 24px;
+  margin-right: 5em;
+  padding-left: 136px;
+}
+body header nav ul #join-us-button {
+  text-transform: uppercase;
+  background-color: #23A6F0;
+  padding: 15px 25px;
+  border-radius: 5px;
+  margin-left: 2em;
+}
+body header #second-part-header {
+  display: flex;
+  column-gap: 30px;
+}
+body header #second-part-header #informations {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  margin: 148px 132px;
+}
+body header #second-part-header #informations p:first-child {
+  color: #23A6F0;
+  font-size: 16px;
+  font-weight: 700;
+}
+body header #second-part-header #informations h1 {
+  color: white;
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 80px;
+  text-transform: uppercase;
+}
+body header #second-part-header #informations #sub-informations {
+  font-size: 20px;
+  font-weight: 400;
+  color: white;
+}
+body header #second-part-header #informations #informations-buttons {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+body header #second-part-header #informations #informations-buttons a {
+  padding: 15px 40px;
+  font-size: 14px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+body header #second-part-header #informations #informations-buttons #get-quote {
+  background-color: #23A6F0;
+  color: white;
+}
+body header #second-part-header #informations #informations-buttons #learn-more {
+  background-color: none;
+  border: solid 1px #23A6F0;
+  color: #23A6F0;
+}
+body header #second-part-header img {
+  width: 604px;
+  height: 713px;
+  margin-left: 100px;
+}
+
+/*# sourceMappingURL=style.css.map */
