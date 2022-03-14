@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400;900&family=Open+Sans:wght@300;400&display=swap');
+
+body{
+    height: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    background-color: rgb(32, 32, 32);
+}
+
+#messages{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    direction: ltr;
+    overflow-wrap: break-word;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    padding: 0;
+}
+
+li{
+    list-style: none;
+    background-color: rgb(209, 198, 255);
+    width: fit-content;
+    min-width: 100px;
+    max-width: 40em;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+#senderName{
+    margin-bottom: 10px;
+    font-weight: 900;
+    overflow-wrap: break-word;
+}
+
+#sendTime{
+    margin-top: 5px;
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#sendingInputs{
+    z-index: 100;
+    position: sticky;
+    bottom: 15px;
+    margin-bottom: 15px;
+    max-width: 100%;
+    display: flex;
+    column-gap: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#sendingInputs > textarea {
+    width: 90%;
+    height: 50px;
+    font-size: 32px;
+    border-radius: 10px;
+    padding: 10px 10px 5px 10px;;
+}
+
+#sendingInputs > input[type=button] {
+    width: 10%;
+    font-size: 32px;
+    border-radius: 10px;
+}
+
+#sendingInputs > input[type=button]:hover {
+    background-color:rgb(211, 255, 231);
+}
+
+#disconnect{
+    border-radius: 10px;
+    color: red;
+}
