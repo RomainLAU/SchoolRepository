@@ -10,25 +10,32 @@ window.addEventListener("DOMContentLoaded", function () {
 
     let sendingInputs = document.querySelector('#sendingInputs')
 
-    let lastMessageID = 0
-
     sendingInputs.style.display = "none"
 
-    if (localStorage.getItem("token")) {
-        showMessages(localStorage.getItem("token"))
+    function isSetToken() {
 
-        setInterval( function () {
-            showMessages(localStorage.getItem("token"))
-        }, 5000)
+        showAllMessages(localStorage.getItem("token"))
 
-    } else {
-        showIdentifyPage()
+        if (localStorage.getItem("token")) {
+    
+            setInterval( function () {
+                showNewMessages(localStorage.getItem("token"))
+            }, 5000)
+    
+        } else {
+            showIdentifyPage()
+        }
     }
 
+    isSetToken()
+
     disconnectButton.addEventListener("click", function() {
+
         localStorage.clear()
         clearMessages()
         showIdentifyPage()
+        localStorage.setItem('lastMessageID', 0)
+        isSetToken()
     })
 
     function clearMessages() {
@@ -89,12 +96,14 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-
-
     function showIdentifyPage() {
 
         while(identificationForm.firstChild){
             identificationForm.removeChild(identificationForm.firstChild);
+        }
+
+        while(messages.firstChild){
+            messages.removeChild(messages.firstChild);
         }
         
         let emailInput = document.createElement('input')
@@ -118,7 +127,7 @@ window.addEventListener("DOMContentLoaded", function () {
         let submitButton = document.createElement('input')
 
         submitButton.setAttribute('type', 'button')
-        submitButton.setAttribute('value', 'connect')
+        submitButton.setAttribute('value', 'Connect')
         submitButton.setAttribute('id', 'submitForm')
         identificationForm.appendChild(submitButton)
 
@@ -126,15 +135,19 @@ window.addEventListener("DOMContentLoaded", function () {
         submitButton.addEventListener('click', function () {
             getToken(emailInput.value, passwordInput.value)
         })
+
+        submitButton.addEventListener('keydown', function () {
+            getToken(emailInput.value, passwordInput.value)
+        })
     }
 
-    function getToken(email, password) {
+    function getToken(emailSent, passwordSent) {
         
         fetch("https://api.edu.etherial.dev/apijsv2/auth", {
             method: 'POST',
             body: JSON.stringify({
-                email: email,
-                password: password
+                email: emailSent,
+                password: passwordSent
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
@@ -146,56 +159,100 @@ window.addEventListener("DOMContentLoaded", function () {
             return Promise.reject(response)
         }).then(function (data) {
 
-            const newToken = data['data']['token']
+            let newToken = data['data']['token']
 
             localStorage.setItem("token", newToken)
 
             getUsername()
 
-            showMessages(localStorage.getItem("token"))
+            showAllMessages(localStorage.getItem("token"))
 
         }).catch(function (error) {
             console.warn('Something went wrong.', error)
         })
     }
 
-    function showMessages(token) {
-        
-        fetch("https://api.edu.etherial.dev/apijsv2/messages", {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-                'Authorization': 'Bearer ' + token
-            }
-        }).then(function (response) {
-            if (response.ok) {
-                return response.json()
-            }
-            return Promise.reject(response)
-        }).then(function (data) {
+    function showAllMessages(token) {
 
-            sendingInputs.style.display = "flex"
-            
-            while(identificationForm.firstChild){
+        if (token) {
 
-                identificationForm.removeChild(identificationForm.firstChild)
-                
-            }
-    
-            data['data'].slice(0).reverse().map(function (value, index) {
-    
-                if (value['id'] > lastMessageID) {
-
-                    lastMessageID = value['id']
-                    createMessage(value['nickname'], value['message'], value['createdAt'])
-                    window.scrollTo(0,document.body.scrollHeight)
-
+            fetch("https://api.edu.etherial.dev/apijsv2/messages", {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + token
                 }
-            })
-        }).catch(function (error) {
-            console.warn('Something went wrong.', error)
-        })
+            }).then(function (response) {
+                if (response.ok) {
+                    return response.json()
+                }
+                return Promise.reject(response)
+            }).then(function (data) {
 
+                sendingInputs.style.display = "flex"
+                
+                while (identificationForm.firstChild) {
+
+                    identificationForm.removeChild(identificationForm.firstChild)
+                    
+                }
+        
+                data['data'].slice(0).reverse().map(function (value, index) {
+
+                    localStorage.setItem('lastMessageID', value['id'])
+
+                    createMessage(value['nickname'], value['message'], value['createdAt'])
+
+                    window.scrollTo(0,document.body.scrollHeight)
+        
+                })
+            }).catch(function (error) {
+                console.warn('Something went wrong.', error)
+            })
+        }
+    }
+
+    function showNewMessages(token) {
+
+        if (token) {
+
+            fetch("https://api.edu.etherial.dev/apijsv2/messages", {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(function (response) {
+                if (response.ok) {
+                    return response.json()
+                }
+                return Promise.reject(response)
+            }).then(function (data) {
+
+                sendingInputs.style.display = "flex"
+                
+                while (identificationForm.firstChild) {
+
+                    identificationForm.removeChild(identificationForm.firstChild)
+                    
+                }
+        
+                data['data'].slice(0).reverse().map(function (value, index) {
+        
+                    if (localStorage.getItem('lastMessageID') && value['id'] > localStorage.getItem('lastMessageID')) {
+
+                        localStorage.setItem('lastMessageID', value['id'])
+
+                        createMessage(value['nickname'], value['message'], value['createdAt'])
+
+                        window.scrollTo(0,document.body.scrollHeight)
+
+                    }
+                })
+            }).catch(function (error) {
+                console.warn('Something went wrong.', error)
+            })
+        }
     }
 
     function sendMessage() {
@@ -222,10 +279,9 @@ window.addEventListener("DOMContentLoaded", function () {
         }
         
         messageInput.value = ''
-
         
-        showMessages(localStorage.getItem("token"))
-        showMessages(localStorage.getItem("token"))
+        showNewMessages(localStorage.getItem("token"))
+        showNewMessages(localStorage.getItem("token"))
     }
 
     function getUsername() {
@@ -243,7 +299,7 @@ window.addEventListener("DOMContentLoaded", function () {
             return Promise.reject(response)
         }).then(function (data) {
 
-            currentUser = data['data']['nickname']
+            let currentUser = data['data']['nickname']
 
             localStorage.setItem("user", currentUser)
 
