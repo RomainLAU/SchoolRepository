@@ -119,10 +119,9 @@ window.addEventListener('DOMContentLoaded', function() {
 
         let tomeChecked = 0
 
-        for (let index = 0; index < tome.length; index++) {
-
-            if (tome[index].checked) {
-                tomeChecked ++
+        tome.map(function (value, index) {
+            if (value.checked) {
+                tomeChecked++
             }
 
             if (tomeChecked > 0 && tomeChecked <= 2)  {
@@ -132,6 +131,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 tomeError.innerHTML = "Veuillez séléctionner entre 1 et 2 tomes au maximum."
                 event.preventDefault()
             }
-        }
+        })
     })
 })

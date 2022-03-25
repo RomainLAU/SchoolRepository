@@ -1,4 +1,4 @@
-let monimage = document.querySelector("#monimage")
+let body = document.querySelector("body")
 
 let images = [
     "https://i-df.unimedias.fr/2019/07/08/barbecue-regles_de_securite.jpg?auto=format%2Ccompress&crop=faces&cs=tinysrgb&fit=crop&h=675&w=1200",
@@ -8,17 +8,20 @@ let images = [
 ]
 let index = 0
 
+body.style.height = "400px"
+body.style.width = "400px"
+
 setInterval(function () {
 
     let image = images[index]
 
     if (image) {
-        monimage.src = image
+        body.style.backgroundImage = "url('" + image + "')"
 
         index++;
     } else {
         index = 0
-        monimage.src = images[0]
+        body.style.backgroundImage = images[0]
 
     }
 

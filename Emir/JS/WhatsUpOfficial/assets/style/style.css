@@ -22,13 +22,20 @@ body{
 
 li{
     list-style: none;
-    background-color: rgb(209, 198, 255);
     width: fit-content;
     min-width: 100px;
     max-width: 40em;
     padding: 10px 20px;
     border-radius: 10px;
     margin: 10px;
+}
+
+#messages > li{
+    background-color: rgb(209, 198, 255);
+}
+
+#ignoredUsers > li{
+    background-color: rgb(128, 23, 23);
 }
 
 #senderName{
@@ -65,7 +72,7 @@ li{
 }
 
 #sendingInputs > input[type=button] {
-    width: 10%;
+    width: fit-content;
     font-size: 32px;
     border-radius: 10px;
 }
@@ -74,7 +81,25 @@ li{
     background-color:rgb(211, 255, 231);
 }
 
-#disconnect{
+#disconnect,
+#delete{
     border-radius: 10px;
     color: red;
+    font-weight: bold;
+}
+
+.update,
+.delete{
+    border-radius: 10px;
+    border: solid 1px black;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.update{
+    color: rgb(153, 99, 0)
+}
+
+.delete{
+    color: rgb(121, 0, 0);
 }

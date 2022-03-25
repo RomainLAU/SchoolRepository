@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+
+	<form method="POST" action="checkThatForm.php">
+		Prénom: <input type="text" name="firstname"> <br>
+		Nom: <input type="text" name="lastname"> <br>
+		E-mail: <input type="email" name="E-mail"> <br>
+		Age: <input type="text" name="Age"> <br>
+		Bachelor: <input type="text" name="Bachelor"> <br>
+		Mot de passe: <input type="password" name="password"> <br>
+		Retapez le mot de passe: <input type="password" name="checked-password"> <br>
+		Sexe :<br>
+		<input type="radio" name="Sexe" value="Homme">Homme <br>
+		<input type="radio" name="Sexe" value="Femme">Femme <br>
+		Tome :<br>
+		<input type="checkbox" name="Tome[]" value="Le guide du voyageur galactique">Le guide du voyageur galactique <br>
+		<input type="checkbox" name="Tome[]" value="Le dernier restaurant avant la fin du monde">Le dernier restaurant avant la fin du monde <br>
+		<input type="checkbox" name="Tome[]" value="La Vie, l'Univers et le Reste">La Vie, l'Univers et le Reste <br>
+		<input type="checkbox" name="Tome[]" value="Salut, et encore merci pour le poisson">Salut, et encore merci pour le poisson <br>
+		<input type="checkbox" name="Tome[]" value="Globalement inoffensive">Globalement inoffensive <br>
+		<textarea readonly="true" name="Commentaire" value="<b>si ce texte s'affiche en gras, u lost the game</b>"><b>si ce texte s'affiche en gras, u lost the game</b></textarea><br>
+		<input type="submit" value="Envoyer">
+	</form>
+
+</body>
+</html>
