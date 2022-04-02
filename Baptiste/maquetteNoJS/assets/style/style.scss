@@ -1,4 +1,5 @@
 $dark-blue: #1f2236;
+$mid-blue: #22253C;
 $light-blue: #303552;
 $gold: #ffc576;
 
@@ -16,7 +17,7 @@ li{
 
 #particles-js{
     background-color: rgba(0, 0, 0, 0);
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     background-image: url('../image/bg.png');
     background-repeat: no-repeat;
@@ -24,7 +25,6 @@ li{
     background-position: left bottom;
     position: relative;
     border-bottom: solid 1px $light-blue;
-    overflow: hidden;
 
     nav{
         display: flex;
@@ -107,107 +107,446 @@ li{
 }
 
 #about-me{
-    height: 100vh;
-
     #content{
         margin: 0 15em;
+    
+        input {
+            display: none;
+        }
 
-        #about-inputs{
+        #about:checked ~ ul > li > label[for="about"],
+        #skills:checked ~ ul > li > label[for="skills"],
+        #service:checked ~ ul > li > label[for="service"],
+        #interview:checked ~ ul > li > label[for="interview"],
+        #award:checked ~ ul > li > label[for="award"],
+        #exhibition:checked ~ ul > li > label[for="exhibition"] {
+            background-color: $gold;
+            color: $dark-blue;
+        }
+
+        ul{
             display: flex;
-    
-            input {
-                display: none;
-            }
-    
-            input:checked + label{
-                background-color: $gold;
-                color: $dark-blue;
-            }
-    
-            label{
+
+            li{
                 background-color: $dark-blue;
-                padding: 1.75em 2em;
                 border: solid 1px $light-blue;
                 flex-grow: 1;
                 text-align: center;
-                text-transform: uppercase;
-                font-weight: 600;
-                font-size: 14px;
-                cursor: pointer;
 
-                &:hover{
-                    background-color: $gold;
-                    color: $dark-blue;
+                label{
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    font-size: 14px;
+                    display: block;
+                    cursor: pointer;
+                    padding: 1.75em 2em;
+
+                    &:hover{
+                        background-color: $gold;
+                        color: $dark-blue;
+                    }
                 }
             }
         }
 
-        #about-me-content{
+        div{
+            column-gap: 5em;
+            display: none;
             background-color: $light-blue;
-            padding: 5em;
+            padding: 3em;
 
-            div{
+            img{
+                object-fit: contain;
+            }
+
+            .description{
                 display: flex;
-                column-gap: 5em;
-                display: none;
+                flex-direction: column;
+                row-gap: 1.5em;
 
-                img{
-                    object-fit:contain;
-                }
-
-                .description{
+                h3{
+                    font-family: serif;
+                    font-size: 3em;
+                    font-weight: bold;
                     display: flex;
                     flex-direction: column;
-                    row-gap: 1.5em;
+                    row-gap: 0.5em;
 
-                    h3{
-                        font-family: serif;
-                        font-size: 3em;
-                        font-weight: bold;
-                        display: flex;
-                        flex-direction: column;
-                        row-gap: 0.5em;
-
-                        span{
-                            font-family: system-ui;
-                            color: $gold;
-                            font-size: 0.5em;
-                        }
-                    }
-
-                    .text-description{
+                    span{
                         font-family: system-ui;
-                        display: contents;
-                        line-height: 2em;
-
-                        main{
-                            display: contents;
-                            color: $gold;
-                            text-transform: capitalize;
-                        }
-                    }
-
-                    p{
-                        font-family: system-ui;
-                        line-height: 2em;
-                    }
-
-                    a{
                         color: $gold;
-                        text-decoration: none;
-                        border: solid 1px $gold;
-                        width: fit-content;
-                        padding: 1em 2.5em;
-                        border-radius: 2px;
+                        font-size: 0.4em;
+                        text-transform: uppercase;
+                    }
+                }
 
-                        &:hover{
-                            background-color: $gold;
-                            color: $dark-blue;
-                        }
+                .text-description{
+                    font-family: system-ui;
+                    display: contents;
+                    line-height: 2em;
+
+                    main{
+                        display: contents;
+                        color: $gold;
+                        text-transform: capitalize;
+                    }
+                }
+
+                p{
+                    font-family: system-ui;
+                    line-height: 2em;
+                }
+
+                a{
+                    color: $gold;
+                    text-decoration: none;
+                    border: solid 1px $gold;
+                    width: fit-content;
+                    padding: 1em 2.5em;
+                    border-radius: 2px;
+
+                    &:hover{
+                        background-color: $gold;
+                        color: $dark-blue;
                     }
                 }
             }
-
         }
+
+        #about:checked ~ #about-content,
+        #skills:checked ~ #skills-content,
+        #service:checked ~ #service-content,
+        #interview:checked ~ #interview-content,
+        #award:checked ~ #award-content,
+        #exhibition:checked ~ #exhibition-content {
+            display: flex;
+        }
+    }
+}
+
+#projects{
+    margin-top: 5em;
+    padding: 0 15em;
+    margin-bottom: 5em;
+    overflow-x: hidden;
+
+    h3{
+        font-size: 3em;
+        font-family: serif;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.3em;
+        margin-bottom: 1em;
+
+        span{
+            font-family: sans-serif;
+            font-size: 0.4em;
+            color: $gold;
+        }
+    }
+
+    input{
+        display: none;
+    }
+
+    label{
+        font-size: 2em;
+        padding: 0.4em 0.6em;
+        padding-bottom: 0.6em;
+        color: white;
+        border: solid 1px $gold;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+
+    #left:checked ~ label[for="left"],
+    #right:checked ~ label[for="right"] {
+        background-color: $gold;
+        color: $dark-blue;
+    }
+
+    #right:checked ~ #project-list {
+        transform: translateX(-700px);
+        transition: transform 1s;
+    }
+
+    #project-list{
+        display: flex;
+        margin-top: 4em;
+        column-gap: 2em;
+        transition: transform 1s;
+
+        .project{
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px 10px 0 0;
+            background-color: $light-blue;
+            border-bottom: solid 1px $gold;
+            min-width: 20em;
+
+            img{
+                border-radius: 10px;
+            }
+
+            .project-info{
+                padding: 2em;
+                display: flex;
+                flex-direction: column;
+                row-gap: 2em;
+                line-height: 2em;
+
+                span{
+                    color: $gold;
+                }
+
+                h4{
+                    font-size: 1.75em;
+                    font-family: serif;
+                    font-weight: bold;
+                }
+
+                a{
+                    color: $gold;
+                    border: solid 1px $gold;
+                    width: fit-content;
+                    border-radius: 2px;
+                    text-decoration: none;
+                    padding: 0.3em 2em;
+                    font-weight: bold;
+
+                    &:hover{
+                        background-color: $gold;
+                        color: $dark-blue;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#testimonials{
+    background-color: $mid-blue;
+    padding: 5em 15em;
+    overflow-x: hidden;
+
+    h3{
+        font-size: 3em;
+        font-family: serif;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.3em;
+        margin-bottom: 1em;
+
+        span{
+            font-family: sans-serif;
+            font-size: 0.3em;
+            color: $gold;
+            text-transform: uppercase;
+        }
+    }
+
+    input{
+        display: none;
+    }
+
+    label{
+        font-size: 2em;
+        padding: 0.4em 0.6em;
+        padding-bottom: 0.6em;
+        color: white;
+        border: solid 1px $gold;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+
+    #left-reviews:checked ~ label[for="left-reviews"],
+    #right-reviews:checked ~ label[for="right-reviews"] {
+        background-color: $gold;
+        color: $dark-blue;
+    }
+
+    #right-reviews:checked ~ #reviews > .review:nth-child(3),
+    #right-reviews:checked ~ #reviews > .review:nth-child(4) {
+        display: flex;
+        transition: display 1s;
+    }
+
+    #right-reviews:checked ~ #reviews > .review:nth-child(1),
+    #right-reviews:checked ~ #reviews > .review:nth-child(2) {
+        display: none;
+        transition: display 1s;
+    }
+
+    #left-reviews:checked ~ #reviews > .review:nth-child(1),
+    #left-reviews:checked ~ #reviews > .review:nth-child(2) {
+        display: flex;
+        transition: display 1s;
+    }
+
+    #left-reviews:checked ~ #reviews > .review:nth-child(3),
+    #left-reviews:checked ~ #reviews > .review:nth-child(4) {
+        display: none;
+        transition: display 1s;
+    }
+
+    #reviews{
+        display: flex;
+        column-gap: 2em;
+        margin-top: 5em;
+
+        .review{
+            transition: display 1s;
+            display: flex;
+            flex-direction: column;
+            border: solid 1px $gold;
+            border-radius: 5px;
+            background-color: $light-blue;
+            padding: 2em;
+            min-width: 40%;
+
+            .top-review{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 2em;
+
+                .client-info{
+                    display: flex;
+                    align-items: center;
+                    column-gap: 1em;
+    
+                    img{
+                        width: 64px;
+                        height: 64px;
+                        border-radius: 50%;
+                    }
+    
+                    div{
+                        display: flex;
+                        flex-direction: column;
+                        row-gap: 0.4em;
+    
+                        h4{
+                            font-family: serif;
+                            font-weight: bold;
+                            font-size: 1.75em;
+                        }
+    
+                        span{
+                            color: $gold;
+                            font-size: 0.8em;
+                        }
+                    }
+                }
+
+                .quotes{
+                    width: 70px;
+                    height: 70px;
+                }
+            }
+
+            p{
+                line-height: 2em;
+                font-weight: bold;
+                font-style: italic;
+            }
+
+            &:nth-child(3), &:nth-child(4) {
+                display: none;
+            }
+        }
+    }
+}
+
+#honorable{
+    padding: 5em 15em;
+    display: flex;
+    flex-direction: row;
+    column-gap: 19.5em;
+    justify-content: space-around;
+
+    h3{
+        font-size: 3em;
+        font-family: serif;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.3em;
+        margin-bottom: 1em;
+
+        span{
+            font-family: sans-serif;
+            font-size: 0.3em;
+            color: $gold;
+            text-transform: uppercase;
+        }
+    }
+
+    #clients{
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 2em;
+        row-gap: 2em;
+
+        .client{
+            img{
+                width: 300px;
+                height: 300px;
+                cursor: pointer;
+            }
+
+            &:hover{
+                background-color: black;
+
+                img{
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}
+
+footer{
+    padding: 5em 15em;
+    background-color: $light-blue;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3em;
+
+    div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        img{
+            object-fit: contain;
+        }
+
+        h3{
+            font-size: 3em;
+            font-family: serif;
+            font-weight: bold;
+        }
+
+        a{
+            color: $gold;
+            border: solid 1px $gold;
+            border-radius: 2px;
+            padding: 1em 1.5em;
+            text-decoration: none;
+
+            &:hover{
+                background-color: $gold;
+                color: $dark-blue;
+            }
+        }
+    }
+
+    span{
+        align-self: center;
+        color: lightgrey;
+        font-size: 0.9em;
+        font-weight: bold;
     }
 }

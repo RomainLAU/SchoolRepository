@@ -12,7 +12,7 @@ li {
 
 #particles-js {
   background-color: rgba(0, 0, 0, 0);
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   background-image: url("../image/bg.png");
   background-repeat: no-repeat;
@@ -20,7 +20,6 @@ li {
   background-position: left bottom;
   position: relative;
   border-bottom: solid 1px #303552;
-  overflow: hidden;
 }
 #particles-js nav {
   display: flex;
@@ -90,55 +89,57 @@ li {
   right: 20em;
 }
 
-#about-me {
-  height: 100vh;
-}
 #about-me #content {
   margin: 0 15em;
 }
-#about-me #content #about-inputs {
-  display: flex;
-}
-#about-me #content #about-inputs input {
+#about-me #content input {
   display: none;
 }
-#about-me #content #about-inputs input:checked + label {
+#about-me #content #about:checked ~ ul > li > label[for=about],
+#about-me #content #skills:checked ~ ul > li > label[for=skills],
+#about-me #content #service:checked ~ ul > li > label[for=service],
+#about-me #content #interview:checked ~ ul > li > label[for=interview],
+#about-me #content #award:checked ~ ul > li > label[for=award],
+#about-me #content #exhibition:checked ~ ul > li > label[for=exhibition] {
   background-color: #ffc576;
   color: #1f2236;
 }
-#about-me #content #about-inputs label {
+#about-me #content ul {
+  display: flex;
+}
+#about-me #content ul li {
   background-color: #1f2236;
-  padding: 1.75em 2em;
   border: solid 1px #303552;
   flex-grow: 1;
   text-align: center;
+}
+#about-me #content ul li label {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 14px;
+  display: block;
   cursor: pointer;
+  padding: 1.75em 2em;
 }
-#about-me #content #about-inputs label:hover {
+#about-me #content ul li label:hover {
   background-color: #ffc576;
   color: #1f2236;
 }
-#about-me #content #about-me-content {
-  background-color: #303552;
-  padding: 5em;
-}
-#about-me #content #about-me-content div {
-  display: flex;
+#about-me #content div {
   column-gap: 5em;
   display: none;
+  background-color: #303552;
+  padding: 3em;
 }
-#about-me #content #about-me-content div img {
+#about-me #content div img {
   object-fit: contain;
 }
-#about-me #content #about-me-content div .description {
+#about-me #content div .description {
   display: flex;
   flex-direction: column;
   row-gap: 1.5em;
 }
-#about-me #content #about-me-content div .description h3 {
+#about-me #content div .description h3 {
   font-family: serif;
   font-size: 3em;
   font-weight: bold;
@@ -146,26 +147,27 @@ li {
   flex-direction: column;
   row-gap: 0.5em;
 }
-#about-me #content #about-me-content div .description h3 span {
+#about-me #content div .description h3 span {
   font-family: system-ui;
   color: #ffc576;
-  font-size: 0.5em;
+  font-size: 0.4em;
+  text-transform: uppercase;
 }
-#about-me #content #about-me-content div .description .text-description {
+#about-me #content div .description .text-description {
   font-family: system-ui;
   display: contents;
   line-height: 2em;
 }
-#about-me #content #about-me-content div .description .text-description main {
+#about-me #content div .description .text-description main {
   display: contents;
   color: #ffc576;
   text-transform: capitalize;
 }
-#about-me #content #about-me-content div .description p {
+#about-me #content div .description p {
   font-family: system-ui;
   line-height: 2em;
 }
-#about-me #content #about-me-content div .description a {
+#about-me #content div .description a {
   color: #ffc576;
   text-decoration: none;
   border: solid 1px #ffc576;
@@ -173,9 +175,296 @@ li {
   padding: 1em 2.5em;
   border-radius: 2px;
 }
-#about-me #content #about-me-content div .description a:hover {
+#about-me #content div .description a:hover {
   background-color: #ffc576;
   color: #1f2236;
+}
+#about-me #content #about:checked ~ #about-content,
+#about-me #content #skills:checked ~ #skills-content,
+#about-me #content #service:checked ~ #service-content,
+#about-me #content #interview:checked ~ #interview-content,
+#about-me #content #award:checked ~ #award-content,
+#about-me #content #exhibition:checked ~ #exhibition-content {
+  display: flex;
+}
+
+#projects {
+  margin-top: 5em;
+  padding: 0 15em;
+  margin-bottom: 5em;
+  overflow-x: hidden;
+}
+#projects h3 {
+  font-size: 3em;
+  font-family: serif;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3em;
+  margin-bottom: 1em;
+}
+#projects h3 span {
+  font-family: sans-serif;
+  font-size: 0.4em;
+  color: #ffc576;
+}
+#projects input {
+  display: none;
+}
+#projects label {
+  font-size: 2em;
+  padding: 0.4em 0.6em;
+  padding-bottom: 0.6em;
+  color: white;
+  border: solid 1px #ffc576;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#projects #left:checked ~ label[for=left],
+#projects #right:checked ~ label[for=right] {
+  background-color: #ffc576;
+  color: #1f2236;
+}
+#projects #right:checked ~ #project-list {
+  transform: translateX(-700px);
+  transition: transform 1s;
+}
+#projects #project-list {
+  display: flex;
+  margin-top: 4em;
+  column-gap: 2em;
+  transition: transform 1s;
+}
+#projects #project-list .project {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px 10px 0 0;
+  background-color: #303552;
+  border-bottom: solid 1px #ffc576;
+  min-width: 20em;
+}
+#projects #project-list .project img {
+  border-radius: 10px;
+}
+#projects #project-list .project .project-info {
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2em;
+  line-height: 2em;
+}
+#projects #project-list .project .project-info span {
+  color: #ffc576;
+}
+#projects #project-list .project .project-info h4 {
+  font-size: 1.75em;
+  font-family: serif;
+  font-weight: bold;
+}
+#projects #project-list .project .project-info a {
+  color: #ffc576;
+  border: solid 1px #ffc576;
+  width: fit-content;
+  border-radius: 2px;
+  text-decoration: none;
+  padding: 0.3em 2em;
+  font-weight: bold;
+}
+#projects #project-list .project .project-info a:hover {
+  background-color: #ffc576;
+  color: #1f2236;
+}
+
+#testimonials {
+  background-color: #22253C;
+  padding: 5em 15em;
+  overflow-x: hidden;
+}
+#testimonials h3 {
+  font-size: 3em;
+  font-family: serif;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3em;
+  margin-bottom: 1em;
+}
+#testimonials h3 span {
+  font-family: sans-serif;
+  font-size: 0.3em;
+  color: #ffc576;
+  text-transform: uppercase;
+}
+#testimonials input {
+  display: none;
+}
+#testimonials label {
+  font-size: 2em;
+  padding: 0.4em 0.6em;
+  padding-bottom: 0.6em;
+  color: white;
+  border: solid 1px #ffc576;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#testimonials #left-reviews:checked ~ label[for=left-reviews],
+#testimonials #right-reviews:checked ~ label[for=right-reviews] {
+  background-color: #ffc576;
+  color: #1f2236;
+}
+#testimonials #right-reviews:checked ~ #reviews > .review:nth-child(3),
+#testimonials #right-reviews:checked ~ #reviews > .review:nth-child(4) {
+  display: flex;
+  transition: display 1s;
+}
+#testimonials #right-reviews:checked ~ #reviews > .review:nth-child(1),
+#testimonials #right-reviews:checked ~ #reviews > .review:nth-child(2) {
+  display: none;
+  transition: display 1s;
+}
+#testimonials #left-reviews:checked ~ #reviews > .review:nth-child(1),
+#testimonials #left-reviews:checked ~ #reviews > .review:nth-child(2) {
+  display: flex;
+  transition: display 1s;
+}
+#testimonials #left-reviews:checked ~ #reviews > .review:nth-child(3),
+#testimonials #left-reviews:checked ~ #reviews > .review:nth-child(4) {
+  display: none;
+  transition: display 1s;
+}
+#testimonials #reviews {
+  display: flex;
+  column-gap: 2em;
+  margin-top: 5em;
+}
+#testimonials #reviews .review {
+  transition: display 1s;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px #ffc576;
+  border-radius: 5px;
+  background-color: #303552;
+  padding: 2em;
+  min-width: 40%;
+}
+#testimonials #reviews .review .top-review {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+#testimonials #reviews .review .top-review .client-info {
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+#testimonials #reviews .review .top-review .client-info img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+#testimonials #reviews .review .top-review .client-info div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.4em;
+}
+#testimonials #reviews .review .top-review .client-info div h4 {
+  font-family: serif;
+  font-weight: bold;
+  font-size: 1.75em;
+}
+#testimonials #reviews .review .top-review .client-info div span {
+  color: #ffc576;
+  font-size: 0.8em;
+}
+#testimonials #reviews .review .top-review .quotes {
+  width: 70px;
+  height: 70px;
+}
+#testimonials #reviews .review p {
+  line-height: 2em;
+  font-weight: bold;
+  font-style: italic;
+}
+#testimonials #reviews .review:nth-child(3), #testimonials #reviews .review:nth-child(4) {
+  display: none;
+}
+
+#honorable {
+  padding: 5em 15em;
+  display: flex;
+  flex-direction: row;
+  column-gap: 19.5em;
+  justify-content: space-around;
+}
+#honorable h3 {
+  font-size: 3em;
+  font-family: serif;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3em;
+  margin-bottom: 1em;
+}
+#honorable h3 span {
+  font-family: sans-serif;
+  font-size: 0.3em;
+  color: #ffc576;
+  text-transform: uppercase;
+}
+#honorable #clients {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2em;
+  row-gap: 2em;
+}
+#honorable #clients .client img {
+  width: 300px;
+  height: 300px;
+  cursor: pointer;
+}
+#honorable #clients .client:hover {
+  background-color: black;
+}
+#honorable #clients .client:hover img {
+  opacity: 0.8;
+}
+
+footer {
+  padding: 5em 15em;
+  background-color: #303552;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3em;
+}
+footer div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer div img {
+  object-fit: contain;
+}
+footer div h3 {
+  font-size: 3em;
+  font-family: serif;
+  font-weight: bold;
+}
+footer div a {
+  color: #ffc576;
+  border: solid 1px #ffc576;
+  border-radius: 2px;
+  padding: 1em 1.5em;
+  text-decoration: none;
+}
+footer div a:hover {
+  background-color: #ffc576;
+  color: #1f2236;
+}
+footer span {
+  align-self: center;
+  color: lightgrey;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=style.css.map */
