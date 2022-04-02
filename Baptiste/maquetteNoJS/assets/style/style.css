@@ -1,0 +1,181 @@
+body {
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-family: sans-serif;
+  background-color: #1f2236;
+}
+
+li {
+  list-style-type: none;
+}
+
+#particles-js {
+  background-color: rgba(0, 0, 0, 0);
+  height: 100vh;
+  margin: 0;
+  background-image: url("../image/bg.png");
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: left bottom;
+  position: relative;
+  border-bottom: solid 1px #303552;
+  overflow: hidden;
+}
+#particles-js nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5em 15em;
+}
+#particles-js nav ul {
+  display: flex;
+  padding: 0;
+}
+#particles-js nav ul li {
+  font-size: 14px;
+  padding: 1em;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+#particles-js nav ul li a {
+  color: #ffc576;
+  border: solid 1px #ffc576;
+  border-radius: 2px;
+  padding: 1em 1.5em;
+  text-decoration: none;
+}
+#particles-js nav ul li a:hover {
+  background-color: #ffc576;
+  color: #1f2236;
+}
+#particles-js nav ul li:not(#lets-chat):hover {
+  color: #ffc576;
+  border-bottom: solid 2px #ffc576;
+}
+#particles-js header {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  column-gap: 20em;
+  padding: 0 15em;
+}
+#particles-js header #text {
+  margin-top: 10em;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2em;
+}
+#particles-js header #text h1 {
+  display: flex;
+  flex-direction: column;
+  font-size: 10em;
+  font-family: serif;
+  width: min-content;
+  font-weight: bold;
+}
+#particles-js header #text h1 span {
+  color: #ffc576;
+  font-family: system-ui;
+  font-size: 0.3em;
+  font-weight: 400;
+}
+#particles-js header #text h2 {
+  font-size: 2em;
+}
+#particles-js #profile-picture {
+  align-self: flex-end;
+  z-index: -10;
+  position: absolute;
+  bottom: 0;
+  right: 20em;
+}
+
+#about-me {
+  height: 100vh;
+}
+#about-me #content {
+  margin: 0 15em;
+}
+#about-me #content #about-inputs {
+  display: flex;
+}
+#about-me #content #about-inputs input {
+  display: none;
+}
+#about-me #content #about-inputs input:checked + label {
+  background-color: #ffc576;
+  color: #1f2236;
+}
+#about-me #content #about-inputs label {
+  background-color: #1f2236;
+  padding: 1.75em 2em;
+  border: solid 1px #303552;
+  flex-grow: 1;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+#about-me #content #about-inputs label:hover {
+  background-color: #ffc576;
+  color: #1f2236;
+}
+#about-me #content #about-me-content {
+  background-color: #303552;
+  padding: 5em;
+}
+#about-me #content #about-me-content div {
+  display: flex;
+  column-gap: 5em;
+  display: none;
+}
+#about-me #content #about-me-content div img {
+  object-fit: contain;
+}
+#about-me #content #about-me-content div .description {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5em;
+}
+#about-me #content #about-me-content div .description h3 {
+  font-family: serif;
+  font-size: 3em;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+}
+#about-me #content #about-me-content div .description h3 span {
+  font-family: system-ui;
+  color: #ffc576;
+  font-size: 0.5em;
+}
+#about-me #content #about-me-content div .description .text-description {
+  font-family: system-ui;
+  display: contents;
+  line-height: 2em;
+}
+#about-me #content #about-me-content div .description .text-description main {
+  display: contents;
+  color: #ffc576;
+  text-transform: capitalize;
+}
+#about-me #content #about-me-content div .description p {
+  font-family: system-ui;
+  line-height: 2em;
+}
+#about-me #content #about-me-content div .description a {
+  color: #ffc576;
+  text-decoration: none;
+  border: solid 1px #ffc576;
+  width: fit-content;
+  padding: 1em 2.5em;
+  border-radius: 2px;
+}
+#about-me #content #about-me-content div .description a:hover {
+  background-color: #ffc576;
+  color: #1f2236;
+}
+
+/*# sourceMappingURL=style.css.map */
