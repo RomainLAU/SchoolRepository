@@ -11,7 +11,6 @@ li {
 }
 
 #particles-js {
-  background-color: rgba(0, 0, 0, 0);
   min-height: 100vh;
   margin: 0;
   background-image: url("../image/bg.png");
@@ -24,19 +23,24 @@ li {
 #particles-js nav {
   display: flex;
   justify-content: space-between;
-  padding: 1.5em 15em;
+  padding: 1.75em 15em;
+  align-items: center;
 }
 #particles-js nav ul {
   display: flex;
   padding: 0;
+  column-gap: 3em;
 }
 #particles-js nav ul li {
   font-size: 14px;
-  padding: 1em;
+  padding: 0.1em 0;
   cursor: pointer;
   text-transform: uppercase;
+  padding-bottom: 1em;
+  border-bottom: solid 2px transparent;
 }
 #particles-js nav ul li a {
+  min-width: fit-content;
   color: #ffc576;
   border: solid 1px #ffc576;
   border-radius: 2px;
@@ -47,9 +51,84 @@ li {
   background-color: #ffc576;
   color: #1f2236;
 }
-#particles-js nav ul li:not(#lets-chat):hover {
+#particles-js nav ul:nth-child(2) li:not(#lets-chat):hover {
   color: #ffc576;
   border-bottom: solid 2px #ffc576;
+}
+@media screen and (max-width: 775px) {
+  #particles-js nav ul:nth-child(2) {
+    display: none;
+  }
+}
+#particles-js nav #little-menu {
+  display: none;
+  color: white;
+  margin-right: 2em;
+  position: relative;
+}
+#particles-js nav #little-menu li #burger-button {
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  transition: 0.4s ease-in-out;
+  background-color: white;
+}
+#particles-js nav #little-menu li #sub-menu {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.306);
+  border-radius: 10px;
+  margin-top: 12px;
+  right: -30px;
+  width: max-content;
+  padding: 0.75em;
+  line-height: 1.75em;
+  flex-direction: column;
+  display: none;
+  z-index: 100;
+}
+#particles-js nav #little-menu li #sub-menu li:last-child {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+#particles-js nav #little-menu li ul #little-menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 50;
+}
+#particles-js nav #little-menu li ul #little-menu ul li {
+  background-color: rgba(38, 38, 71, 0.9);
+}
+#particles-js nav #little-menu li ul #little-menu ul li a {
+  display: block;
+}
+@media screen and (max-width: 775px) {
+  #particles-js nav #little-menu li ul #little-menu {
+    display: flex;
+  }
+}
+#particles-js nav #little-menu:hover #burger-button {
+  transition: 0.4s ease-in-out;
+}
+#particles-js nav #little-menu:hover #sub-menu {
+  display: flex;
+}
+@media screen and (max-width: 775px) {
+  #particles-js nav #little-menu {
+    display: flex;
+    height: 100%;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 1150px) {
+  #particles-js nav {
+    padding: 1.75em 5em;
+  }
+}
+@media screen and (max-width: 450px) {
+  #particles-js nav {
+    padding: 1.75em 2em;
+  }
 }
 #particles-js header {
   display: flex;
@@ -78,8 +157,23 @@ li {
   font-size: 0.3em;
   font-weight: 400;
 }
+@media screen and (max-width: 1100px) {
+  #particles-js header #text h1 {
+    font-size: 5em;
+  }
+}
 #particles-js header #text h2 {
   font-size: 2em;
+}
+@media screen and (max-width: 1400px) {
+  #particles-js header {
+    padding: 0 5em;
+  }
+}
+@media screen and (max-width: 450px) {
+  #particles-js header {
+    padding: 0 1em;
+  }
 }
 #particles-js #profile-picture {
   align-self: flex-end;
@@ -87,6 +181,11 @@ li {
   position: absolute;
   bottom: 0;
   right: 20em;
+}
+@media screen and (max-width: 1400px) {
+  #particles-js #profile-picture {
+    display: none;
+  }
 }
 
 #about-me #content {
@@ -106,6 +205,7 @@ li {
 }
 #about-me #content ul {
   display: flex;
+  flex-wrap: wrap;
 }
 #about-me #content ul li {
   background-color: #1f2236;
@@ -133,6 +233,11 @@ li {
 }
 #about-me #content div img {
   object-fit: contain;
+}
+@media screen and (max-width: 1500px) {
+  #about-me #content div img {
+    object-fit: fill;
+  }
 }
 #about-me #content div .description {
   display: flex;
@@ -179,6 +284,12 @@ li {
   background-color: #ffc576;
   color: #1f2236;
 }
+@media screen and (max-width: 1500px) {
+  #about-me #content div {
+    flex-direction: column;
+    padding: 1em;
+  }
+}
 #about-me #content #about:checked ~ #about-content,
 #about-me #content #skills:checked ~ #skills-content,
 #about-me #content #service:checked ~ #service-content,
@@ -186,6 +297,16 @@ li {
 #about-me #content #award:checked ~ #award-content,
 #about-me #content #exhibition:checked ~ #exhibition-content {
   display: flex;
+}
+@media screen and (max-width: 850px) {
+  #about-me #content {
+    margin: 0 5em;
+  }
+}
+@media screen and (max-width: 450px) {
+  #about-me #content {
+    margin: 0 2em;
+  }
 }
 
 #projects {
@@ -274,6 +395,16 @@ li {
   background-color: #ffc576;
   color: #1f2236;
 }
+@media screen and (max-width: 850px) {
+  #projects {
+    padding: 0 5em;
+  }
+}
+@media screen and (max-width: 450px) {
+  #projects {
+    padding: 0 2em;
+  }
+}
 
 #testimonials {
   background-color: #22253C;
@@ -345,7 +476,6 @@ li {
   border-radius: 5px;
   background-color: #303552;
   padding: 2em;
-  min-width: 40%;
 }
 #testimonials #reviews .review .top-review {
   display: flex;
@@ -362,6 +492,12 @@ li {
   height: 64px;
   border-radius: 50%;
 }
+@media screen and (max-width: 450px) {
+  #testimonials #reviews .review .top-review .client-info img {
+    width: 128px;
+    height: 128px;
+  }
+}
 #testimonials #reviews .review .top-review .client-info div {
   display: flex;
   flex-direction: column;
@@ -376,9 +512,26 @@ li {
   color: #ffc576;
   font-size: 0.8em;
 }
+@media screen and (max-width: 450px) {
+  #testimonials #reviews .review .top-review .client-info div {
+    row-gap: 1em;
+  }
+}
+@media screen and (max-width: 450px) {
+  #testimonials #reviews .review .top-review .client-info {
+    flex-direction: column;
+    row-gap: 1em;
+  }
+}
 #testimonials #reviews .review .top-review .quotes {
   width: 70px;
   height: 70px;
+}
+@media screen and (max-width: 450px) {
+  #testimonials #reviews .review .top-review {
+    flex-direction: column;
+    margin-bottom: 0;
+  }
 }
 #testimonials #reviews .review p {
   line-height: 2em;
@@ -387,6 +540,22 @@ li {
 }
 #testimonials #reviews .review:nth-child(3), #testimonials #reviews .review:nth-child(4) {
   display: none;
+}
+@media screen and (max-width: 850px) {
+  #testimonials #reviews {
+    flex-direction: column;
+    row-gap: 2em;
+  }
+}
+@media screen and (max-width: 850px) {
+  #testimonials {
+    padding: 5em;
+  }
+}
+@media screen and (max-width: 450px) {
+  #testimonials {
+    padding: 2em;
+  }
 }
 
 #honorable {
@@ -428,6 +597,27 @@ li {
 #honorable #clients .client:hover img {
   opacity: 0.8;
 }
+@media screen and (max-width: 850px) {
+  #honorable #clients {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 1550px) {
+  #honorable {
+    column-gap: 5em;
+  }
+}
+@media screen and (max-width: 850px) {
+  #honorable {
+    padding: 5em;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 450px) {
+  #honorable {
+    padding: 2em;
+  }
+}
 
 footer {
   padding: 5em 15em;
@@ -460,11 +650,28 @@ footer div a:hover {
   background-color: #ffc576;
   color: #1f2236;
 }
+@media screen and (max-width: 700px) {
+  footer div {
+    flex-direction: column;
+    row-gap: 1em;
+  }
+}
 footer span {
   align-self: center;
   color: lightgrey;
   font-size: 0.9em;
   font-weight: bold;
+}
+@media screen and (max-width: 850px) {
+  footer {
+    padding: 5em;
+  }
+}
+@media screen and (max-width: 450px) {
+  footer {
+    padding: 2em;
+    row-gap: 2em;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
