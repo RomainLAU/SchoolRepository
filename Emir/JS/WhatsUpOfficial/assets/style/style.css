@@ -103,3 +103,8 @@ li{
 .delete{
     color: rgb(121, 0, 0);
 }
+
+#identificationForm > #loginError{
+    color: red;
+    display: none;
+}

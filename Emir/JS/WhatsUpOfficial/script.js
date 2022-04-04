@@ -1,3 +1,5 @@
+import { getToken, getUsername, getAllMessages, postMessage, deleteMessageFromAPI, updateMessage } from "./api.js"
+
 window.addEventListener("DOMContentLoaded", function () {
 
     let messages = document.querySelector('#messages')
@@ -10,60 +12,89 @@ window.addEventListener("DOMContentLoaded", function () {
     let ignoredUsers = document.querySelector('#ignoredUsers')
 
     let identificationForm = document.querySelector('#identificationForm')
+    let loginError = document.querySelector('#loginError')
 
     let sendingInputs = document.querySelector('#sendingInputs')
 
     sendingInputs.style.display = "none"
 
-    if (!localStorage.getItem("blacklist")) {
+    if (typeof localStorage.getItem("token") !== 'undefined' && !localStorage.getItem("blacklist")) {
 
-        ignoreUser("nobody")
+        ignoreUser("initialize")
     }
 
     function ignoreUser(user) {
 
         if (localStorage.getItem("blacklist")) {
 
-            localStorage.setItem("blacklist", localStorage.getItem("blacklist") + ', ' + user)
+            if (localStorage.getItem("blacklist").length == 1) {
+
+                localStorage.setItem("blacklist", user)
+
+            } else if (!localStorage.getItem("blacklist").includes(user) && localStorage.getItem("blacklist").length > 0) {
+
+                localStorage.setItem("blacklist", localStorage.getItem("blacklist") + ', ' + user)
+            }
                 
         } else {
 
-            localStorage.setItem("blacklist", user)
+            localStorage.setItem("blacklist", " ")
         }
 
         clearMessages()
-        showAllMessages(localStorage.getItem("token"))
+        showMessages()
+    }
+
+    function removeIgnoredUser(user) {
+
+        if (localStorage.getItem('blacklist') && localStorage.getItem('blacklist').length > 1) {
+
+            let blacklist = (localStorage.getItem('blacklist')).split(',')
+
+            blacklist.splice(blacklist.indexOf(user), 1)
+
+            localStorage.setItem('blacklist', blacklist)
+
+
+
+        }
     }
 
     function isSetToken() {
 
-        showAllMessages(localStorage.getItem("token"))
+        if (typeof localStorage.getItem("token") !== undefined && localStorage.getItem("token") !== null) {
 
-        if (localStorage.getItem("token")) {
+            return true
     
-            setInterval( function () {
-                showNewMessages(localStorage.getItem("token"))
-            }, 5000)
-    
-        } else {
-            showIdentifyPage()
         }
     }
 
-    isSetToken()
+    let timerNewMessages
 
-    disconnectButton.addEventListener("click", function() {
+    if (isSetToken()) {
 
-        localStorage.clear("token")
+        showMessages()
+
+        timerNewMessages = setInterval(() => showNewMessages(), 5000)
+
+    } else {
+
+        showIdentificationPage()
+    }
+    
+    disconnectButton.addEventListener("click", () => {
+
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
         clearMessages()
-        showIdentifyPage()
         localStorage.setItem('lastMessageID', 0)
-        isSetToken()
+        showIdentificationPage()
+        clearInterval(timerNewMessages)
     })
 
     function clearMessages() {
 
-        while(messages.firstChild){
+        while(messages.firstChild) {
 
             messages.removeChild(messages.firstChild)
 
@@ -78,6 +109,8 @@ window.addEventListener("DOMContentLoaded", function () {
 
         let goodName = name.match(nameRegex)
 
+        name = name.replace(/\./g, '\.')
+
         let goodLookingName = ''
 
         if (goodName) {
@@ -86,7 +119,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
 
         let messageLi = document.createElement('li')
-        messageLi.setAttribute("class", "message")
+        messageLi.setAttribute("class", "message " + name)
         messageLi.setAttribute("id", "message" + id)
         messages.appendChild(messageLi)
 
@@ -115,7 +148,7 @@ window.addEventListener("DOMContentLoaded", function () {
             let updateButton = document.createElement('button')
             updateButton.setAttribute("class", "update")
             updateButton.setAttribute("onclick", 'getContentOfMessage(' + id + ')')
-            updateButton.onclick = function() {
+            updateButton.onclick = () => {
                 getContentOfMessage(id)
             }
 
@@ -130,7 +163,7 @@ window.addEventListener("DOMContentLoaded", function () {
             let ignoreButton = document.createElement('button')
             ignoreButton.setAttribute("class", "ignore")
             ignoreButton.setAttribute("onclick", 'ignoreUser(' + name + ')')
-            ignoreButton.onclick = function() {
+            ignoreButton.onclick = () => {
                 ignoreUser(name)
             }
 
@@ -158,13 +191,9 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function showIdentifyPage() {
+    function showIdentificationPage() {
 
-        while(identificationForm.firstChild){
-            identificationForm.removeChild(identificationForm.firstChild)
-        }
-
-        while(messages.firstChild){
+        while(messages.firstChild) {
             messages.removeChild(messages.firstChild)
         }
         
@@ -195,225 +224,173 @@ window.addEventListener("DOMContentLoaded", function () {
 
 
         submitButton.addEventListener('click', function () {
-            getToken(emailInput.value, passwordInput.value)
+            login(emailInput.value, passwordInput.value)
         })
 
         passwordInput.addEventListener('keydown', function (event) {
             if (event.code === 'Enter') {
 
-                getToken(emailInput.value, passwordInput.value)
+                login(emailInput.value, passwordInput.value)
             }
         })
     }
 
-    function getToken(emailSent, passwordSent) {
-        
-        fetch("https://api.edu.etherial.dev/apijsv2/auth", {
-            method: 'POST',
-            body: JSON.stringify({
-                email: emailSent,
-                password: passwordSent
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            }
-        }).then(function (response) {
-            if (response.ok) {
-                return response.json()
-            }
-            return Promise.reject(response)
-        }).then(function (data) {
+    function login(emailSent, passwordSent) {
 
-            let newToken = data['data']['token']
+        getToken(emailSent, passwordSent).then((data) => {
 
-            localStorage.setItem("token", newToken)
+            localStorage.setItem("token", data.data.token)
+
+            removeIdentificationScreen()
 
             getUsername()
 
-            showAllMessages(localStorage.getItem("token"))
+            showMessages()
 
-        }).catch(function (error) {
-            console.warn('Something went wrong.', error)
+            loginError.style.display = "none"
+
+        }).catch(() => {
+            displayLoginError()
+        })
+
+    }
+
+    function displayLoginError() {
+
+        loginError.style.display = "block"
+    }
+
+    function removeIdentificationScreen() {
+
+        while (identificationForm.firstChild) {
+
+            identificationForm.removeChild(identificationForm.firstChild)
+            
+        }
+    }
+
+    function getBlacklistContent() {
+
+        if (typeof localStorage.getItem("blacklist") !== 'undefined') {
+            return localStorage.getItem("blacklist").split(',')
+        }
+    }
+
+    function sortMessagesByBlacklist(data) {
+
+        return data.slice(0).reverse().filter(message => getBlacklistContent().includes(message.nickname) === false)
+    }
+
+    function showFilteredMessages(data) {
+
+        sortMessagesByBlacklist(data).map((value, index) => {
+
+            localStorage.setItem('lastMessageID', value.id)
+
+            createMessage(value.nickname, value.message, value.createdAt, value.id)
+
+            window.scrollTo(0,document.body.scrollHeight)
+
         })
     }
 
-    function showAllMessages(token) {
+    function showAllMessages(data) {
 
-        if (token) {
+        data.slice(0).reverse().map((value, index) => {
 
-            fetch("https://api.edu.etherial.dev/apijsv2/messages", {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    'Authorization': 'Bearer ' + token
-                }
-            }).then(function (response) {
-                if (response.ok) {
-                    return response.json()
-                }
-                return Promise.reject(response)
-            }).then(function (data) {
+            localStorage.setItem('lastMessageID', value.id)
 
-                sendingInputs.style.display = "flex"
-                
-                while (identificationForm.firstChild) {
+            createMessage(value.nickname, value.message, value.createdAt, value.id)
 
-                    identificationForm.removeChild(identificationForm.firstChild)
-                    
-                }
+            window.scrollTo(0,document.body.scrollHeight)
 
-                if (localStorage.getItem("blacklist")) {
-                    let localBlacklist = localStorage.getItem("blacklist").split(',')
-                }
-        
-                data['data'].slice(0).reverse().map(function(value, index) {
+        })
+    }
 
-                    if (localBlacklist.includes(value['nickname']) === false) {
+    function showChatInputs() {
 
-                        localStorage.setItem('lastMessageID', value['id'])
+        sendingInputs.style.display = "flex"
+    }
 
-                        createMessage(value['nickname'], value['message'], value['createdAt'], value['id'])
+    function showMessages() {
 
-                        window.scrollTo(0,document.body.scrollHeight)
-                    }
-        
-                })
-            }).catch(function (error) {
-                console.warn('Something went wrong.', error)
+        showChatInputs()
+
+        if (typeof localStorage.getItem("blacklist") !== 'undefined') {
+
+            getAllMessages(localStorage.getItem("token")).then((data) => {
+                showFilteredMessages(data)
+            })
+
+        } else {
+
+            getAllMessages(localStorage.getItem("token")).then((data) => {
+                showAllMessages(data)
             })
         }
     }
 
-    function showNewMessages(token) {
+    function showNewMessages() {
 
-        if (token) {
+        if (typeof localStorage.getItem("blacklist") !== undefined) {
 
-            fetch("https://api.edu.etherial.dev/apijsv2/messages", {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    'Authorization': 'Bearer ' + token
-                }
-            }).then(function (response) {
-                if (response.ok) {
-                    return response.json()
-                }
-                return Promise.reject(response)
-            }).then(function (data) {
+            getAllMessages(localStorage.getItem("token")).then((data) => {
+                sortMessagesByBlacklist(data).forEach(value => {
 
-                sendingInputs.style.display = "flex"
-                
-                while (identificationForm.firstChild) {
+                    if (localStorage.getItem('lastMessageID') && value.id > localStorage.getItem('lastMessageID')) {
 
-                    identificationForm.removeChild(identificationForm.firstChild)
-                    
-                }
+                        localStorage.setItem('lastMessageID', value.id)
 
-                localBlacklist = localStorage.getItem("blacklist").split(',')
-        
-                data['data'].slice(0).reverse().map(function (value, index) {
+                        createMessage(value.nickname, value.message, value.createdAt, value.id)
 
-                    if (localBlacklist.includes(value['nickname']) === false) {
+                        window.scrollTo(0,document.body.scrollHeight)
 
-                        if (localStorage.getItem('lastMessageID') && value['id'] > localStorage.getItem('lastMessageID')) {
-
-                            localStorage.setItem('lastMessageID', value['id'])
-    
-                            createMessage(value['nickname'], value['message'], value['createdAt'], value['id'])
-    
-                            window.scrollTo(0,document.body.scrollHeight)
-    
-                        }
                     }
                 })
-            }).catch(function (error) {
-                console.warn('Something went wrong.', error)
+            })
+
+        } else {
+
+            getAllMessages(localStorage.getItem("token")).then((data) => {
+
+                data.forEach(value => {
+
+                    if (localStorage.getItem('lastMessageID') && value.id > localStorage.getItem('lastMessageID')) {
+
+                        localStorage.setItem('lastMessageID', value.id)
+
+                        createMessage(value.nickname, value.message, value.createdAt, value.id)
+
+                        window.scrollTo(0,document.body.scrollHeight)
+
+                    }
+                })
             })
         }
     }
 
     function sendMessage() {
-        if (messageInput.value.length !== 0 && messageInput.value !== null && messageInput.value !== ' ' && messageInput.value !== '\n') {
-            fetch("https://api.edu.etherial.dev/apijsv2/messages", {
-                method: 'POST',
-                body: JSON.stringify({
-                    message: messageInput.value
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    'authorization': 'Bearer ' + localStorage.getItem("token")
-                }
-            }).then(function (response) {
-                if (response.ok) {
-                    return response.json()
-                }
-                return Promise.reject(response)
-            }).then(function (data) {
-                console.log(data)
-                localStorage.setItem("lastMessage", data['data']['id'])
-
-            }).catch(function (error) {
-                console.warn('Something went wrong.', error)
+        if (messageInput.value.length !== 0) {
+            postMessage(messageInput.value).then(() => {
+                showNewMessages(localStorage.getItem("token"))
             })
         }
         
         messageInput.value = ''
-        
-        showNewMessages(localStorage.getItem("token"))
-        showNewMessages(localStorage.getItem("token"))
     }
 
-    function getUsername() {
 
-        fetch("https://api.edu.etherial.dev/apijsv2/users/me", {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                'Content-type': 'application/json; charset=UTF-8'
-            }
-        }).then(function (response) {
-            if (response.ok) {
-                return response.json()
-            }
-            return Promise.reject(response)
-        }).then(function (data) {
 
-            let currentUser = data['data']['nickname']
+    function deleteMessage(message) {
 
-            localStorage.setItem("user", currentUser)
+        deleteMessageFromAPI(message)
 
-        }).catch(function (error) {
-            console.warn('Something went wrong.', error)
-        })
-    }
-
-    function deleteMessage(thisMessage) {
-
-        fetch("https://api.edu.etherial.dev/apijsv2/messages/" + thisMessage, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                'Content-type': 'application/json; charset=UTF-8'
-            }
-        }).then(function (response) {
-            if (response.of) {
-                return response.json()
-            }
-            return Promise.reject(response)
-        }).then(function (data) {
-
-            console.log(data)
-
-        }).catch(function (error) {
-            console.warn('Something went wrong.', error)
-        })
-
-        let messageToDelete = document.querySelector('#message' + thisMessage)
+        const messageToDelete = document.querySelector('#message' + message)
         messages.removeChild(messageToDelete)
     }
 
-    function getContentOfMessage(thisMessage) {
-        let currentMessage = document.querySelector('#message' + thisMessage)
+    function getContentOfMessage(message) {
+        let currentMessage = document.querySelector('#message' + message)
 
         let contentOfCurrentMessage = currentMessage.childNodes[3]
 
@@ -426,18 +403,14 @@ window.addEventListener("DOMContentLoaded", function () {
         inputEditMessage.setAttribute("id", "editInput")
         inputEditMessage.setAttribute("value", textOfCurrentMessage)
 
-        console.log(textOfCurrentMessage)
-
         currentMessage.appendChild(inputEditMessage)
 
         inputEditMessage.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 let newMessage = inputEditMessage.value
 
-                console.log(newMessage)
-
                 event.preventDefault()
-                updateMessage(newMessage, thisMessage)
+                updateMessage(newMessage, message)
 
                 currentMessage.removeChild(inputEditMessage)
 
@@ -447,31 +420,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
                 currentMessage.appendChild(messageDiv)
             }
-        })
-    }
-
-    function updateMessage(newMessage, thisMessage) {
-
-        fetch("https://api.edu.etherial.dev/apijsv2/messages/" + thisMessage, {
-            method: 'PUT',
-            body: JSON.stringify({
-                message: newMessage
-            }),
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                'Content-type': 'application/json; charset=UTF-8'
-            }
-        }).then(function (response) {
-            if (response.of) {
-                return response.json()
-            }
-            return Promise.reject(response)
-        }).then(function (data) {
-
-            console.log(data)
-
-        }).catch(function (error) {
-            console.warn('Something went wrong.', error)
         })
     }
 
@@ -489,28 +437,47 @@ window.addEventListener("DOMContentLoaded", function () {
     function showBlacklist() {
 
         ignoredUsers.style.display = "block"
+        sendButton.style.display = "none"
+        messageInput.style.display = "none"
+        blacklistShowed = true
 
-        console.log(localStorage.getItem("blacklist"))
+        clearInterval(timerNewMessages)
 
-        if (localStorage.getItem("blacklist") !== "" || localStorage.getItem("blacklist") !== '{}' || localStorage.getItem("blacklist") !== {} || localStorage.getItem("blacklist").length !== 0) {
+        if (localStorage.getItem("blacklist") !== "" && localStorage.getItem("blacklist") !== {} && localStorage.getItem("blacklist").length !== 0) {
 
-            localBlacklist = localStorage.getItem("blacklist").split(',')
+            let localBlacklist = localStorage.getItem("blacklist").split(',')
 
-            localBlacklist.map(function(ignoredUser, index) {
+            localBlacklist.map((ignoredUser, index) => {
 
-                let user = document.createElement('li')
-                user.textContent = ignoredUser
+                if (ignoredUser.length > 0) {
 
-                ignoredUsers.appendChild(user)
+                    let user = document.createElement('li')
+                    user.textContent = ignoredUser
+    
+                    let removeUserButton = document.createElement('button')
+                    removeUserButton.textContent = "Remove " + ignoredUser
+                    removeUserButton.setAttribute("onclick", 'removeIgnoredUser(' + ignoredUser + ')')
+                    removeUserButton.onclick = function() {
+                        removeIgnoredUser(ignoredUser)
+                    }
+    
+                    ignoredUsers.appendChild(user)
+                    user.appendChild(removeUserButton)
+                }
             })
         }
     }
 
     function clearBlacklist() {
 
-        ignoredUsers.style.display = "none"
+        isSetToken()
+        blacklistShowed = false
 
-        while(ignoredUsers.firstChild){
+        ignoredUsers.style.display = "none"
+        sendButton.style.display = "block"
+        messageInput.style.display = "block"
+
+        while (ignoredUsers.firstChild) {
 
             ignoredUsers.removeChild(ignoredUsers.firstChild)
 
@@ -538,7 +505,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
             clearBlacklist()
 
-            showAllMessages(localStorage.getItem("token"))
+            showMessages()
 
             blacklistShowed = false
 
