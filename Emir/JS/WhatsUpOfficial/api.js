@@ -21,6 +21,7 @@ export function getToken(emailSent, passwordSent) {
             callback(data)
 
         }).catch((error) => {
+            reject(error)
             console.warn('Something went wrong.', error)
         })
     })

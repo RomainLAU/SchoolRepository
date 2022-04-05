@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400;900&family=Open+Sans:wght@300;400&display=swap');
 
 body{
-    height: 100%;
+    height: 100vh;
     max-width: 100%;
     margin: 0;
     padding: 0;
@@ -108,3 +108,38 @@ li{
     color: red;
     display: none;
 }
+
+#identificationForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 1em;
+    height: 100vh;
+}
+
+#identificationForm > input[type="text"],
+#identificationForm > input[type="password"] {
+    height: 10em;
+    width: 25em;
+    font-size: 1.5em;
+}
+
+#identificationForm > input[type="button"] {
+    width: 20em;
+    height: 5em;
+    border: solid 2px rgb(255, 207, 33);
+    background-color: transparent;
+    color:rgb(255, 207, 33);
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0;
+}
+
+#identificationForm > input[type="button"]:hover{
+    background-color:rgb(255, 207, 33);
+    color: rgb(32, 32, 32);
+}
+
+/*  */

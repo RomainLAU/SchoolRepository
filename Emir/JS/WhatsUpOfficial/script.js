@@ -18,27 +18,15 @@ window.addEventListener("DOMContentLoaded", function () {
 
     sendingInputs.style.display = "none"
 
-    if (typeof localStorage.getItem("token") !== 'undefined' && !localStorage.getItem("blacklist")) {
-
-        ignoreUser("initialize")
-    }
-
     function ignoreUser(user) {
 
-        if (localStorage.getItem("blacklist")) {
+        if (localStorage.getItem("blacklist") === null || localStorage.getItem("blacklist").length == 0) {
 
-            if (localStorage.getItem("blacklist").length == 1) {
+            localStorage.setItem("blacklist", user)
 
-                localStorage.setItem("blacklist", user)
+        } else if (!localStorage.getItem("blacklist").includes(user) && localStorage.getItem("blacklist").length > 0) {
 
-            } else if (!localStorage.getItem("blacklist").includes(user) && localStorage.getItem("blacklist").length > 0) {
-
-                localStorage.setItem("blacklist", localStorage.getItem("blacklist") + ', ' + user)
-            }
-                
-        } else {
-
-            localStorage.setItem("blacklist", " ")
+            localStorage.setItem("blacklist", localStorage.getItem("blacklist") + ',' + user)
         }
 
         clearMessages()
@@ -47,22 +35,98 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function removeIgnoredUser(user) {
 
-        if (localStorage.getItem('blacklist') && localStorage.getItem('blacklist').length > 1) {
+        if (localStorage.getItem('blacklist') !== null && localStorage.getItem('blacklist').length > 1) {
 
-            let blacklist = (localStorage.getItem('blacklist')).split(',')
+            let nameRegex = /^((\*)|([a-zA-Z0-9]+)\.(.+)*\*?)$/
+
+            let goodName = user.match(nameRegex)
+
+            let idName = goodName[3] + goodName[4]
+
+            let blacklist = localStorage.getItem('blacklist').split(',')
 
             blacklist.splice(blacklist.indexOf(user), 1)
 
             localStorage.setItem('blacklist', blacklist)
 
+            let userToDelete = document.querySelector('#' + idName)
 
+            ignoredUsers.removeChild(userToDelete)
 
         }
     }
 
+    function showBlacklist() {
+
+        ignoredUsers.style.display = "block"
+        sendButton.style.display = "none"
+        messageInput.style.display = "none"
+        blacklistShowed = true
+
+        let nameRegex = /^((\*)|([a-zA-Z0-9]+)\.(.+)*\*?)$/
+
+        clearInterval(timerNewMessages)
+
+        if (localStorage.getItem("blacklist") !== null) {
+
+            let localBlacklist = localStorage.getItem("blacklist").split(',')
+
+            localBlacklist.map((ignoredUser, index) => {
+
+                if (ignoredUser.length > 0) {
+
+                    let goodName = ignoredUser.match(nameRegex)
+
+                    let goodLookingName = goodName[3] + ' ' + goodName[4]
+                    let idName = goodName[3] + goodName[4]
+
+                    let user = document.createElement('li')
+                    user.setAttribute('id', idName)
+    
+                    let removeUserButton = document.createElement('button')
+                    removeUserButton.textContent = "Remove " + ignoredUser
+                    removeUserButton.setAttribute("onclick", 'removeIgnoredUser(' + ignoredUser + ')')
+                    removeUserButton.onclick = function() {
+                        removeIgnoredUser(ignoredUser)
+                    }
+    
+                    ignoredUsers.appendChild(user)
+
+                    let ignoredUsername = document.createElement('p')
+                    ignoredUsername.textContent = goodLookingName
+
+                    user.appendChild(ignoredUsername)
+                    user.appendChild(removeUserButton)
+                }
+            })
+        }
+    }
+
+    function clearBlacklist() {
+
+        isSetToken()
+        blacklistShowed = false
+
+        ignoredUsers.style.display = "none"
+        sendButton.style.display = "block"
+        messageInput.style.display = "block"
+
+        while (ignoredUsers.firstChild) {
+
+            ignoredUsers.removeChild(ignoredUsers.firstChild)
+
+        }
+    }
+
+    let blacklistShowed = false
+
+    if (blacklistShowed === false) {
+        ignoredUsers.style.display = "none"
+    }
+
     function isSetToken() {
 
-        if (typeof localStorage.getItem("token") !== undefined && localStorage.getItem("token") !== null) {
+        if (localStorage.getItem("token") !== null) {
 
             return true
     
@@ -84,6 +148,10 @@ window.addEventListener("DOMContentLoaded", function () {
     
     disconnectButton.addEventListener("click", () => {
 
+        ignoredUsers.style.display = "none"
+        sendButton.style.display = "block"
+        messageInput.style.display = "block"
+        blacklistButton.setAttribute("value", "Show Blacklist")
         localStorage.removeItem("token")
         localStorage.removeItem("user")
         clearMessages()
@@ -140,7 +208,19 @@ window.addEventListener("DOMContentLoaded", function () {
             deleteButton.setAttribute("class", "delete")
             deleteButton.setAttribute("onclick", 'deleteMessage(' + id + ')')
             deleteButton.onclick = function() {
-                deleteMessage(id)
+                Swal.fire({
+                    title: 'Do you want to delete the message ?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Delete',
+                    denyButtonText: `Cancel`,
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        deleteMessage(id)
+                    } else if (result.isDenied) {
+                        Swal.fire('Message is not deleted')
+                    }
+                })
             }
 
             deleteButton.textContent = 'Delete'
@@ -193,6 +273,8 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function showIdentificationPage() {
 
+        identificationForm.style.display = "flex"
+
         while(messages.firstChild) {
             messages.removeChild(messages.firstChild)
         }
@@ -224,13 +306,22 @@ window.addEventListener("DOMContentLoaded", function () {
 
 
         submitButton.addEventListener('click', function () {
-            login(emailInput.value, passwordInput.value)
+
+            if (emailInput.value !== undefined && passwordInput.value !== undefined) {
+                login(emailInput.value, passwordInput.value)
+            } else {
+                displayLoginError()
+            }
         })
 
         passwordInput.addEventListener('keydown', function (event) {
             if (event.code === 'Enter') {
 
-                login(emailInput.value, passwordInput.value)
+                if (emailInput.value !== undefined && passwordInput.value !== undefined) {
+                    login(emailInput.value, passwordInput.value)
+                } else {
+                    displayLoginError()
+                }
             }
         })
     }
@@ -262,6 +353,8 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function removeIdentificationScreen() {
 
+        identificationForm.style.display = "none"
+
         while (identificationForm.firstChild) {
 
             identificationForm.removeChild(identificationForm.firstChild)
@@ -271,7 +364,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function getBlacklistContent() {
 
-        if (typeof localStorage.getItem("blacklist") !== 'undefined') {
+        if (localStorage.getItem("blacklist") !== null) {
             return localStorage.getItem("blacklist").split(',')
         }
     }
@@ -314,9 +407,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function showMessages() {
 
+        identificationForm.style.display = "none"
+
         showChatInputs()
 
-        if (typeof localStorage.getItem("blacklist") !== 'undefined') {
+        if (localStorage.getItem("blacklist") !== null) {
 
             getAllMessages(localStorage.getItem("token")).then((data) => {
                 showFilteredMessages(data)
@@ -332,7 +427,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function showNewMessages() {
 
-        if (typeof localStorage.getItem("blacklist") !== undefined) {
+        if (localStorage.getItem("blacklist") !== null) {
 
             getAllMessages(localStorage.getItem("token")).then((data) => {
                 sortMessagesByBlacklist(data).forEach(value => {
@@ -433,62 +528,6 @@ window.addEventListener("DOMContentLoaded", function () {
             sendMessage()
         }
     })
-
-    function showBlacklist() {
-
-        ignoredUsers.style.display = "block"
-        sendButton.style.display = "none"
-        messageInput.style.display = "none"
-        blacklistShowed = true
-
-        clearInterval(timerNewMessages)
-
-        if (localStorage.getItem("blacklist") !== "" && localStorage.getItem("blacklist") !== {} && localStorage.getItem("blacklist").length !== 0) {
-
-            let localBlacklist = localStorage.getItem("blacklist").split(',')
-
-            localBlacklist.map((ignoredUser, index) => {
-
-                if (ignoredUser.length > 0) {
-
-                    let user = document.createElement('li')
-                    user.textContent = ignoredUser
-    
-                    let removeUserButton = document.createElement('button')
-                    removeUserButton.textContent = "Remove " + ignoredUser
-                    removeUserButton.setAttribute("onclick", 'removeIgnoredUser(' + ignoredUser + ')')
-                    removeUserButton.onclick = function() {
-                        removeIgnoredUser(ignoredUser)
-                    }
-    
-                    ignoredUsers.appendChild(user)
-                    user.appendChild(removeUserButton)
-                }
-            })
-        }
-    }
-
-    function clearBlacklist() {
-
-        isSetToken()
-        blacklistShowed = false
-
-        ignoredUsers.style.display = "none"
-        sendButton.style.display = "block"
-        messageInput.style.display = "block"
-
-        while (ignoredUsers.firstChild) {
-
-            ignoredUsers.removeChild(ignoredUsers.firstChild)
-
-        }
-    }
-
-    let blacklistShowed = false
-
-    if (blacklistShowed === false) {
-        ignoredUsers.style.display = "none"
-    }
 
     blacklistButton.addEventListener("click", function() {
 
