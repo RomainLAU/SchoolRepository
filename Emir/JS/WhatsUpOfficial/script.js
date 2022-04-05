@@ -206,30 +206,17 @@ window.addEventListener("DOMContentLoaded", function () {
 
             let deleteButton = document.createElement('button')
             deleteButton.setAttribute("class", "delete")
-            deleteButton.setAttribute("onclick", 'deleteMessage(' + id + ')')
             deleteButton.onclick = function() {
-                Swal.fire({
-                    title: 'Do you want to delete the message ?',
-                    showDenyButton: true,
-                    confirmButtonText: 'Delete',
-                    denyButtonText: `Cancel`,
-                }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        deleteMessage(id)
-                    } else if (result.isDenied) {
-                        Swal.fire('Message is not deleted')
-                    }
-                })
+                deletePopUp(id)
             }
 
             deleteButton.textContent = 'Delete'
 
             let updateButton = document.createElement('button')
             updateButton.setAttribute("class", "update")
-            updateButton.setAttribute("onclick", 'getContentOfMessage(' + id + ')')
             updateButton.onclick = () => {
-                getContentOfMessage(id)
+                
+                updatePopUp(message, id)
             }
 
             updateButton.textContent = "Update"
@@ -269,6 +256,39 @@ window.addEventListener("DOMContentLoaded", function () {
 
             nicknameDiv.style.display = "none"
         }
+    }
+
+    function updatePopUp(message, id) {
+        Swal.fire({
+            title: 'Edit the message',
+            input: 'text',
+            inputLabel: 'newMessage',
+            inputValue: message,
+            showCancelButton: true,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to write something!'
+                } else {
+                    updateMessage(value, id)
+                    updateContentOfMessage(value, id)
+                }
+            }
+        })
+    }
+
+    function deletePopUp(id) {
+        Swal.fire({
+            title: 'Do you want to delete the message ?',
+            showDenyButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Cancel`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteMessage(id)
+            } else if (result.isDenied) {
+                Swal.fire('Message is not deleted')
+            }
+        })
     }
 
     function showIdentificationPage() {
@@ -484,38 +504,28 @@ window.addEventListener("DOMContentLoaded", function () {
         messages.removeChild(messageToDelete)
     }
 
-    function getContentOfMessage(message) {
-        let currentMessage = document.querySelector('#message' + message)
+    function updateContentOfMessage(newMessage, id) {
 
-        let contentOfCurrentMessage = currentMessage.childNodes[3]
+        let currentMessage = document.querySelector('#message' + id)
 
-        let textOfCurrentMessage = currentMessage.childNodes[3].textContent
+        let currentMessageDiv = currentMessage.childNodes[3]
 
-        contentOfCurrentMessage.remove()
+        let divTimeOfMessage = currentMessage.childNodes[4]
+        let timeOfMessage = currentMessage.childNodes[4].textContent
 
-        let inputEditMessage = document.createElement('input')
-        inputEditMessage.setAttribute("type", "text")
-        inputEditMessage.setAttribute("id", "editInput")
-        inputEditMessage.setAttribute("value", textOfCurrentMessage)
+        currentMessageDiv.remove()
+        divTimeOfMessage.remove()
 
-        currentMessage.appendChild(inputEditMessage)
+        let newMessageDiv = document.createElement('div')
+        newMessageDiv.setAttribute("id", "messageContent")
+        newMessageDiv.textContent = newMessage
 
-        inputEditMessage.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                let newMessage = inputEditMessage.value
-
-                event.preventDefault()
-                updateMessage(newMessage, message)
-
-                currentMessage.removeChild(inputEditMessage)
-
-                let messageDiv = document.createElement('div')
-                messageDiv.setAttribute("id", "messageContent")
-                messageDiv.textContent = newMessage
-
-                currentMessage.appendChild(messageDiv)
-            }
-        })
+        let newDivTimeOfMessage = document.createElement('div')
+        newDivTimeOfMessage.setAttribute("id", "sendTime")
+        newDivTimeOfMessage.textContent = timeOfMessage
+        
+        currentMessage.appendChild(newMessageDiv)
+        currentMessage.appendChild(newDivTimeOfMessage)
     }
 
     sendButton.addEventListener("click", function() {
