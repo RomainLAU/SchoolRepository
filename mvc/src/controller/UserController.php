@@ -1,14 +1,12 @@
 <?php
 
-require_once __DIR__ . '/../model/User.php';
+namespace Romain\Mvc\Controller;
+
 
 class UserController
 {
-    public function listUser()
+    public function hello()
     {
-        $userModel = new User();
-        $users = $userModel->findAll();
-
-        require_once __DIR__ . '/../view/user/users.php';
+        echo 'coucou';
     }
 }

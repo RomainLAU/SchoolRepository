@@ -1,9 +1,15 @@
 <?php
 
-require_once __DIR__ . '/../config/Router.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$url = $_SERVER['REQUEST_URI'];
+$router = new \Bramus\Router\Router();
+dd(new Romain\Mvc\Controller\UserController());
 
-$router = new Router();
+$router->get('/books', 'Mvc\Controller\BookController@listBook');
+$router->post('/books/create', 'Mvc\Controller\BookController@createBook');
+$router->get('/books/(\d+)', 'Mvc\Controller\BookController@getBook');
+$router->post('/books/(\d+)/delete', 'Mvc\Controller\BookController@deleteBook');
+$router->get('/books/(\d+)/update', 'Mvc\Controller\BookController@updateBook');
+$router->post('/books/(\d+)/update', 'Mvc\Controller\BookController@updateBook');
 
-$router->run($url);
+$router->run();

@@ -1,0 +1,21 @@
+{
+    "name": "romainl/slim",
+    "autoload": {
+        "psr-4": {
+            "Romainl\\Slim\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "RomainLAU",
+            "email": "romain.laurent@epitech.digital"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.9",
+        "slim/psr7": "^1.5",
+        "php-di/php-di": "*",
+        "nyholm/psr7": "^1.5",
+        "nyholm/psr7-server": "^1.0"
+    }
+}

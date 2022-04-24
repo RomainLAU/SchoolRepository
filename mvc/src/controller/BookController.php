@@ -1,24 +1,41 @@
 <?php
 
-require_once __DIR__ . '/../model/Book.php';
+namespace Mvc\Controller;
 
-class BookController{
+use Mvc\Model\Book;
+
+class BookController extends Controller{
+
+    private Book $bookModel;
+
+    public function __construct()
+    {
+        $this->bookModel = new Book();
+    }
 
     public function listBook()
     {
+        var_dump('fkkfzfl');die;
         $bookController = new Book();
-        $listBooks = $bookController->findAll();
+        $listBooks = $this->bookModel->findAll();
 
-        require_once __DIR__ . '/../view/book/books.php';
+        $listBooks = [
+            ['title' => 'lol',
+            'description' => 'non',
+            'author' => 'steuplait']
+        ];
+
+        echo $this->twig->render('book/books.html.twig', [
+            'books' => $listBooks,
+        ]);
     }
 
-    public function book()
+    public function createBook($bookParameters)
     {
-        require_once __DIR__ . '/../view/book/book.php';
-    }
+        $bookModel = new Book();
+        $bookModel->create($bookParameters['title'], $bookParameters['description'], $bookParameters['author']);
 
-    public function createBook()
-    {
-        require_once __DIR__ . '/../view/book/createBook.php';
+        header('Location: /books');
+        exit();
     }
 }

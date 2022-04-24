@@ -1,5 +1,9 @@
 <?php
 
+namespace Mvc\Model;
+
+use PDO;
+
 class User
 {
     private PDO $pdo;

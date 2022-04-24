@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Admin Events{% endblock %}
+
+
+{% block content %}
+
+    <h1>Events</h1>
+
+    <ul>
+    {% for event in events %}
+        <li><b>{{ event.nom }}</b><br>
+            {{ event.description }}<br>
+            {{ event.lieu }}<br>
+            {{ event.nb_tickets }}<br>
+            {{ event.prix_tickets }}<br>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

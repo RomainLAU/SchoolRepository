@@ -285,8 +285,6 @@ window.addEventListener("DOMContentLoaded", function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 deleteMessage(id)
-            } else if (result.isDenied) {
-                Swal.fire('Message is not deleted')
             }
         })
     }
@@ -425,26 +423,6 @@ window.addEventListener("DOMContentLoaded", function () {
         sendingInputs.style.display = "flex"
     }
 
-    function showMessages() {
-
-        identificationForm.style.display = "none"
-
-        showChatInputs()
-
-        if (localStorage.getItem("blacklist") !== null) {
-
-            getAllMessages(localStorage.getItem("token")).then((data) => {
-                showFilteredMessages(data)
-            })
-
-        } else {
-
-            getAllMessages(localStorage.getItem("token")).then((data) => {
-                showAllMessages(data)
-            })
-        }
-    }
-
     function showNewMessages() {
 
         if (localStorage.getItem("blacklist") !== null) {
@@ -480,6 +458,26 @@ window.addEventListener("DOMContentLoaded", function () {
 
                     }
                 })
+            })
+        }
+    }
+
+    function showMessages() {
+
+        identificationForm.style.display = "none"
+
+        showChatInputs()
+
+        if (localStorage.getItem("blacklist") !== null) {
+
+            getAllMessages(localStorage.getItem("token")).then((data) => {
+                showFilteredMessages(data)
+            })
+
+        } else {
+
+            getAllMessages(localStorage.getItem("token")).then((data) => {
+                showAllMessages(data)
             })
         }
     }

@@ -8,5 +8,12 @@
 </head>
 <body>
     <h1>Let's create a book</h1>
+
+<?php
+
+dd($bookModel);
+
+?>
+
 </body>
 </html>

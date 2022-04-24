@@ -1,5 +1,9 @@
 <?php
 
+namespace Mvc\Model;
+
+use PDO;
+
 class Book
 {
     private PDO $pdo;
@@ -17,5 +21,15 @@ class Book
         $books = $statement->fetchAll();
 
         return $books;
+    }
+
+    public function create(string $title, string $description, string $author)
+    {
+        $statement = $this->pdo->prepare("INSERT INTO 'book' ('title', 'author', 'description') VALUES (:title, :author, :description)");
+        $statement->execute([
+            'title' => $title,
+            'author' => $author,
+            'description' => $description,
+        ]);
     }
 }

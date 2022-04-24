@@ -135,6 +135,14 @@ table{
             }
         }
 
+        td:nth-child(1) {
+            text-transform: uppercase;
+        }
+
+        td:nth-child(2) {
+            text-transform: capitalize;
+        }
+
         #bonuses{
             color: green;
         }
