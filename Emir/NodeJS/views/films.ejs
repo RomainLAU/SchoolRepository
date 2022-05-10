@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <ul id="movie-list">
+        <% for ( let index = 0; index < films.length; index++ ) { %>
+
+            <li id="film-<%= films[index].id_film %>"> 
+
+                <a href="/films/<%= films[index].id_film %>">
+                    <%= films[index].titre %>
+                </a> 
+
+                <button class="delete-film" film-id="<%= films[index].id_film %>">Supprimer</button>
+                
+            </li>
+
+        <% } %>
+    </ul>
+
+    <script>
+
+        let btns = document.querySelectorAll("button.delete-film")
+
+        const socket = io()
+
+        socket.on("film-delete", (id) => {
+            let elementToRemove = document.querySelector('#film-' + id)
+            console.log(elementToRemove)
+            elementToRemove.remove()
+            alert("Ohlala un film a été delete c'est l'id: " + id)
+        })
+
+        for (const key in btns) {
+            btns[key].addEventListener('click', () => {
+                let id = btns[key].getAttribute("film-id")
+
+                fetch(`/api/films/${id}`, {
+                    method: "DELETE"
+                }).then((res) => {
+                    res.json().then((json) => {
+                        console.log(json)
+                    })
+                })
+
+            })
+        }
+    </script>
+
+</body>
+</html>

@@ -1,72 +1,60 @@
-const express = require('express')
-const app = express()
-const mysql = require('mysql2')
+const express = require('express');
+const fs = require('fs');
+const mysql = require('mysql2');
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'tiger',
-  database: 'cinema'
-})
+const app = express()
+const port = 3000
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, { });
+
+io.on("connection", (socket) => {
+    // console.log("Connection")
+});
 
 app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'tiger',
+    database: 'cinema'
+});
+
+app.get('/films', (req, res) => {
+
+    connection.query(`SELECT * FROM films`, (err, results, fields) => {
+        res.render('films', {
+            films: results
+        })
+    })
+    
 })
 
-app.get('/movies', (req, res) => {
-  connection.query(
-    'SELECT * FROM `films`',
-    (err, results) => {
-      if (err) {
-        console.log(err)
-      }
-      res.render('index', {
-        movies: results
-      })
-    }
-  )
+app.get('/films/:id', (req, res) => {
+    let id = req.params.id
+
+    connection.query(`SELECT * FROM films WHERE id_film = ?`, [id], (err, results, fields) => {
+        console.log(results)
+        res.render('film', {
+            film: results[0]
+        })
+    })
+
 })
 
-app.get('/movies/:id', (req, res) => {
-  connection.query(
-    'SELECT * FROM `films` WHERE `id_film` = ?',
-    [req.params.id],
-    (err, results) => {
-      if (err) {
-        console.log(err)
-      }
-      console.log(results)
-      res.render('index', {
-        movie: results
-      })
-    }
-  )
+app.delete('/api/films/:id', (req, res) => {
+    let id = req.params.id
+
+    connection.query(`DELETE FROM films WHERE id_film = ?`, [id], (err, results, fields) => {
+        res.json({status: 200, data: "Success"})
+
+        io.emit("film-delete", id)
+
+    })
+
 })
-
-app.delete('/api/movies/:id', (req, res) => {
-  connection.query(
-    'DELETE FROM `films` WHERE `id_film` = ?',
-    [req.params.id],
-    (err, results) => {
-      res.json({status: 200, data: "Success"})
-    }
-  )
-})
-
-// let visits = 0
-
-// app.get('/hello', (req, res) => {
-//   res.render('index', {
-//       sentence: "Bonjour moi-même",
-//       date: Date(),
-//       visits: visits++
-//   })
-// })
-
-
-
-app.listen(3000, () => {
-  console.log(`Example app listening on port 3000`)
-})
+ 
+httpServer.listen(port)
