@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 app.get('/movies', (req, res) => {
   connection.query(
     'SELECT * FROM `films`',
-    (err, results, fields) => {
+    (err, results) => {
       if (err) {
         console.log(err)
       }
@@ -33,10 +33,11 @@ app.get('/movies/:id', (req, res) => {
   connection.query(
     'SELECT * FROM `films` WHERE `id_film` = ?',
     [req.params.id],
-    (err, results, fields) => {
+    (err, results) => {
       if (err) {
         console.log(err)
       }
+      console.log(results)
       res.render('index', {
         movie: results
       })
@@ -44,15 +45,12 @@ app.get('/movies/:id', (req, res) => {
   )
 })
 
-app.get('/delete/movie/:id', (req, res) => {
+app.delete('/api/movies/:id', (req, res) => {
   connection.query(
-    'DELETE * FROM `films` WHERE `id_film` = ?',
+    'DELETE FROM `films` WHERE `id_film` = ?',
     [req.params.id],
-    (err, results, fields) => {
-      if (err) {
-        console.log(err)
-      }
-      location.href = '/movies/'
+    (err, results) => {
+      res.json({status: 200, data: "Success"})
     }
   )
 })

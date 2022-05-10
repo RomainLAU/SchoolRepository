@@ -10,11 +10,33 @@
     <% if (typeof movies !== 'undefined') { %> 
         <ul>
         <% for (let i = 0; i < movies.length; i++) { %>
-            <li><a href="/delete/movie/<%= movies[i].id_film %>"><%= movies[i].titre %></a></li>
+            <li>
+                <a href="/movies/<%= movies[i].id_film %>"><%= movies[i].titre %></a>
+                <button class="delete-movie" film-id="<%= movies[i].id_film %> ">Delete the movie</button>
+            </li>
         <% } %>
         </ul>
     <% } else { %>
-        <%= movie[0].titre %>
+        <h1><%= movie[0].titre %></h1> 
     <% } %>
+
+    <script>
+
+        let buttons = document.querySelectorAll('button.delete-movie')
+
+        for (const key in buttons) {
+            buttons[key].addEventListener('click', () => {
+                let id = buttons[key].getAttribute('film-id')
+                fetch(`/api/movies/` + id, {
+                    method: 'DELETE'
+                }).then((res) => {
+                    res.json().then((json) => {
+                        console.log(json)
+                    })
+                })
+            })
+        }
+
+    </script>
 </body>
 </html>
