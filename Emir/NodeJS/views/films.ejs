@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     
@@ -22,6 +23,7 @@
                 </a> 
 
                 <button class="delete-film" film-id="<%= films[index].id_film %>">Supprimer</button>
+                <button class="edit-film" film-id="<%= films[index].id_film %>">Editer</button>
                 
             </li>
 
@@ -31,19 +33,49 @@
     <script>
 
         let movies = document.querySelector('#movie-list')
-        let btns = document.querySelectorAll("button.delete-film")
+        let moviesChilds = document.querySelectorAll('#movie-list>li')
+        let btnsDel = document.querySelectorAll("button.delete-film")
+        let btnsEdit = document.querySelectorAll("button.edit-film")
 
         const socket = io()
 
         let createButton = document.querySelector('.create-film')
         let titreInput = document.querySelector('#titre-input')
 
-        socket.on("film-create", (titreInput) => {
+        socket.on("film-create", (newFilm) => {
             let newMovie = document.createElement('li')
-            newMovie.innerHTML = titreInput.value
-            newMovie.addAttribute("film-id", )
+            newMovie.setAttribute("id", 'film-' + newFilm[1])
             movies.appendChild(newMovie)
+            movies.insertBefore(newMovie, moviesChilds[0])
 
+            let movieTitle = document.createElement('a')
+            movieTitle.innerHTML = newFilm[0]
+            movieTitle.setAttribute('href', '/films/' + newFilm[1])
+
+            newMovie.appendChild(movieTitle)
+
+            let buttonDelete = document.createElement('button')
+            buttonDelete.innerHTML = 'Supprimer'
+            buttonDelete.setAttribute('class', 'delete-film')
+            buttonDelete.setAttribute('film-id', newFilm[1])
+
+            newMovie.appendChild(buttonDelete)
+
+            buttonDelete.addEventListener('click', () => {
+
+                fetch(`/api/films/${newFilm[1]}`, {
+                    method: "DELETE"
+                }).then((res) => {
+                    res.json().then((json) => {
+                        console.log(json)
+                    })
+                })
+
+            })
+        })
+
+        socket.on("film-edit", (body) => {
+            document.querySelector(`#film-${body['id_film']}>a`).innerHTML = body['titre']
         })
 
         createButton.addEventListener('click', () => {
@@ -59,13 +91,48 @@
 
         })
 
+        for (const key in btnsEdit) {
+            btnsEdit[key].addEventListener('click', () => {
+                let id = btnsEdit[key].getAttribute('film-id')
+
+                Swal.fire({
+                    title: 'Edit the title of the movie',
+                    input: 'text',
+                    inputValue: document.querySelector(`#film-${id}>a`).textContent,
+                    confirmButtonText: 'Edit',
+                    cancelButtonText: 'Cancel',
+                    showCancelButton: true, 
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'You need to write something !'
+                        } else {
+                            fetch(`/api/films`, {
+                                method: "PUT",
+                                body: JSON.stringify({
+                                    id_film: id,
+                                    titre: value
+                                }),
+                                headers: {
+                                    'Content-type': 'application/json; charset=UTF-8'
+                                }
+                            }).then((res) => {
+                                    res.json().then((json) => {
+                                        console.log(json)
+                                    })
+                            })
+                        }
+                    }
+                })
+            })
+        }
+
         socket.on("film-delete", (id) => {
             let toRemove = document.querySelector('#film-' + id).remove()
         })
 
-        for (const key in btns) {
-            btns[key].addEventListener('click', () => {
-                let id = btns[key].getAttribute("film-id")
+        for (const key in btnsDel) {
+            btnsDel[key].addEventListener('click', () => {
+                let id = btnsDel[key].getAttribute("film-id")
 
                 fetch(`/api/films/${id}`, {
                     method: "DELETE"

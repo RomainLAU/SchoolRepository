@@ -51,7 +51,7 @@ app.delete('/api/films/:id', (req, res) => {
     let id = req.params.id
 
     connection.query(`DELETE FROM films WHERE id_film = ?`, [id], (err, results, fields) => {
-        res.json({status: 200, data: "Success"})
+        res.json({status: 200, data: "Deleted with success"})
 
         io.emit("film-delete", id)
 
@@ -64,11 +64,22 @@ app.post('/api/films/:titre', (req, res) => {
     connection.query(`INSERT INTO films (id_genre, id_distributeur, titre, resum, date_debut_affiche, date_fin_affiche, duree_minutes, annee_production) VALUES (1, 1, ?, 'aaaaaaaaaaaaaa', '2003-07-20', '2300-08-27', 129, 2003)`, 
     [titre],
     (err, results, fields) => {
-        console.log(err)
         res.json({status: 201, data: "Created with success"})
-
-        io.emit("film-create", titre)
+        let filmId = results.insertId 
+        io.emit("film-create", {0: titre, 1: filmId})
     })
+})
+
+app.put('/api/films', (req, res) => {
+    let body = req.body
+    connection.query(`UPDATE films SET titre = ? WHERE id_film = ?`,
+        [body['titre'], body['id_film']],
+        (err, results, fields) => {
+            res.json({status: 200, data: "Edited with success"})
+            // console.log(body)
+            io.emit("film-edit", body)
+        }
+    )
 })
 
 httpServer.listen(port)
