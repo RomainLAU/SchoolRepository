@@ -8,6 +8,9 @@
     <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
 </head>
 <body>
+    
+    <input type="text" placeholder="titre" name="titre" id="titre-input"><br>
+    <button class="create-film">Créer</button>
 
     <ul id="movie-list">
         <% for ( let index = 0; index < films.length; index++ ) { %>
@@ -27,15 +30,37 @@
 
     <script>
 
+        let movies = document.querySelector('#movie-list')
         let btns = document.querySelectorAll("button.delete-film")
 
         const socket = io()
 
+        let createButton = document.querySelector('.create-film')
+        let titreInput = document.querySelector('#titre-input')
+
+        socket.on("film-create", (titreInput) => {
+            let newMovie = document.createElement('li')
+            newMovie.innerHTML = titreInput.value
+            newMovie.addAttribute("film-id", )
+            movies.appendChild(newMovie)
+
+        })
+
+        createButton.addEventListener('click', () => {
+            fetch(`/api/films/${titreInput.value}`, {
+                method: "POST"
+            }).then((res) => {
+                res.json().then((json) => {
+                    console.log(json)
+                })
+            }).then(() => {
+                titreInput.value = ""
+            })
+
+        })
+
         socket.on("film-delete", (id) => {
-            let elementToRemove = document.querySelector('#film-' + id)
-            console.log(elementToRemove)
-            elementToRemove.remove()
-            alert("Ohlala un film a été delete c'est l'id: " + id)
+            let toRemove = document.querySelector('#film-' + id).remove()
         })
 
         for (const key in btns) {
@@ -52,6 +77,7 @@
 
             })
         }
+
     </script>
 
 </body>
