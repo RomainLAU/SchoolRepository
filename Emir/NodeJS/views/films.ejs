@@ -61,6 +61,13 @@
 
             newMovie.appendChild(buttonDelete)
 
+            let buttonEdit = document.createElement('button')
+            buttonEdit.innerHTML = 'Editer'
+            buttonEdit.setAttribute('class', 'edit-film')
+            buttonEdit.setAttribute('film-id', newFilm[1])
+
+            newMovie.appendChild(buttonEdit)
+
             buttonDelete.addEventListener('click', () => {
 
                 fetch(`/api/films/${newFilm[1]}`, {
@@ -71,6 +78,38 @@
                     })
                 })
 
+            })
+
+            buttonEdit.addEventListener('click', () => {
+
+                Swal.fire({
+                    title: 'Edit the title of the movie',
+                    input: 'text',
+                    inputValue: document.querySelector(`#film-${newFilm[1]}>a`).textContent,
+                    confirmButtonText: 'Edit',
+                    cancelButtonText: 'Cancel',
+                    showCancelButton: true, 
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'You need to write something !'
+                        } else {
+                            fetch(`/api/films`, {
+                                method: "PUT",
+                                body: JSON.stringify({
+                                    id_film: newFilm[1],
+                                    titre: value
+                                }),
+                                headers: {
+                                    'Content-type': 'application/json; charset=UTF-8'
+                                }
+                            }).then((res) => {
+                                    res.json().then((json) => {
+                                        console.log(json)
+                                    })
+                            })
+                        }
+                    }
+                })
             })
         })
 
