@@ -4,6 +4,11 @@ const mysql = require('mysql2')
 const { createServer } = require("http")
 const { Server } = require("socket.io")
 const bodyParser = require('body-parser')
+const Discord = require('discord.js')
+
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] })
+
+// OTc0NjExNzYwNjk2OTM4NDk3.GQdap2.pai_BazzVoywaFPo191dXiKD4hd4LkmT7SKQBI
 
 const app = express()
 const port = 3000
@@ -26,9 +31,41 @@ const connection = mysql.createConnection({
     database: 'cinema'
 })
 
+client.on("message", (message) => {
+    // console.log("Un nouveau message: ", message.content)
+    if(!message.author.bot) {
+        if(message.content.slice(0, 12) == '!film-create') {
+            connection.query(`INSERT INTO films (id_genre, id_distributeur, titre, resum, date_debut_affiche, date_fin_affiche, duree_minutes, annee_production) VALUES (1, 1, ?, 'aaaaaaaaaaaaaa', '2003-07-20', '2300-08-27', 129, 2003)`,
+            [message.content.slice(13)],
+            (err, results, fields) => {
+                message.reply('You created a film called : ' + message.content.slice(13) + ' !')
+                let filmId = results.insertId 
+                io.emit("film-create", {0: message.content.slice(13), 1: filmId})
+            })
+        } else if(message.content.slice(0, 16) == '!film-get-5-last') {
+            connection.query(`SELECT * FROM films ORDER BY id_film DESC LIMIT 5`,
+            (err, results, fields) => {
+                results.forEach((film) => {
+                    message.reply(film.titre)
+                })
+            })
+        } else if (message.content.slice(0, 12) == '!film-delete') {
+            connection.query(`DELETE FROM films WHERE id_film = ?`, [message.content.slice(13)], (err, results, fields) => {
+                message.reply('The film of id ' + message.content.slice(13) + ' was correctly deleted')
+                io.emit("film-delete", message.content.slice(13))
+        
+            })
+        } else {
+            message.reply('You wrote :' + message.content.slice(0, 16))
+        }
+    }
+})
+
+client.login("OTc0NjExNzYwNjk2OTM4NDk3.GQdap2.pai_BazzVoywaFPo191dXiKD4hd4LkmT7SKQBI")
+
 app.get('/films', (req, res) => {
 
-    connection.query(`SELECT * FROM films`, (err, results, fields) => {
+    connection.query(`SELECT * FROM films ORDER BY id_film DESC`, (err, results, fields) => {
         res.render('films', {
             films: results
         })

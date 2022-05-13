@@ -130,9 +130,13 @@
 
         })
 
-        for (const key in btnsEdit) {
-            btnsEdit[key].addEventListener('click', () => {
-                let id = btnsEdit[key].getAttribute('film-id')
+        socket.on("film-delete", (id) => {
+            document.querySelector('#film-' + id).remove()
+        })
+
+        btnsEdit.forEach((btnEdit) => {
+            btnEdit.addEventListener('click', () => {
+                let id = btnEdit.getAttribute('film-id')
 
                 Swal.fire({
                     title: 'Edit the title of the movie',
@@ -163,15 +167,11 @@
                     }
                 })
             })
-        }
-
-        socket.on("film-delete", (id) => {
-            let toRemove = document.querySelector('#film-' + id).remove()
         })
 
-        for (const key in btnsDel) {
-            btnsDel[key].addEventListener('click', () => {
-                let id = btnsDel[key].getAttribute("film-id")
+        btnsDel.forEach((btnDel) => {
+            btnDel.addEventListener('click', () => {
+                let id = btnDel.getAttribute("film-id")
 
                 fetch(`/api/films/${id}`, {
                     method: "DELETE"
@@ -182,7 +182,7 @@
                 })
 
             })
-        }
+        })
 
     </script>
 
