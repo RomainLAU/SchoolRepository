@@ -49,14 +49,24 @@ client.on("message", (message) => {
                     message.reply(film.titre)
                 })
             })
-        } else if (message.content.slice(0, 12) == '!film-delete') {
-            connection.query(`DELETE FROM films WHERE id_film = ?`, [message.content.slice(13)], (err, results, fields) => {
-                message.reply('The film of id ' + message.content.slice(13) + ' was correctly deleted')
-                io.emit("film-delete", message.content.slice(13))
+        } else if (message.content.slice(0, 17) == '!film-delete-last') {
+
+            connection.query(`SELECT id_film FROM films ORDER BY id_film DESC LIMIT 1`, (err, results, fields) => {
+                connection.query(`DELETE FROM films WHERE id_film = ?`, [results[0]['id_film']], (err2, results2, fields2) => {
+                    message.reply('The last film was correctly deleted', results[0]['id_film'])
+                    io.emit("film-delete", results[0]['id_film'])
+                })
+            })
+
+        } else if (message.content.slice(0, 18) == '!film-delete-by-id') {
+
+            connection.query(`DELETE FROM films WHERE id_film = ?`, [message.content.slice(19)], (err, results, fields) => {
+                message.reply('The film of id ' + message.content.slice(19) + ' was correctly deleted')
+                io.emit("film-delete", message.content.slice(19))
         
             })
         } else {
-            message.reply('You wrote :' + message.content.slice(0, 16))
+            message.reply('You wrote : ' + message.content)
         }
     }
 })
