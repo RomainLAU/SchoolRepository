@@ -47,11 +47,11 @@ class TaskModel extends Model
 
     public function findAllTasks() 
     {
-        $statement = $this->pdo->prepare('SELECT * FROM `post` WHERE 1');
+        $statement = $this->pdo->prepare('SELECT * FROM `post`');
 
         $statement->execute();
 
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function deleteOneTaskById(int $id) 

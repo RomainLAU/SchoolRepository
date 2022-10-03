@@ -32,7 +32,6 @@ const connection = mysql.createConnection({
 })
 
 client.on("message", (message) => {
-    // console.log("Un nouveau message: ", message.content)
     if(!message.author.bot) {
         if(message.content.slice(0, 12) == '!film-create') {
             connection.query(`INSERT INTO films (id_genre, id_distributeur, titre, resum, date_debut_affiche, date_fin_affiche, duree_minutes, annee_production) VALUES (1, 1, ?, 'aaaaaaaaaaaaaa', '2003-07-20', '2300-08-27', 129, 2003)`,
@@ -80,7 +79,6 @@ app.get('/films', (req, res) => {
             films: results
         })
     })
-    
 })
 
 app.get('/films/:id', (req, res) => {
@@ -91,7 +89,6 @@ app.get('/films/:id', (req, res) => {
             film: results[0]
         })
     })
-
 })
 
 app.delete('/api/films/:id', (req, res) => {
@@ -123,7 +120,6 @@ app.put('/api/films', (req, res) => {
         [body['titre'], body['id_film']],
         (err, results, fields) => {
             res.json({status: 200, data: "Edited with success"})
-            // console.log(body)
             io.emit("film-edit", body)
         }
     )

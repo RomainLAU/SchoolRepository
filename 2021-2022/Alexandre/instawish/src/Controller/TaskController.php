@@ -33,6 +33,8 @@ class TaskController extends Controller
         $userData = $this->taskModel->findAllTasks();
 
         header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: http://localhost');
+
         echo json_encode([
             'status' => '200',
             'data' => $userData,

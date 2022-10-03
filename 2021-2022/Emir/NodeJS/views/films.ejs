@@ -9,14 +9,14 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    
+
     <input type="text" placeholder="titre" name="titre" id="titre-input"><br>
     <button class="create-film">Créer</button>
 
     <ul id="movie-list">
         <% for ( let index = 0; index < films.length; index++ ) { %>
 
-            <li id="film-<%= films[index].id_film %>"> 
+            <li id="film-<%= films[index].id_film %>">
 
                 <a href="/films/<%= films[index].id_film %>">
                     <%= films[index].titre %>
