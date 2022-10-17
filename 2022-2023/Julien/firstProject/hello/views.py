@@ -1,3 +1,12 @@
 from django.shortcuts import render
 
-# Create your views here.
+from hello.models import Article
+
+
+def index(request):
+
+    articles = Article.objects.all()
+
+    return render(
+        request, "index.html", {"param": "complètement vrai", "articles": articles}
+    )
