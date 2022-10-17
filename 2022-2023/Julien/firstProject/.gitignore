@@ -1,0 +1,3 @@
+*.sqlite3
+firstProject/__pycache__/
+hello/__pycache__/
