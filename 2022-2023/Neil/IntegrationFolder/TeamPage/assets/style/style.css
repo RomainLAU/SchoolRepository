@@ -8,6 +8,18 @@ body {
   align-items: flex-start;
   column-gap: 75px;
 }
+@media screen and (max-width: 1300px) {
+  body {
+    flex-wrap: wrap;
+    row-gap: 50px;
+    padding: 75px 0px 75px 25px;
+  }
+}
+@media screen and (max-width: 450px) {
+  body {
+    padding: 50px 0px 50px 15px;
+  }
+}
 body #left-column {
   display: flex;
   flex-direction: column;
@@ -21,10 +33,28 @@ body #left-column h1 {
   word-spacing: -6px;
   letter-spacing: -2px;
 }
+@media screen and (max-width: 450px) {
+  body #left-column h1 {
+    font-size: 32px;
+    word-spacing: inherit;
+    letter-spacing: 0px;
+  }
+}
 body #left-column p {
   font-size: 32px;
   color: grey;
   line-height: 48px;
+}
+@media screen and (max-width: 450px) {
+  body #left-column p {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
+@media screen and (max-width: 1300px) {
+  body #left-column {
+    max-width: max-content;
+  }
 }
 body #right-column {
   display: flex;
@@ -46,9 +76,45 @@ body #right-column .team-card .description {
 body #right-column .team-card .description .member-name {
   font-size: 28px;
 }
+@media screen and (max-width: 450px) {
+  body #right-column .team-card .description .member-name {
+    font-size: 18px;
+  }
+}
 body #right-column .team-card .description .member-job {
   font-size: 28px;
   color: blue;
+  line-height: 34px;
+}
+@media screen and (max-width: 450px) {
+  body #right-column .team-card .description .member-job {
+    font-size: 18px;
+    line-height: inherit;
+  }
+}
+@media screen and (max-width: 1300px) {
+  body #right-column .team-card {
+    width: 500px;
+  }
+}
+@media screen and (max-width: 450px) {
+  body #right-column .team-card {
+    width: max-content;
+    column-gap: 16px;
+  }
+  body #right-column .team-card img {
+    width: 90px;
+  }
+}
+@media screen and (max-width: 1300px) {
+  body #right-column {
+    justify-content: space-between;
+  }
+}
+@media screen and (max-width: 450px) {
+  body #right-column {
+    gap: 50px 0;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
