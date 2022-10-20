@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main page</title>
+  </head>
+  <body
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    "
+  >
+    <h1 style="color: red; font-size: 64px">Hello World</h1>
+    <p>C'est {{ param }} !</p>
+    {% for article in articles %}
+    <li>{{ article.title }} : {{ article.body }}</li>
+    <br />
+    {% endfor %}
+  </body>
+</html>
