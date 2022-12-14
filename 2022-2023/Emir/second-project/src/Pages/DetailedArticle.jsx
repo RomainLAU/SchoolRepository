@@ -1,24 +1,48 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import styled from "styled-components";
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 32px 128px;
+
+  h1 {
+    margin-bottom: 48px;
+  }
+
+  p {
+    width: 800px;
+    line-height: 26px;
+    text-align: justify;
+  }
+
+  i {
+    margin-top: 48px;
+    margin-right: 64px;
+    text-align: right;
+    align-self: flex-end;
+  }
 `;
 
 export default function DetailedArticle() {
   const [article, setArticle] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const id = searchParams.get("id");
+  const id = searchParams.get('id');
 
   const fetchArticle = () => {
     fetch(`http://edu.project.etherial.fr/articles/${id}`).then((response) => {
-      response.json().then((json) => {
-        setArticle(json.data);
-      });
+      if (response.ok) {
+        response.json().then((json) => {
+          if (json.status === 200) {
+            setArticle(json.data);
+          }
+        });
+      } else {
+        setArticle(null);
+      }
     });
   };
 
@@ -27,19 +51,23 @@ export default function DetailedArticle() {
   }, []);
 
   return (
-    <Container>
+    <div>
       {article && article.User ? (
-        <div>
+        <Container>
           <h1>{article.title}</h1>
           <p>{article.content}</p>
           <i>
             Written by: {article.User.firstname}
             {article.User.lastname}
           </i>
-        </div>
+        </Container>
+      ) : article === [] ? (
+        <p style={{ textAlign: 'center', marginTop: '128px' }}>Loading...</p>
       ) : (
-        <p>Loading...</p>
+        <p style={{ textAlign: 'center', marginTop: '128px' }}>
+          This article doesn't exist...
+        </p>
       )}
-    </Container>
+    </div>
   );
 }

@@ -10,6 +10,7 @@ const NavBar = styled.nav`
   padding: 8px;
 
   & > h2 {
+    margin: 0;
     margin-right: 24px;
     font-size: 32px;
   }
@@ -54,7 +55,7 @@ export default function Header({ setShow }) {
       <StyledLink to="/articles">Articles</StyledLink>
       <StyledLink to="/map">Map</StyledLink>
       {user ? (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <p>Hello, {user.firstname} ! </p>&nbsp;
           <CustomLink onClick={handleDisconnect}>Disconnect</CustomLink>
         </div>

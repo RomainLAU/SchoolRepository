@@ -14,18 +14,38 @@ const Container = styled.div`
 `;
 
 const Paginator = styled.div`
+  margin-top: 60px;
+  margin-bottom: 60px;
   display: flex;
   align-items: center;
   column-gap: 4px;
-  margin-top: 60px;
-  margin-bottom: 60px;
 `;
 
-const CategoryInput = styled.label`
-  padding: 12px 24px;
-  cursor: pointer;
-  border-radius: 8px;
-  border: solid 2px grey;
+const FilterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+`;
+
+const FilterDiv = styled.div`
+  display: flex;
+  align-items: center;
+
+  label {
+    padding: 12px 24px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: solid 2px grey;
+
+    &:hover {
+      background-color: #d6d6d6;
+    }
+  }
+
+  input:checked + label {
+    background-color: #818181;
+    color: white;
+  }
 `;
 
 export default function Articles() {
@@ -59,51 +79,56 @@ export default function Articles() {
 
   return (
     <Container>
-      <div>
-        <CategoryInput htmlFor="ALL"> ALL</CategoryInput>
-        <input
-          type="radio"
-          id="ALL"
-          value="ALL"
-          onChange={() => setCategory('ALL')}
-          checked={category === 'ALL'}
-          radioGroup="category"
-          hidden
-        />
-
-        <CategoryInput htmlFor="DEV"> DEV</CategoryInput>
-        <input
-          type="radio"
-          id="DEV"
-          value="DEV"
-          onChange={() => setCategory('DEV')}
-          checked={category === 'DEV'}
-          radioGroup="category"
-          hidden
-        />
-
-        <CategoryInput htmlFor="BIZ"> BIZ</CategoryInput>
-        <input
-          type="radio"
-          id="BIZ"
-          value="BIZ"
-          onChange={() => setCategory('BIZ')}
-          checked={category === 'BIZ'}
-          radioGroup="category"
-          hidden
-        />
-
-        <CategoryInput htmlFor="ART"> ART</CategoryInput>
-        <input
-          type="radio"
-          id="ART"
-          value="ART"
-          onChange={() => setCategory('ART')}
-          checked={category === 'ART'}
-          radioGroup="category"
-          hidden
-        />
-      </div>
+      <FilterContainer>
+        <FilterDiv>
+          <input
+            type="radio"
+            id="ALL"
+            value="ALL"
+            onChange={() => setCategory('ALL')}
+            checked={category === 'ALL'}
+            radioGroup="category"
+            hidden
+          />
+          <label htmlFor="ALL"> ALL</label>
+        </FilterDiv>
+        <FilterDiv>
+          <input
+            type="radio"
+            id="DEV"
+            value="DEV"
+            onChange={() => setCategory('DEV')}
+            checked={category === 'DEV'}
+            radioGroup="category"
+            hidden
+          />
+          <label htmlFor="DEV"> DEV</label>
+        </FilterDiv>
+        <FilterDiv>
+          <input
+            type="radio"
+            id="BIZ"
+            value="BIZ"
+            onChange={() => setCategory('BIZ')}
+            checked={category === 'BIZ'}
+            radioGroup="category"
+            hidden
+          />
+          <label htmlFor="BIZ"> BIZ</label>
+        </FilterDiv>
+        <FilterDiv>
+          <input
+            type="radio"
+            id="ART"
+            value="ART"
+            onChange={() => setCategory('ART')}
+            checked={category === 'ART'}
+            radioGroup="category"
+            hidden
+          />
+          <label htmlFor="ART"> ART</label>
+        </FilterDiv>
+      </FilterContainer>
       {articles && articles.length > 0 && category === 'ALL'
         ? articles.map((article) => {
             return <Article article={article} key={article.id} />;
