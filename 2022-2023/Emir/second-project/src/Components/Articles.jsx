@@ -19,6 +19,13 @@ const Paginator = styled.div`
   display: flex;
   align-items: center;
   column-gap: 4px;
+
+  p,
+  b {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 18px;
+  }
 `;
 
 const FilterContainer = styled.div`
@@ -49,13 +56,15 @@ const FilterDiv = styled.div`
 `;
 
 export default function Articles() {
-  const { articles, setArticles } = useContext(StoreContext);
+  const { articles, setArticles, page, setPage } = useContext(StoreContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [category, setCategory] = useState('ALL');
 
   const fetchArticles = () => {
     fetch(
-      `http://edu.project.etherial.fr/articles?offset=${page}&limit=10`
+      `http://edu.project.etherial.fr/articles?offset=${
+        page.current ? (page.current - 1) * 10 : 0
+      }&limit=10`
     ).then((response) => {
       response.json().then((json) => {
         setArticles(json.data);
@@ -63,19 +72,34 @@ export default function Articles() {
     });
   };
 
-  let page = searchParams.get('p');
-
   useEffect(() => {
+    setSearchParams('p=' + page.current);
     fetchArticles();
+  }, [searchParams, page]);
 
-    page = searchParams.get('p');
+  const handleReset = () => {
+    setPage({
+      previous: 0,
+      current: 1,
+      next: 2,
+    });
+  };
 
-    if (page === null) {
-      page = 0;
-    } else {
-      page = parseInt(page);
-    }
-  }, []);
+  const handleGoBack = () => {
+    setPage({
+      previous: page.current - 2,
+      current: page.current - 1,
+      next: page.current,
+    });
+  };
+
+  const handleGoNext = () => {
+    setPage({
+      previous: page.current,
+      current: page.current + 1,
+      next: page.current + 2,
+    });
+  };
 
   return (
     <Container>
@@ -140,13 +164,30 @@ export default function Articles() {
             })}
 
       <Paginator>
-        <NavLink to={'/articles?p=' + parseInt(page) - 1}>
-          {parseInt(page) - 1 === -1 ? '' : parseInt(page) - 1}
-        </NavLink>
-        <NavLink to={'/articles?p=' + parseInt(page)}>{parseInt(page)}</NavLink>
-        <NavLink to={'/articles?p=' + (parseInt(page) + 1)}>
-          {parseInt(page) + 1}
-        </NavLink>
+        <p
+          onClick={() => {
+            handleReset();
+          }}
+        >
+          0
+        </p>
+        {page.current > 1 && (
+          <p
+            onClick={() => {
+              handleGoBack();
+            }}
+          >
+            {page.previous}
+          </p>
+        )}
+        <b>{page.current}</b>
+        <p
+          onClick={() => {
+            handleGoNext();
+          }}
+        >
+          {page.next}
+        </p>
       </Paginator>
     </Container>
   );

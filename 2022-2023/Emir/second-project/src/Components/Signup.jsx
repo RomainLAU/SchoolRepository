@@ -30,7 +30,7 @@ export default function Signup({ show, setShow }) {
     handleSubmit,
     formState,
     reset,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm();
 
   function sendForm(data) {
@@ -52,6 +52,7 @@ export default function Signup({ show, setShow }) {
           alert('An error occured, please try again later.');
         } else {
           setShow('login');
+          reset({});
         }
       });
     });

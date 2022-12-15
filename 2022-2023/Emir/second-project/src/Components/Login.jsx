@@ -49,6 +49,7 @@ export default function Login({ show, setShow }) {
           localStorage.setItem('token', json.data.token);
           setToken(localStorage.getItem('token'));
           setShow('');
+          reset({});
         } else {
           alert('An error occured, please try again later.');
         }

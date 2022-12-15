@@ -48,6 +48,7 @@ export default function DetailedArticle() {
 
   useEffect(() => {
     fetchArticle();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
