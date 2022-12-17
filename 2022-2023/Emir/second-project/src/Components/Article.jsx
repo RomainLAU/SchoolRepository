@@ -10,12 +10,16 @@ const Container = styled(Link)`
   color: black;
 
   &:hover {
-    background-color: #dff0ff;
+    background-color: ${(props) => props.theme.lightBlue};
+
+    h1 {
+      backdrop-filter: brightness(10%);
+    }
   }
 
   h1 {
     margin: 0;
-    background-color: #bed2e4;
+    background-color: ${(props) => props.theme.darkBlue};
     border-radius: 8px 8px 0 0;
     margin-bottom: 16px;
     padding: 16px;

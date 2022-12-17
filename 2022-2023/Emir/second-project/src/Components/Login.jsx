@@ -20,6 +20,34 @@ const Modal = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+
+  input {
+    margin-bottom: 16px;
+    padding: 8px 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: all 0.1s ease-in-out;
+
+    &[type='submit'] {
+      border: none;
+      background-color: ${(props) => props.theme.intenseBlue};
+      cursor: pointer;
+      margin-top: 16px;
+
+      &:hover {
+        background-color: ${(props) => props.theme.intenseDarkBlue};
+      }
+    }
+  }
+
+  label {
+    margin-bottom: 8px;
+  }
+`;
+
+const ErrorMessage = styled.span`
+  color: red;
+  margin-bottom: 4px;
 `;
 
 export default function Login({ show, setShow }) {
@@ -71,26 +99,30 @@ export default function Login({ show, setShow }) {
             sendForm(data);
           })}
         >
+          <label htmlFor="email">Email</label>
+          {errors.email && (
+            <ErrorMessage>
+              This field is required. <br />
+            </ErrorMessage>
+          )}
           <input
             placeholder="mail"
+            id="email"
             {...register('email', { required: true })}
           />
-          {errors.email && (
-            <span>
-              This field is required. <br />
-            </span>
-          )}
 
+          <label htmlFor="password">Password</label>
+          {errors.password && (
+            <ErrorMessage>
+              This field is required. <br />
+            </ErrorMessage>
+          )}
           <input
             placeholder="password"
             type="password"
+            id="password"
             {...register('password', { required: true })}
           />
-          {errors.password && (
-            <span>
-              This field is required. <br />
-            </span>
-          )}
 
           <input type="submit" value="Login" />
         </Form>

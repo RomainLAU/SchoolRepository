@@ -18,12 +18,6 @@ const NavBar = styled.nav`
   & > div:first-child {
     display: flex;
     align-items: center;
-
-    h1 {
-      margin: 0;
-      margin-right: 94px;
-      font-size: 32px;
-    }
   }
 
   & > div:last-child > p {
@@ -65,6 +59,15 @@ const CustomLink = styled.p`
   }
 `;
 
+const LogoLink = styled(NavLink)`
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  margin-right: 94px;
+  font-size: 32px;
+`;
+
 const UserItems = styled.div`
   display: flex;
   align-items: center;
@@ -82,8 +85,9 @@ export default function Header({ setShow }) {
   return (
     <NavBar>
       <div>
-        <h1>Maxium</h1>
-        <StyledLink to="/articles">Articles</StyledLink>
+        <LogoLink className="logo" to="/">
+          Maxium
+        </LogoLink>
         <StyledLink to="/map">Map</StyledLink>
       </div>
       {user ? (

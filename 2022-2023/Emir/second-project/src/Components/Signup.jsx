@@ -21,6 +21,25 @@ const Form = styled.form`
 
   input {
     margin-bottom: 16px;
+    padding: 8px 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: all 0.1s ease-in-out;
+
+    &[type='submit'] {
+      border: none;
+      background-color: ${(props) => props.theme.intenseBlue};
+      cursor: pointer;
+      margin-top: 16px;
+
+      &:hover {
+        background-color: ${(props) => props.theme.intenseDarkBlue};
+      }
+    }
+  }
+
+  label {
+    margin-bottom: 8px;
   }
 `;
 
@@ -76,53 +95,64 @@ export default function Signup({ show, setShow }) {
             sendForm(data);
           })}
         >
+          <label htmlFor="firstname">First Name</label>
           {errors.firstname && (
             <ErrorMessage>
               This field is required. {errors.firstname.message} <br />
             </ErrorMessage>
           )}
           <input
-            placeholder="firstname"
+            placeholder="Ex: Jeanne"
+            id="firstname"
             {...register('firstname', { required: true })}
           />
+
+          <label htmlFor="lastname">Last Name</label>
           {errors.lastname && (
             <ErrorMessage>
               This field is required. <br />
             </ErrorMessage>
           )}
           <input
-            placeholder="lastname"
+            placeholder="Ex: Maria"
+            id="lastname"
             {...register('lastname', { required: true })}
           />
 
+          <label htmlFor="email">Email</label>
           {errors.email && (
             <ErrorMessage>
               This field is required. <br />
             </ErrorMessage>
           )}
           <input
-            placeholder="mail"
+            id="email"
+            placeholder="Ex: jeanne.maria@mail.com"
             {...register('email', { required: true })}
           />
 
+          <label htmlFor="password">Password</label>
           {errors.password && (
             <ErrorMessage>
               This field is required. <br />
             </ErrorMessage>
           )}
           <input
-            placeholder="password"
+            id="password"
+            placeholder="******************"
             type="password"
             {...register('password', { required: true })}
           />
 
+          <label htmlFor="password_verif">Password verification</label>
           {errors.password_verif && (
             <ErrorMessage>
               This field is required. <br />
             </ErrorMessage>
           )}
           <input
-            placeholder="tieybcgydbgey"
+            id="password_verif"
+            placeholder="******************"
             type="password"
             {...register('password_verif', { required: true })}
           />

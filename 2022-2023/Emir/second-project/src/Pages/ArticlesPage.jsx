@@ -13,11 +13,11 @@ const Title = styled.h1`
   margin-top: 128px;
 `;
 
-export default function Home() {
+export default function ArticlesPage({ setShow }) {
   return (
     <Container>
       <Title>Welcome to Maxium</Title>
-      <Articles />
+      <Articles setShow={setShow} />
     </Container>
   );
 }

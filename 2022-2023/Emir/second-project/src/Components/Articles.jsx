@@ -11,6 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   row-gap: 1em;
+  width: 100%;
 `;
 
 const Paginator = styled.div`
@@ -20,7 +21,7 @@ const Paginator = styled.div`
   align-items: center;
   border-radius: 8px;
   overflow: hidden;
-  border: solid 2px #bed2e4;
+  border: solid 2px ${(props) => props.theme.darkBlue};
 
   p,
   b {
@@ -29,8 +30,8 @@ const Paginator = styled.div`
     padding: 8px;
     width: 32px;
     height: 32px;
-    background-color: #dff0ff;
-    border: solid 1px #bed2e4;
+    background-color: ${(props) => props.theme.lightBlue};
+    border: solid 1px ${(props) => props.theme.darkBlue};
     margin: 0;
     text-align: center;
     display: flex;
@@ -39,7 +40,7 @@ const Paginator = styled.div`
     transition: all 0.1s ease-in-out;
 
     &:hover {
-      background-color: #bed2e4;
+      background-color: ${(props) => props.theme.darkBlue};
     }
   }
 `;
@@ -58,21 +59,53 @@ const FilterDiv = styled.div`
     padding: 12px 24px;
     cursor: pointer;
     border-radius: 8px;
-    border: solid 2px #bed2e4;
+    border: solid 2px ${(props) => props.theme.lightBlue};
     font-weight: bold;
     transition: all 0.1s ease-in-out;
 
     &:hover {
-      background-color: #dff0ff;
+      background-color: ${(props) => props.theme.intenseDarkBlue};
     }
   }
 
   input:checked + label {
-    background-color: #bed2e4;
+    background-color: ${(props) => props.theme.lightBlue};
+
+    &:hover {
+      background-color: ${(props) => props.theme.intenseDarkBlue};
+    }
   }
 `;
 
-export default function Articles() {
+const ArticlesHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: ${(props) => props.theme.darkBlue};
+  width: calc(100% - 128px * 2);
+  padding: 48px 128px;
+  margin-bottom: 64px;
+`;
+
+const CreateButton = styled.button`
+  border: solid 1px grey;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: all 0.1s ease-in-out;
+  justify-self: flex-end;
+  border: none;
+  background-color: ${(props) => props.theme.intenseBlue};
+  cursor: pointer;
+  margin-top: 16px;
+
+  &:hover {
+    background-color: ${(props) => props.theme.intenseDarkBlue};
+  }
+`;
+
+export default function Articles({ setShow }) {
   const { articles, setArticles, page, setPage } = useContext(StoreContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [category, setCategory] = useState('ALL');
@@ -120,56 +153,61 @@ export default function Articles() {
 
   return (
     <Container>
-      <FilterContainer>
-        <FilterDiv>
-          <input
-            type="radio"
-            id="ALL"
-            value="ALL"
-            onChange={() => setCategory('ALL')}
-            checked={category === 'ALL'}
-            radioGroup="category"
-            hidden
-          />
-          <label htmlFor="ALL"> ALL</label>
-        </FilterDiv>
-        <FilterDiv>
-          <input
-            type="radio"
-            id="DEV"
-            value="DEV"
-            onChange={() => setCategory('DEV')}
-            checked={category === 'DEV'}
-            radioGroup="category"
-            hidden
-          />
-          <label htmlFor="DEV"> DEV</label>
-        </FilterDiv>
-        <FilterDiv>
-          <input
-            type="radio"
-            id="BIZ"
-            value="BIZ"
-            onChange={() => setCategory('BIZ')}
-            checked={category === 'BIZ'}
-            radioGroup="category"
-            hidden
-          />
-          <label htmlFor="BIZ"> BIZ</label>
-        </FilterDiv>
-        <FilterDiv>
-          <input
-            type="radio"
-            id="ART"
-            value="ART"
-            onChange={() => setCategory('ART')}
-            checked={category === 'ART'}
-            radioGroup="category"
-            hidden
-          />
-          <label htmlFor="ART"> ART</label>
-        </FilterDiv>
-      </FilterContainer>
+      <ArticlesHeader>
+        <FilterContainer>
+          <FilterDiv>
+            <input
+              type="radio"
+              id="ALL"
+              value="ALL"
+              onChange={() => setCategory('ALL')}
+              checked={category === 'ALL'}
+              radioGroup="category"
+              hidden
+            />
+            <label htmlFor="ALL"> ALL</label>
+          </FilterDiv>
+          <FilterDiv>
+            <input
+              type="radio"
+              id="DEV"
+              value="DEV"
+              onChange={() => setCategory('DEV')}
+              checked={category === 'DEV'}
+              radioGroup="category"
+              hidden
+            />
+            <label htmlFor="DEV"> DEV</label>
+          </FilterDiv>
+          <FilterDiv>
+            <input
+              type="radio"
+              id="BIZ"
+              value="BIZ"
+              onChange={() => setCategory('BIZ')}
+              checked={category === 'BIZ'}
+              radioGroup="category"
+              hidden
+            />
+            <label htmlFor="BIZ"> BIZ</label>
+          </FilterDiv>
+          <FilterDiv>
+            <input
+              type="radio"
+              id="ART"
+              value="ART"
+              onChange={() => setCategory('ART')}
+              checked={category === 'ART'}
+              radioGroup="category"
+              hidden
+            />
+            <label htmlFor="ART"> ART</label>
+          </FilterDiv>
+        </FilterContainer>
+        <CreateButton onClick={() => setShow('create')}>
+          Post a new article
+        </CreateButton>
+      </ArticlesHeader>
       {articles && articles.length > 0 && category === 'ALL'
         ? articles.map((article) => {
             return <Article article={article} key={article.id} />;

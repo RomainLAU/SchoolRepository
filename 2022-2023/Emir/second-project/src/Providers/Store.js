@@ -4,6 +4,7 @@ export const StoreContext = createContext();
 
 export function StoreProvider(props) {
   const [articles, setArticles] = useState([]);
+  const [categories, setCategories] = useState({});
   const [page, setPage] = useState({
     previous: 0,
     current: 1,
@@ -17,6 +18,8 @@ export function StoreProvider(props) {
         setArticles: setArticles,
         page: page,
         setPage: setPage,
+        categories: categories,
+        setCategories: setCategories,
       }}
     >
       {props.children}
