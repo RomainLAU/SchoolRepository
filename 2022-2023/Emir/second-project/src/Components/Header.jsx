@@ -6,13 +6,32 @@ import { ConnectionContext } from '../Providers/Connection';
 const NavBar = styled.nav`
   display: flex;
   align-items: center;
-  column-gap: 8px;
-  padding: 8px;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background-color: rgba(223, 240, 255, 0.4);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
 
-  & > h2 {
+  & > div:first-child {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      margin: 0;
+      margin-right: 94px;
+      font-size: 32px;
+    }
+  }
+
+  & > div:last-child > p {
     margin: 0;
-    margin-right: 24px;
-    font-size: 32px;
+
+    &:last-child {
+      margin-right: 128px;
+    }
   }
 `;
 
@@ -21,9 +40,11 @@ const StyledLink = styled(NavLink)`
   text-decoration: underline;
   cursor: pointer;
   width: 75px;
+  transition: all 0.1s ease-in-out;
 
   &:hover {
     opacity: 0.8;
+    font-size: 18px;
     font-weight: bold;
   }
 `;
@@ -33,12 +54,21 @@ const CustomLink = styled.p`
   text-decoration: underline;
   cursor: pointer;
   width: 75px;
+  margin: 0;
   padding-left: 15px;
+  transition: all 0.1s ease-in-out;
 
   &:hover {
     opacity: 0.8;
+    font-size: 18px;
     font-weight: bold;
   }
+`;
+
+const UserItems = styled.div`
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
 `;
 
 export default function Header({ setShow }) {
@@ -51,19 +81,21 @@ export default function Header({ setShow }) {
 
   return (
     <NavBar>
-      <h2>Maxium</h2>
-      <StyledLink to="/articles">Articles</StyledLink>
-      <StyledLink to="/map">Map</StyledLink>
+      <div>
+        <h1>Maxium</h1>
+        <StyledLink to="/articles">Articles</StyledLink>
+        <StyledLink to="/map">Map</StyledLink>
+      </div>
       {user ? (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <UserItems>
           <p>Hello, {user.firstname} ! </p>&nbsp;
           <CustomLink onClick={handleDisconnect}>Disconnect</CustomLink>
-        </div>
+        </UserItems>
       ) : (
-        <div style={{ display: 'flex' }}>
+        <UserItems>
           <CustomLink onClick={() => setShow('signup')}>Signup</CustomLink>
           <CustomLink onClick={() => setShow('login')}>Login</CustomLink>
-        </div>
+        </UserItems>
       )}
     </NavBar>
   );

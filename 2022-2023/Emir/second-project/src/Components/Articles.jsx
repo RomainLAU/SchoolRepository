@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { NavLink, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { StoreContext } from '../Providers/Store';
 import Article from './Article';
@@ -18,13 +18,29 @@ const Paginator = styled.div`
   margin-bottom: 60px;
   display: flex;
   align-items: center;
-  column-gap: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: solid 2px #bed2e4;
 
   p,
   b {
-    text-decoration: underline;
     cursor: pointer;
     font-size: 18px;
+    padding: 8px;
+    width: 32px;
+    height: 32px;
+    background-color: #dff0ff;
+    border: solid 1px #bed2e4;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s ease-in-out;
+
+    &:hover {
+      background-color: #bed2e4;
+    }
   }
 `;
 
@@ -42,16 +58,17 @@ const FilterDiv = styled.div`
     padding: 12px 24px;
     cursor: pointer;
     border-radius: 8px;
-    border: solid 2px grey;
+    border: solid 2px #bed2e4;
+    font-weight: bold;
+    transition: all 0.1s ease-in-out;
 
     &:hover {
-      background-color: #d6d6d6;
+      background-color: #dff0ff;
     }
   }
 
   input:checked + label {
-    background-color: #818181;
-    color: white;
+    background-color: #bed2e4;
   }
 `;
 

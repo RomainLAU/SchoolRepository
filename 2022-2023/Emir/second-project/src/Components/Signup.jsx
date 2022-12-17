@@ -24,6 +24,10 @@ const Form = styled.form`
   }
 `;
 
+const ErrorMessage = styled.span`
+  color: red;
+`;
+
 export default function Signup({ show, setShow }) {
   const {
     register,
@@ -59,10 +63,10 @@ export default function Signup({ show, setShow }) {
   }
 
   useEffect(() => {
-    if (formState.isSubmitSuccessful) {
+    if (formState.isSubmitSuccessful || show !== 'signup') {
       reset({});
     }
-  }, [formState, reset]);
+  }, [show]);
 
   if (show === 'signup') {
     return (
@@ -72,55 +76,56 @@ export default function Signup({ show, setShow }) {
             sendForm(data);
           })}
         >
+          {errors.firstname && (
+            <ErrorMessage>
+              This field is required. {errors.firstname.message} <br />
+            </ErrorMessage>
+          )}
           <input
             placeholder="firstname"
             {...register('firstname', { required: true })}
           />
-          {errors.firstname && (
-            <span>
+          {errors.lastname && (
+            <ErrorMessage>
               This field is required. <br />
-            </span>
+            </ErrorMessage>
           )}
           <input
             placeholder="lastname"
             {...register('lastname', { required: true })}
           />
-          {errors.lastname && (
-            <span>
+
+          {errors.email && (
+            <ErrorMessage>
               This field is required. <br />
-            </span>
+            </ErrorMessage>
           )}
           <input
             placeholder="mail"
             {...register('email', { required: true })}
           />
-          {errors.email && (
-            <span>
-              This field is required. <br />
-            </span>
-          )}
 
+          {errors.password && (
+            <ErrorMessage>
+              This field is required. <br />
+            </ErrorMessage>
+          )}
           <input
             placeholder="password"
             type="password"
             {...register('password', { required: true })}
           />
-          {errors.password && (
-            <span>
-              This field is required. <br />
-            </span>
-          )}
 
+          {errors.password_verif && (
+            <ErrorMessage>
+              This field is required. <br />
+            </ErrorMessage>
+          )}
           <input
             placeholder="tieybcgydbgey"
             type="password"
             {...register('password_verif', { required: true })}
           />
-          {errors.password_verif && (
-            <span>
-              This field is required. <br />
-            </span>
-          )}
 
           <input type="submit" value="Register" />
         </Form>

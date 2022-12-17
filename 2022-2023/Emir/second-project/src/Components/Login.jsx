@@ -28,7 +28,7 @@ export default function Login({ show, setShow }) {
     handleSubmit,
     formState,
     reset,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm();
 
   const { setToken } = useContext(ConnectionContext);
@@ -58,10 +58,10 @@ export default function Login({ show, setShow }) {
   }
 
   useEffect(() => {
-    if (formState.isSubmitSuccessful) {
+    if (formState.isSubmitSuccessful || show !== 'login') {
       reset({});
     }
-  }, [formState, reset, show]);
+  }, [show]);
 
   if (show === 'login') {
     return (

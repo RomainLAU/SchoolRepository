@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Articles from "../Components/Articles";
+import styled from 'styled-components';
+import Articles from '../Components/Articles';
 
 const Container = styled.div`
   display: flex;
@@ -10,6 +10,7 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 48px;
   font-weight: bold;
+  margin-top: 128px;
 `;
 
 export default function Home() {

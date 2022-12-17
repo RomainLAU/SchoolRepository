@@ -10,12 +10,12 @@ const Container = styled(Link)`
   color: black;
 
   &:hover {
-    background-color: #ebebeb;
+    background-color: #dff0ff;
   }
 
   h1 {
     margin: 0;
-    background-color: #cccccc;
+    background-color: #bed2e4;
     border-radius: 8px 8px 0 0;
     margin-bottom: 16px;
     padding: 16px;

@@ -6,6 +6,8 @@ import { PositionContext } from '../Providers/Position';
 import styled from 'styled-components';
 
 const StyledMapContainer = styled(MapContainer)`
+  margin-top: 64px;
+
   .leaflet-marker-pane > * {
     width: 48px;
     height: 48px;

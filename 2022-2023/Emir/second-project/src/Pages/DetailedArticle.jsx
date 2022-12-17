@@ -28,7 +28,7 @@ const Container = styled.div`
 
 export default function DetailedArticle() {
   const [article, setArticle] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const id = searchParams.get('id');
 
@@ -52,7 +52,7 @@ export default function DetailedArticle() {
   }, []);
 
   return (
-    <div>
+    <div style={{ margin: 128 }}>
       {article && article.User ? (
         <Container>
           <h1>{article.title}</h1>
