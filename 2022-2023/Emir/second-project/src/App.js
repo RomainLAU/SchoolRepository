@@ -8,10 +8,12 @@ import Signup from './Components/Signup';
 import DetailedArticle from './Pages/DetailedArticle';
 import ArticlesPage from './Pages/ArticlesPage';
 import Map from './Pages/Map';
-import { ConnectionProvider } from './Providers/Connection';
+import { ConnectionContext, ConnectionProvider } from './Providers/Connection';
 import { PositionProvider } from './Providers/Position';
 import { StoreProvider } from './Providers/Store';
 import CreateArticle from './Components/CreateArticle';
+import MapPan from './Components/MapPan';
+import { useContext } from 'react';
 
 const theme = {
   lightBlue: '#dff0ff',

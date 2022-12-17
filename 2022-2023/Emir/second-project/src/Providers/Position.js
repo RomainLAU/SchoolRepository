@@ -8,6 +8,12 @@ export const PositionContext = createContext();
 export function PositionProvider(props) {
   const [positions, setPositions] = useState({});
 
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 500,
+    maximumAge: 0,
+  };
+
   useEffect(() => {
     socket.on('connect', () => {
       socket.emit('auth', localStorage.getItem('token'));
@@ -19,12 +25,6 @@ export function PositionProvider(props) {
 
     navigator.geolocation.getCurrentPosition(success, error, options);
   }, []);
-
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 500,
-    maximumAge: 0,
-  };
 
   function success(pos) {
     socket.emit('update_position', {

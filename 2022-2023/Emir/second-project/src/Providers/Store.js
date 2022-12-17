@@ -14,12 +14,12 @@ export function StoreProvider(props) {
   return (
     <StoreContext.Provider
       value={{
-        articles: articles,
-        setArticles: setArticles,
-        page: page,
-        setPage: setPage,
-        categories: categories,
-        setCategories: setCategories,
+        articles,
+        setArticles,
+        page,
+        setPage,
+        categories,
+        setCategories,
       }}
     >
       {props.children}

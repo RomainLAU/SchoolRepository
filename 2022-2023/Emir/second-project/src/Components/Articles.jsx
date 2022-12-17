@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { ConnectionContext } from '../Providers/Connection';
 import { StoreContext } from '../Providers/Store';
 import Article from './Article';
 
@@ -107,6 +108,7 @@ const CreateButton = styled.button`
 
 export default function Articles({ setShow }) {
   const { articles, setArticles, page, setPage } = useContext(StoreContext);
+  const { user } = useContext(ConnectionContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [category, setCategory] = useState('ALL');
 
@@ -204,9 +206,11 @@ export default function Articles({ setShow }) {
             <label htmlFor="ART"> ART</label>
           </FilterDiv>
         </FilterContainer>
-        <CreateButton onClick={() => setShow('create')}>
-          Post a new article
-        </CreateButton>
+        {user && (
+          <CreateButton onClick={() => setShow('create')}>
+            Post a new article
+          </CreateButton>
+        )}
       </ArticlesHeader>
       {articles && articles.length > 0 && category === 'ALL'
         ? articles.map((article) => {

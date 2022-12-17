@@ -30,6 +30,7 @@ const Form = styled.form`
     font-size: 18px;
     border-radius: 8px;
     transition: all 0.1s ease-in-out;
+    background-color: transparent;
 
     &[type='submit'] {
       border: none;

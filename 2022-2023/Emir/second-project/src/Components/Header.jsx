@@ -88,7 +88,7 @@ export default function Header({ setShow }) {
         <LogoLink className="logo" to="/">
           Maxium
         </LogoLink>
-        <StyledLink to="/map">Map</StyledLink>
+        {user && <StyledLink to="/map">Map</StyledLink>}
       </div>
       {user ? (
         <UserItems>
