@@ -8,30 +8,45 @@ import Signup from './Components/Signup';
 import DetailedArticle from './Pages/DetailedArticle';
 import ArticlesPage from './Pages/ArticlesPage';
 import Map from './Pages/Map';
-import { ConnectionContext, ConnectionProvider } from './Providers/Connection';
+import { ConnectionProvider } from './Providers/Connection';
 import { PositionProvider } from './Providers/Position';
 import { StoreProvider } from './Providers/Store';
 import CreateArticle from './Components/CreateArticle';
-import MapPan from './Components/MapPan';
-import { useContext } from 'react';
+import { useDarkMode } from './Hooks/useDarkMode';
 
-const theme = {
+const lightTheme = {
   lightBlue: '#dff0ff',
   darkBlue: '#bed2e4',
   intenseBlue: '#0ab0ff',
   intenseDarkBlue: '#0897db',
+  bgColor: '#e9e9e9',
+  color: 'black',
+  borderColor: 'black',
+};
+
+const darkTheme = {
+  lightBlue: '#dff0ff',
+  darkBlue: '#bed2e4',
+  intenseBlue: '#0897db',
+  intenseDarkBlue: '#0ab0ff',
+  bgColor: '#2f3148',
+  color: 'white',
+  borderColor: 'white',
 };
 
 function App() {
   const [show, setShow] = useState('');
+  const [theme, themeToggler] = useDarkMode();
+
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
   return (
-    <StoreProvider>
-      <ConnectionProvider>
-        <PositionProvider>
-          <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeMode}>
+      <StoreProvider>
+        <ConnectionProvider>
+          <PositionProvider>
             <BrowserRouter>
-              <Header setShow={setShow} />
+              <Header setShow={setShow} theme={theme} setTheme={themeToggler} />
 
               <ModalBackground setShow={setShow} show={show} />
               <Signup show={show} setShow={setShow} />
@@ -47,10 +62,10 @@ function App() {
                 <Route path="/map" element={<Map />}></Route>
               </Routes>
             </BrowserRouter>
-          </ThemeProvider>
-        </PositionProvider>
-      </ConnectionProvider>
-    </StoreProvider>
+          </PositionProvider>
+        </ConnectionProvider>
+      </StoreProvider>
+    </ThemeProvider>
   );
 }
 

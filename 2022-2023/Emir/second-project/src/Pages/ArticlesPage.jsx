@@ -10,6 +10,13 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 110vh;
+  background-color: ${(props) => props.theme.bgColor};
+  transition: all 0.1s ease-in-out;
+  color: ${(props) => props.theme.color};
+
+  * {
+    color: ${(props) => props.theme.color};
+  }
 `;
 
 const Title = styled.h1`

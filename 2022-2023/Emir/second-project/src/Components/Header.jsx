@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { ConnectionContext } from '../Providers/Connection';
+import ChangeTheme from './ChangeTheme';
 
 const NavBar = styled.nav`
   display: flex;
@@ -74,12 +75,12 @@ const UserItems = styled.div`
   justify-self: flex-end;
 `;
 
-export default function Header({ setShow }) {
+export default function Header({ setShow, theme, setTheme }) {
   const { user, setUser } = useContext(ConnectionContext);
 
   const handleDisconnect = () => {
     setUser(null);
-    localStorage.clear();
+    localStorage.removeItem('token');
   };
 
   return (
@@ -89,6 +90,7 @@ export default function Header({ setShow }) {
           Maxium
         </LogoLink>
         {user && <StyledLink to="/map">Map</StyledLink>}
+        <ChangeTheme theme={theme} setTheme={setTheme} />
       </div>
       {user ? (
         <UserItems>

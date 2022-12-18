@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import L from 'leaflet';
+import L from 'leaflet/';
 import 'leaflet/dist/leaflet.css';
 import { useContext, useEffect, useState } from 'react';
 import { PositionContext } from '../Providers/Position';
@@ -10,14 +10,14 @@ const ReducedMapContainer = styled.div`
   position: fixed;
   bottom: 25px;
   right: 25px;
-  width: 300px;
-  height: 200px;
+  width: 500px;
+  height: 350px;
 `;
 
 const StyledMapContainer = styled(MapContainer)`
   margin-top: ${(props) => (props.format === 'full' ? '64px' : '0px')};
-  width: ${(props) => (props.format === 'full' ? '100%' : '300px')};
-  height: ${(props) => (props.format === 'full' ? '800px' : '200px')};
+  width: ${(props) => (props.format === 'full' ? '100%' : '500px')};
+  height: ${(props) => (props.format === 'full' ? '800px' : '350px')};
 
   .leaflet-marker-pane > * {
     width: 48px;
@@ -27,6 +27,10 @@ const StyledMapContainer = styled(MapContainer)`
 
   .leaflet-popup-pane > * {
     transition: transform 0.3s linear;
+  }
+
+  * {
+    color: black !important;
   }
 `;
 
@@ -69,8 +73,6 @@ export default function MapPan() {
                 ]}
                 icon={icon}
                 key={index}
-                rotationAngle={positions.data[key].location.rotation ?? '0'}
-                rotationOrigin="center"
               >
                 <Popup>{key}</Popup>
               </Marker>

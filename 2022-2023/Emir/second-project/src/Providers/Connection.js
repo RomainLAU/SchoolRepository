@@ -11,6 +11,8 @@ export function ConnectionProvider(props) {
     setToken(localStorage.getItem('token'));
     if (token) {
       getUserData();
+    } else {
+      setUser(null);
     }
   }, [token]);
 

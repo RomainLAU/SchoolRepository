@@ -39,6 +39,7 @@ const Paginator = styled.div`
     justify-content: center;
     align-items: center;
     transition: all 0.1s ease-in-out;
+    color: black;
 
     &:hover {
       background-color: ${(props) => props.theme.darkBlue};
@@ -63,6 +64,7 @@ const FilterDiv = styled.div`
     border: solid 2px ${(props) => props.theme.lightBlue};
     font-weight: bold;
     transition: all 0.1s ease-in-out;
+    color: black;
 
     &:hover {
       background-color: ${(props) => props.theme.intenseDarkBlue};

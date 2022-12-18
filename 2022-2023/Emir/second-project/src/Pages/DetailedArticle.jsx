@@ -6,7 +6,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
   padding: 32px 128px;
+  padding-top: 180px;
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.color};
+  transition: all 0.1s ease-in-out;
 
   h1 {
     margin-bottom: 48px;
@@ -52,7 +57,7 @@ export default function DetailedArticle() {
   }, []);
 
   return (
-    <div style={{ margin: 128 }}>
+    <div>
       {article && article.User ? (
         <Container>
           <h1>{article.title}</h1>
