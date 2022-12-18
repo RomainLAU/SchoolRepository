@@ -8,6 +8,7 @@ const Container = styled(Link)`
   width: 600px;
   text-decoration: none;
   color: ${(props) => props.theme.color};
+  transition: all 0.1s ease-in-out;
 
   &:hover {
     background-color: ${(props) => props.theme.lightBlue};
