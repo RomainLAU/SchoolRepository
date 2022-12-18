@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { ConnectionContext } from '../Providers/Connection';
 import { StoreContext } from '../Providers/Store';
 import Article from './Article';
+import ReloadButton from './ReloadButton';
 
 const Container = styled.div`
   display: flex;
@@ -90,7 +91,7 @@ const ArticlesHeader = styled.div`
   margin-bottom: 64px;
 `;
 
-const CreateButton = styled.button`
+const Button = styled.button`
   border: solid 1px grey;
   margin-bottom: 16px;
   padding: 8px 12px;
@@ -208,10 +209,9 @@ export default function Articles({ setShow }) {
             <label htmlFor="ART"> ART</label>
           </FilterDiv>
         </FilterContainer>
+        <ReloadButton fetchArticles={fetchArticles} />
         {user && (
-          <CreateButton onClick={() => setShow('create')}>
-            Post a new article
-          </CreateButton>
+          <Button onClick={() => setShow('create')}>Post a new article</Button>
         )}
       </ArticlesHeader>
       {articles && articles.length > 0 && category === 'ALL'
